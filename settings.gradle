@@ -1,0 +1,4 @@
+include ':vyou-core'
+include ':vyou-ui'
+include ':app'
+rootProject.name = "vyou"
