@@ -4,24 +4,45 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_core.auth.AuthWebviewActivity
 
-object VyouCore {
-    suspend fun signInWithAuth(activity: ComponentActivity): VyouCredentials? {
-        val authActivity = activity.registerForActivityResult(getContract()) {
-            Log.d("Result", "Result")
+class VyouCore {
+
+    private val activityResultLauncher: ActivityResultLauncher<String>
+
+    private constructor(activity: ComponentActivity) {
+        activityResultLauncher = activity.registerForActivityResult(getContract()) {
+            Log.d("Result", "asdf")
         }
-        authActivity.launch("")
+    }
+
+    private constructor(fragment: Fragment) {
+        activityResultLauncher = fragment.registerForActivityResult(getContract()) {
+            Log.d("Result", "asdf")
+        }
+    }
+
+    suspend fun signInWithAuth(): VyouCredentials? {
+        activityResultLauncher.launch("")
+
         return null
     }
 
-    private fun getContract(): ActivityResultContract<String, VyouCredentials?> = object: ActivityResultContract<String, VyouCredentials?>() {
-        override fun createIntent(context: Context, input: String?): Intent = Intent(context, AuthWebviewActivity::class.java)
+    private fun getContract(): ActivityResultContract<String, VyouCredentials?> = object : ActivityResultContract<String, VyouCredentials?>() {
+        override fun createIntent(context: Context, input: String?): Intent = AuthWebviewActivity.getCallingIntent(context)
 
         override fun parseResult(resultCode: Int, intent: Intent?): VyouCredentials? {
             return null
         }
+    }
+
+    companion object {
+        fun withActivity(activity: ComponentActivity): VyouCore = VyouCore(activity)
+
+        fun withFragment(fragment: Fragment): VyouCore = VyouCore(fragment)
     }
 }
 

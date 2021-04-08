@@ -13,6 +13,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
+    private val vyouCore = VyouCore.withFragment(this)
+
     private val viewModel: MainViewModel by viewModel()
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
 
@@ -20,7 +22,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainAuthBtn.setOnClickListener {
             lifecycleScope.launch {
-                VyouCore.signInWithAuth(requireActivity())
+                vyouCore.signInWithAuth()
             }
         }
     }
