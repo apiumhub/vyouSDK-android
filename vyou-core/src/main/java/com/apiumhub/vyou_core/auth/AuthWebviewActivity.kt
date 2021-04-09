@@ -9,12 +9,13 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import com.apiumhub.vyou_core.BuildConfig
 import com.apiumhub.vyou_core.R
 
 internal class AuthWebviewActivity : AppCompatActivity(R.layout.activity_auth_webview) {
 
-    private val clientId = "8XxbGzbBAAbapQ9tppEaJvNa8jzKDw9h0KBWQYvT2P67T42lAlrZrG7KWg"
-    private val redirectUri = "vyouapp://com.vyouapp.auth"
+    private val clientId by lazy { ManifestReader.readVyouClientId(this) }
+    private val redirectUri by lazy { ManifestReader.readVyouRedirectUri(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

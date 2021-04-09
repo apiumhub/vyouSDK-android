@@ -15,6 +15,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data android:name="vyou_client_id"
+            android:resource="@string/VYOU_CLIENT_ID"
+            android:value="string" />
+
+        <meta-data android:name="vyou_redirect_uri"
+            android:resource="@string/VYOU_REDIRECT_URI"
+            android:value="string" />
     </application>
 
 </manifest>
