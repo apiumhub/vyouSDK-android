@@ -1,6 +1,7 @@
 package com.apiumhub.vyou.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +23,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainAuthBtn.setOnClickListener {
             lifecycleScope.launch {
-                vyouCore.signInWithAuth()
+                vyouCore.signInWithAuth()?.let {
+                    Log.d("Credentials", it.toString())
+                }
             }
         }
     }

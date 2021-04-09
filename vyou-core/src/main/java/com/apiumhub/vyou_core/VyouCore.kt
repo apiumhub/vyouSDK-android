@@ -1,5 +1,6 @@
 package com.apiumhub.vyou_core
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -8,13 +9,25 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_core.auth.AuthWebviewActivity
+import com.apiumhub.vyou_core.auth.ManifestReader
+import com.apiumhub.vyou_core.data.VyouApi
+import com.apiumhub.vyou_core.di.retrofitModule
+import com.apiumhub.vyou_core.di.vyouCoreModule
+import com.apiumhub.vyou_core.domain.AuthRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.Koin
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
 import kotlin.properties.Delegates
 
-class VyouCore {
+class VyouCore : KoinComponent {
 
     private val activityResultLauncher: ActivityResultLauncher<Void?>
+    private val authRepository: AuthRepository by inject()
 
     private lateinit var authResultCode: String
 
@@ -32,11 +45,10 @@ class VyouCore {
 
     suspend fun signInWithAuth(): VyouCredentials? {
         activityResultLauncher.launch(null)
-        while(!::authResultCode.isInitialized) {
+        while (!::authResultCode.isInitialized) {
             delay(1000)
         }
-        Log.d("VyouAuth", "Code $authResultCode")
-        return null
+        return authRepository.authenticateWithVyouCode(authResultCode)
     }
 
     private fun getContract(): ActivityResultContract<Void?, String> = object : ActivityResultContract<Void?, String>() {
@@ -52,6 +64,13 @@ class VyouCore {
         fun withActivity(activity: ComponentActivity): VyouCore = VyouCore(activity)
 
         fun withFragment(fragment: Fragment): VyouCore = VyouCore(fragment)
+
+        fun initialize(application: Application) {
+            startKoin {
+                androidContext(application)
+                loadKoinModules(listOf(retrofitModule, vyouCoreModule))
+            }
+        }
     }
 }
 
