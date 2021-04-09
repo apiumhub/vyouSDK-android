@@ -8,35 +8,44 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_core.auth.AuthWebviewActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlin.properties.Delegates
 
 class VyouCore {
 
-    private val activityResultLauncher: ActivityResultLauncher<String>
+    private val activityResultLauncher: ActivityResultLauncher<Void?>
+
+    private lateinit var authResultCode: String
 
     private constructor(activity: ComponentActivity) {
         activityResultLauncher = activity.registerForActivityResult(getContract()) {
-            Log.d("Result", "asdf")
+            authResultCode = it
         }
     }
 
     private constructor(fragment: Fragment) {
         activityResultLauncher = fragment.registerForActivityResult(getContract()) {
-            Log.d("Result", "asdf")
+            authResultCode = it
         }
     }
 
     suspend fun signInWithAuth(): VyouCredentials? {
-        activityResultLauncher.launch("")
-
+        activityResultLauncher.launch(null)
+        while(!::authResultCode.isInitialized) {
+            delay(1000)
+        }
+        Log.d("VyouAuth", "Code $authResultCode")
         return null
     }
 
-    private fun getContract(): ActivityResultContract<String, VyouCredentials?> = object : ActivityResultContract<String, VyouCredentials?>() {
-        override fun createIntent(context: Context, input: String?): Intent = AuthWebviewActivity.getCallingIntent(context)
+    private fun getContract(): ActivityResultContract<Void?, String> = object : ActivityResultContract<Void?, String>() {
+        override fun createIntent(context: Context, input: Void?): Intent = AuthWebviewActivity.getCallingIntent(context)
 
-        override fun parseResult(resultCode: Int, intent: Intent?): VyouCredentials? {
-            return null
-        }
+        override fun parseResult(resultCode: Int, intent: Intent?): String? =
+            intent?.let {
+                intent.getStringExtra("code")
+            }
     }
 
     companion object {
