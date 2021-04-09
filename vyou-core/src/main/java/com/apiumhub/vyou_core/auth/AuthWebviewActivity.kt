@@ -16,27 +16,24 @@ internal class AuthWebviewActivity : AppCompatActivity(R.layout.activity_auth_we
 
     private val clientId by lazy { ManifestReader.readVyouClientId(this) }
     private val redirectUri by lazy { ManifestReader.readVyouRedirectUri(this) }
+    private val vyouUrl by lazy { ManifestReader.readVyouUrl(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val webView: WebView = findViewById(R.id.authWebview)
         webView.webViewClient = VyouWebviewClient(this)
-        webView.loadUrl("https://test.vyou-app.com:8380/oauth/authorize?client_id=$clientId&response_type=code&redirect_uri=$redirectUri")
+        webView.loadUrl("$vyouUrl/oauth/authorize?client_id=$clientId&response_type=code&redirect_uri=$redirectUri")
     }
 
-    private class VyouWebviewClient(private val activity: Activity) : WebViewClient() {
+    private inner class VyouWebviewClient(private val activity: Activity) : WebViewClient() {
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            url?.let {
-                if (it.startsWith("vyouapp://com.vyouapp.auth")) {
-                    val code = it.substringAfter("code=")
-                    activity.setResult(Activity.RESULT_OK, Intent().apply { putExtra("code", code) })
-                    activity.finish()
-                }
+            if (url != null && url.startsWith(redirectUri)) {
+                val code = url.substringAfter("code=")
+                activity.setResult(Activity.RESULT_OK, Intent().apply { putExtra("code", code) })
+                activity.finish()
             }
-            activity.setResult(Activity.RESULT_CANCELED)
-            activity.finish()
         }
     }
 

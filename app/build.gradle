@@ -19,6 +19,7 @@ android {
 
         resValue "string", "VYOU_CLIENT_ID", "8XxbGzbBAAbapQ9tppEaJvNa8jzKDw9h0KBWQYvT2P67T42lAlrZrG7KWg"
         resValue "string", "VYOU_REDIRECT_URI", "vyouapp://com.vyouapp.auth"
+        resValue "string", "VYOU_URL", "https://test.vyou-app.com:8380"
     }
 
     buildFeatures {

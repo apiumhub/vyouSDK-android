@@ -23,6 +23,10 @@
         <meta-data android:name="vyou_redirect_uri"
             android:resource="@string/VYOU_REDIRECT_URI"
             android:value="string" />
+
+        <meta-data android:name="vyou_url"
+            android:resource="@string/VYOU_URL"
+            android:value="string" />
     </application>
 
 </manifest>
