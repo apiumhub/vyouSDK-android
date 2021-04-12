@@ -22,6 +22,8 @@ android {
         resValue "string", "VYOU_REDIRECT_URI", "vyouapp://com.vyouapp.auth"
         resValue "string", "VYOU_URL", "https://test.vyou-app.com:8380"
         resValue "string", "GOOGLE_CLIENT_ID", "975381680954-klti62p4cek1nombhmpkq7ti9tikbglf.apps.googleusercontent.com"
+        resValue "string", "FACEBOOK_APP_ID", "834318853808440"
+        resValue "string", "FACEBOOK_PROTOCOL_SCHEME", "fb834318853808440"
     }
 
     buildFeatures {

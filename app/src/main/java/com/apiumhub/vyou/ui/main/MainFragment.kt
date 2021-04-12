@@ -36,6 +36,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 }
             }
         }
+        binding.mainFbSignInBtn.setOnClickListener {
+            lifecycleScope.launch {
+                vyouCore.signInWithFacebook(this@MainFragment).let {
+                    Log.d("Credentials", it.toString())
+                }
+            }
+        }
     }
 
     companion object {

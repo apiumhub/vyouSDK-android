@@ -7,9 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import kotlinx.coroutines.channels.Channel
 
-class VyouSignInCollaborator(
-    actResultCaller: ActivityResultCaller,
-) {
+class VyouSignInCollaborator(actResultCaller: ActivityResultCaller) {
     private val resultChannel = Channel<String>()
 
     private val vyouAuthLauncher: ActivityResultLauncher<Unit> = actResultCaller

@@ -16,6 +16,6 @@ internal class AuthInterceptor(private val base64Encoder: Base64Encoder) : Inter
 }
 
 class Base64Encoder(vyouClientId: String) {
-    val vyouClientIdEncodedForAuth =
+    val vyouClientIdEncodedForAuth: String =
         Base64.encodeToString("$vyouClientId:$vyouClientId".toByteArray(StandardCharsets.UTF_8), Base64.NO_WRAP)
 }
