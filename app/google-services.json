@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "975381680954",
+    "firebase_url": "https://vyou-app.firebaseio.com",
+    "project_id": "vyou-app",
+    "storage_bucket": "vyou-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975381680954:android:49ee9eed8d3cd40f4bf603",
+        "android_client_info": {
+          "package_name": "com.apiumhub.vyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975381680954-066to9nangrnn173geqrlsek33t64a1c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apiumhub.vyou",
+            "certificate_hash": "113ec0cd328c5b2e33f85b18ef7cc8a81fc507f7"
+          }
+        },
+        {
+          "client_id": "975381680954-klti62p4cek1nombhmpkq7ti9tikbglf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAQqxvFn_GqORvTs4OggeBSQ7HMBCKWKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975381680954-klti62p4cek1nombhmpkq7ti9tikbglf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "975381680954-cv11qg5ldna0njgjkhko229gtoviihof.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.cocoapods.demo.vyouSDK-Example"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

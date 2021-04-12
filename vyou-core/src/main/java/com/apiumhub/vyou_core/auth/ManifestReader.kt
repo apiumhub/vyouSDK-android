@@ -9,6 +9,7 @@ internal object ManifestReader {
     private val clientIdKey = "vyou_client_id"
     private val redirectUriKey = "vyou_redirect_uri"
     private val vyouUrl = "vyou_url"
+    private val googleClientId = "google_client_id"
 
     fun readVyouClientId(context: Context) = readFromManifest(context, clientIdKey)
 
@@ -16,10 +17,13 @@ internal object ManifestReader {
 
     fun readVyouUrl(context: Context) = readFromManifest(context, vyouUrl)
 
+    fun readGoogleClientId(context: Context): String? = readFromManifest(context, googleClientId)
+
     private fun readFromManifest(context: Context, key: String) = runCatching {
         context.getString(context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getInt(key))
     }.getOrElse {
         throw IllegalArgumentException("$key must be provided in your application's AndroidManifest.xml")
     }
+
 
 }

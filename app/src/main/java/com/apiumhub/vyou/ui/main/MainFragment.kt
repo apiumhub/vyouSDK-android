@@ -3,6 +3,7 @@ package com.apiumhub.vyou.ui.main
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.apiumhub.vyou.R
@@ -14,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
-    private val vyouCore = VyouCore.withFragment(this)
+    private val vyouCore = VyouCore(this)
 
     private val viewModel: MainViewModel by viewModel()
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
@@ -23,7 +24,14 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainAuthBtn.setOnClickListener {
             lifecycleScope.launch {
-                vyouCore.signInWithAuth()?.let {
+                vyouCore.signInWithAuth().let {
+                    Log.d("Credentials", it.toString())
+                }
+            }
+        }
+        binding.mainGoogleSingInBtn.setOnClickListener {
+            lifecycleScope.launch {
+                vyouCore.signInWithGoogle().let {
                     Log.d("Credentials", it.toString())
                 }
             }
