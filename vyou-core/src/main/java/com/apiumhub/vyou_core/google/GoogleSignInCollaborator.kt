@@ -34,6 +34,7 @@ class GoogleSignInCollaborator(activityResultCaller: ActivityResultCaller, conte
     private fun getContract(): ActivityResultContract<Unit, String> = object : ActivityResultContract<Unit, String>() {
         override fun createIntent(context: Context, input: Unit): Intent = signInClient.signInIntent
 
-        override fun parseResult(resultCode: Int, intent: Intent?) = GoogleSignIn.getSignedInAccountFromIntent(intent).getResult(ApiException::class.java)?.idToken
+        override fun parseResult(resultCode: Int, intent: Intent?) =
+            GoogleSignIn.getSignedInAccountFromIntent(intent).getResult(ApiException::class.java)?.idToken
     }
 }

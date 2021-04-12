@@ -8,4 +8,7 @@ import com.apiumhub.vyou_core.domain.AuthRepository
 internal class AuthRetrofitRepository(private val vyouApi: VyouApi, private val context: Context) : AuthRepository {
     override suspend fun authenticateWithVyouCode(code: String): VyouCredentials =
         vyouApi.webAccessToken(code, ManifestReader.readVyouRedirectUri(context))
+
+    override suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials =
+        vyouApi.loginWithGoogle(googleToken, ManifestReader.readGoogleClientId(context))
 }

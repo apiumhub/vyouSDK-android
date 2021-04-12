@@ -4,4 +4,5 @@ import com.apiumhub.vyou_core.VyouCredentials
 
 interface AuthRepository {
     suspend fun authenticateWithVyouCode(code: String): VyouCredentials
+    suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials
 }

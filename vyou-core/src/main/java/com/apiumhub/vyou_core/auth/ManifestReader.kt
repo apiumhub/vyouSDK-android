@@ -17,7 +17,7 @@ internal object ManifestReader {
 
     fun readVyouUrl(context: Context) = readFromManifest(context, vyouUrl)
 
-    fun readGoogleClientId(context: Context): String? = readFromManifest(context, googleClientId)
+    fun readGoogleClientId(context: Context) = readFromManifest(context, googleClientId)
 
     private fun readFromManifest(context: Context, key: String) = runCatching {
         context.getString(context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getInt(key))

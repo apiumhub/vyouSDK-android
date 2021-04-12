@@ -15,21 +15,19 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.core.parameter.parametersOf
 
-class VyouCore (actResultCaller: ActivityResultCaller) : KoinComponent {
+class VyouCore(actResultCaller: ActivityResultCaller) : KoinComponent {
 
     //Need to eager inject due to ActivityResultCaller needing to register for result before onStart
-    private val googleSignIn: GoogleSignInCollaborator = get { parametersOf(actResultCaller)}
-    private val vyouSignIn: VyouSignInCollaborator = get { parametersOf(actResultCaller)}
+    private val googleSignIn: GoogleSignInCollaborator = get { parametersOf(actResultCaller) }
+    private val vyouSignIn: VyouSignInCollaborator = get { parametersOf(actResultCaller) }
 
     private val authRepository: AuthRepository by inject()
 
-    suspend fun signInWithAuth(): VyouCredentials {
-        return authRepository.authenticateWithVyouCode(vyouSignIn.start())
-    }
+    suspend fun signInWithAuth() =
+        authRepository.authenticateWithVyouCode(vyouSignIn.start())
 
-    suspend fun signInWithGoogle(): VyouCredentials {
-        return authRepository.authenticateWithVyouCode(googleSignIn.start())
-    }
+    suspend fun signInWithGoogle() =
+        authRepository.authenticateWithGoogle(googleSignIn.start())
 
     companion object {
         fun initialize(application: Application) {
