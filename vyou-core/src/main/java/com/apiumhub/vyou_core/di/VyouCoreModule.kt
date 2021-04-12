@@ -9,8 +9,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val vyouCoreModule = module {
-    single {
-        AuthRetrofitRepository(get(), androidContext()) as AuthRepository
+    single<AuthRepository> {
+        AuthRetrofitRepository(get(), androidContext())
     }
     single { (p1: ActivityResultCaller) ->
         VyouSignInCollaborator(p1)

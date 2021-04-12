@@ -1,6 +1,8 @@
 package com.apiumhub.vyou_core.di
 
-import com.apiumhub.vyou_core.auth.ManifestReader
+import com.apiumhub.vyou_core.auth.AuthInterceptor
+import com.apiumhub.vyou_core.auth.Base64Encoder
+import com.apiumhub.vyou_core.data.ManifestReader
 import com.apiumhub.vyou_core.data.VyouApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,10 +21,13 @@ val retrofitModule = module {
             .build()
     }
     single {
-        OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build()
+        OkHttpClient
+            .Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
+            .addInterceptor(get<AuthInterceptor>())
+            .build()
     }
-
-    single {
-        get<Retrofit>().create(VyouApi::class.java)
-    }
+    single { get<Retrofit>().create(VyouApi::class.java) }
+    single { AuthInterceptor(get()) }
+    single { Base64Encoder(ManifestReader.readVyouClientId(androidContext())) }
 }

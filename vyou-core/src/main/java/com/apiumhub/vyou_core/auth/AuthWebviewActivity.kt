@@ -3,14 +3,12 @@ package com.apiumhub.vyou_core.auth
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import com.apiumhub.vyou_core.BuildConfig
 import com.apiumhub.vyou_core.R
+import com.apiumhub.vyou_core.data.ManifestReader
 
 internal class AuthWebviewActivity : AppCompatActivity(R.layout.activity_auth_webview) {
 
