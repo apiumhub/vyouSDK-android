@@ -21,5 +21,4 @@ class CredentialsSharedPrefs(private val sharedPrefs: SharedPreferences, private
     companion object {
         const val CREDENTIALS_KEY = "vyouCredentialsKey"
     }
-
 }
