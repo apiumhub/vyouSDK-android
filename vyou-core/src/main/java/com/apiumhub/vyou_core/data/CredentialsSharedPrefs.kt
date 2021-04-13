@@ -8,7 +8,7 @@ import com.google.gson.Gson
 class CredentialsSharedPrefs(private val sharedPrefs: SharedPreferences, private val gson: Gson) {
 
     fun storeVyouCredentials(credentials: VyouCredentials) {
-        sharedPrefs.edit {
+        sharedPrefs.edit(true) {
             putString(CREDENTIALS_KEY, gson.toJson(credentials))
         }
     }
@@ -19,7 +19,7 @@ class CredentialsSharedPrefs(private val sharedPrefs: SharedPreferences, private
         }.getOrNull()
 
     fun clearCredentials() {
-        sharedPrefs.edit {
+        sharedPrefs.edit(true) {
             remove(CREDENTIALS_KEY)
         }
     }

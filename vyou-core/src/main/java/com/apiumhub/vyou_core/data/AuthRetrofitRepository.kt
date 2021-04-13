@@ -10,6 +10,10 @@ internal class AuthRetrofitRepository(
     private val sharedPrefs: CredentialsSharedPrefs,
     private val manifestReader: ManifestReader
 ) : AuthRepository {
+
+    override val isUserLoggedIn: Boolean
+        get() = sharedPrefs.readVyouCredentials() != null
+
     override suspend fun authenticateWithVyouCode(code: String): VyouCredentials =
         vyouApi
             .webAccessToken(code, manifestReader.readVyouRedirectUri())
@@ -30,4 +34,6 @@ internal class AuthRetrofitRepository(
             .also {
                 sharedPrefs.storeVyouCredentials(it)
             }
+
+    override fun signOut() = sharedPrefs.clearCredentials()
 }

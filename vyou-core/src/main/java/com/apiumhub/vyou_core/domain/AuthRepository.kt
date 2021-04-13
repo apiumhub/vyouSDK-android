@@ -3,7 +3,10 @@ package com.apiumhub.vyou_core.domain
 import com.apiumhub.vyou_core.VyouCredentials
 
 interface AuthRepository {
+    val isUserLoggedIn: Boolean
+
     suspend fun authenticateWithVyouCode(code: String): VyouCredentials
     suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials
     suspend fun authenticateWithFacebook(facebookToken: String): VyouCredentials
+    fun signOut()
 }

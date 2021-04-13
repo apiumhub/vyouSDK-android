@@ -30,6 +30,8 @@ class VyouCore(actResultCaller: ActivityResultCaller) : KoinComponent {
 
     private val authRepository: AuthRepository by inject()
 
+    val loggedIn: Boolean get() = authRepository.isUserLoggedIn
+
     suspend fun signInWithAuth() =
         authRepository.authenticateWithVyouCode(vyouSignIn.start())
 
@@ -41,6 +43,10 @@ class VyouCore(actResultCaller: ActivityResultCaller) : KoinComponent {
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         facebookSignIn.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun signOut() {
+        authRepository.signOut()
     }
 
     companion object {
