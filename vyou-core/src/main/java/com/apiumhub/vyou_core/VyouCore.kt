@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_core.auth.VyouSignInCollaborator
 import com.apiumhub.vyou_core.data.ManifestReader
 import com.apiumhub.vyou_core.di.retrofitModule
+import com.apiumhub.vyou_core.di.sharedPrefsModule
 import com.apiumhub.vyou_core.di.vyouCoreModule
 import com.apiumhub.vyou_core.domain.AuthRepository
 import com.apiumhub.vyou_core.facebook.FacebookSignInCollaborator
@@ -48,17 +49,16 @@ class VyouCore(actResultCaller: ActivityResultCaller) : KoinComponent {
                 androidContext(application)
                 FacebookSdk.setApplicationId(ManifestReader.readFacebookClientId(application))
                 FacebookSdk.sdkInitialize(application)
-                loadKoinModules(listOf(retrofitModule, vyouCoreModule))
+                loadKoinModules(listOf(retrofitModule, vyouCoreModule, sharedPrefsModule))
             }
         }
     }
 }
 
 /*
-    func signInWithGoogle(completion: @escaping ((Result<VYouCredentials, VYouError>) -> Void))
-    func signInWithFacebook(completion: @escaping ((Result<VYouCredentials, VYouError>) -> Void))
-    func signInWithApple(completion: @escaping ((Result<VYouCredentials, VYouError>) -> Void))
-    func signInWithAuth(completion: @escaping ((Result<VYouCredentials, VYouError>) -> Void))
+    func signInWithGoogle(completion: @escaping ((Result<VYouCredentials, VYouError>) -> Void)) √
+    func signInWithFacebook(completion: @escaping ((Result<VYouCredentials, VYouError>) -> Void)) √
+    func signInWithAuth(completion: @escaping ((Result<VYouCredentials, VYouError>) -> Void)) √
     func register(dto: RegisterDTO, completion: @escaping ((Result<Void, VYouError>) -> Void))
     func editProfile(dto: EditProfileDTO, completion: @escaping ((Result<Void, VYouError>) -> Void))
     func tenantProfile(completion: @escaping ((Result<VYouProfile, VYouError>) -> Void))
