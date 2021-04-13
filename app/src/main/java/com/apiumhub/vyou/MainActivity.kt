@@ -1,8 +1,7 @@
 package com.apiumhub.vyou
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.apiumhub.vyou.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {

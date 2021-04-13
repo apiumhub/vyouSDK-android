@@ -27,7 +27,4 @@ internal object ManifestReader {
     }.getOrElse {
         throw IllegalArgumentException("$key must be provided in your application's AndroidManifest.xml")
     }
-
-
-
 }

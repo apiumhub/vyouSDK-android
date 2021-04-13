@@ -1,6 +1,7 @@
 package com.apiumhub.vyou_core
 
 import android.app.Application
+import android.content.Intent
 import androidx.activity.result.ActivityResultCaller
 import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_core.auth.VyouSignInCollaborator
@@ -34,8 +35,11 @@ class VyouCore(actResultCaller: ActivityResultCaller) : KoinComponent {
     suspend fun signInWithGoogle() =
         authRepository.authenticateWithGoogle(googleSignIn.start())
 
-    suspend fun signInWithFacebook(fragment: Fragment) {
-        facebookSignIn.start(fragment)
+    suspend fun signInWithFacebook(fragment: Fragment) =
+        authRepository.authenticateWithFacebook(facebookSignIn.start(fragment))
+
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        facebookSignIn.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

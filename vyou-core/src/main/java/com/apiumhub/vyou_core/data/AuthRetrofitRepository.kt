@@ -11,4 +11,6 @@ internal class AuthRetrofitRepository(private val vyouApi: VyouApi, private val 
 
     override suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials =
         vyouApi.loginWithGoogle(GoogleAuthBody(googleToken, ManifestReader.readGoogleClientId(context)))
+
+    override suspend fun authenticateWithFacebook(facebookToken: String): VyouCredentials = vyouApi.loginWithFacebook()
 }

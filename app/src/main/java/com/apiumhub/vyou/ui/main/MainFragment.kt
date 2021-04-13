@@ -1,5 +1,6 @@
 package com.apiumhub.vyou.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -43,6 +44,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 }
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        vyouCore.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

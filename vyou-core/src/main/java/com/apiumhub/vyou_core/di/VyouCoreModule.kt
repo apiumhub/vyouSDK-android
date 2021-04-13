@@ -20,6 +20,6 @@ val vyouCoreModule = module {
         GoogleSignInCollaborator(p1, androidContext())
     }
     single { (p1: ActivityResultCaller) ->
-        FacebookSignInCollaborator(p1, androidContext())
+        FacebookSignInCollaborator()
     }
 }
