@@ -6,7 +6,11 @@ import com.apiumhub.vyou_core.domain.AuthRepository
 import com.apiumhub.vyou_core.facebook.FacebookAuthBody
 import com.apiumhub.vyou_core.google.GoogleAuthBody
 
-internal class AuthRetrofitRepository(private val vyouApi: VyouApi, private val sharedPrefs: CredentialsSharedPrefs, private val context: Context) : AuthRepository {
+internal class AuthRetrofitRepository(
+    private val vyouApi: VyouApi,
+    private val sharedPrefs: CredentialsSharedPrefs,
+    private val context: Context
+) : AuthRepository {
     override suspend fun authenticateWithVyouCode(code: String): VyouCredentials =
         vyouApi
             .webAccessToken(code, ManifestReader.readVyouRedirectUri(context))

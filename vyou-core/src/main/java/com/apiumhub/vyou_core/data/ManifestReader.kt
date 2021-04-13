@@ -1,10 +1,11 @@
 package com.apiumhub.vyou_core.data
 
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import java.lang.IllegalArgumentException
 
-internal object ManifestReader {
+internal class ManifestReader(private val application: Application) {
 
     private val clientIdKey = "vyou_client_id"
     private val redirectUriKey = "vyou_redirect_uri"
@@ -12,18 +13,20 @@ internal object ManifestReader {
     private val googleClientId = "google_client_id"
     private val facebookAppId = "facebook_app_id"
 
-    fun readVyouClientId(context: Context) = readFromManifest(context, clientIdKey)
+    fun readVyouClientId() = readFromManifest(clientIdKey)
 
-    fun readVyouRedirectUri(context: Context) = readFromManifest(context, redirectUriKey)
+    fun readVyouRedirectUri() = readFromManifest(redirectUriKey)
 
-    fun readVyouUrl(context: Context) = readFromManifest(context, vyouUrl)
+    fun readVyouUrl() = readFromManifest(vyouUrl)
 
-    fun readGoogleClientId(context: Context) = readFromManifest(context, googleClientId)
+    fun readGoogleClientId() = readFromManifest(googleClientId)
 
-    fun readFacebookClientId(context: Context) = readFromManifest(context, facebookAppId)
+    fun readFacebookClientId() = readFromManifest(facebookAppId)
 
-    private fun readFromManifest(context: Context, key: String) = runCatching {
-        context.getString(context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getInt(key))
+    private fun readFromManifest(key: String) = runCatching {
+        application.getString(
+            application.packageManager.getApplicationInfo(
+                application.packageName, PackageManager.GET_META_DATA).metaData.getInt(key))
     }.getOrElse {
         throw IllegalArgumentException("$key must be provided in your application's AndroidManifest.xml")
     }

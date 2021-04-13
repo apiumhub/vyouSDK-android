@@ -47,10 +47,12 @@ class VyouCore(actResultCaller: ActivityResultCaller) : KoinComponent {
         fun initialize(application: Application) {
             startKoin {
                 androidContext(application)
-                FacebookSdk.setApplicationId(ManifestReader.readFacebookClientId(application))
-                FacebookSdk.sdkInitialize(application)
                 loadKoinModules(listOf(retrofitModule, vyouCoreModule, sharedPrefsModule))
             }
+            val manifestReader = ManifestReader(application)
+            FacebookSdk.setApplicationId(manifestReader.readFacebookClientId())
+            FacebookSdk.sdkInitialize(application)
+
         }
     }
 }
