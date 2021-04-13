@@ -9,18 +9,18 @@ import com.apiumhub.vyou_core.google.GoogleAuthBody
 internal class AuthRetrofitRepository(
     private val vyouApi: VyouApi,
     private val sharedPrefs: CredentialsSharedPrefs,
-    private val context: Context
+    private val manifestReader: ManifestReader
 ) : AuthRepository {
     override suspend fun authenticateWithVyouCode(code: String): VyouCredentials =
         vyouApi
-            .webAccessToken(code, ManifestReader.readVyouRedirectUri(context))
+            .webAccessToken(code, manifestReader.readVyouRedirectUri())
             .also {
                 sharedPrefs.storeVyouCredentials(it)
             }
 
     override suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials =
         vyouApi
-            .loginWithGoogle(GoogleAuthBody(googleToken, ManifestReader.readGoogleClientId(context)))
+            .loginWithGoogle(GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
             .also {
                 sharedPrefs.storeVyouCredentials(it)
             }

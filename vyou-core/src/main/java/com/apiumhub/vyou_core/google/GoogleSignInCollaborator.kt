@@ -1,5 +1,6 @@
 package com.apiumhub.vyou_core.google
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultCaller
@@ -11,11 +12,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.channels.Channel
 
-class GoogleSignInCollaborator(activityResultCaller: ActivityResultCaller, context: Context) {
+class GoogleSignInCollaborator(activityResultCaller: ActivityResultCaller, context: Context, application: Application) {
 
     private val gso = GoogleSignInOptions
         .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(ManifestReader.readGoogleClientId(context))
+        .requestIdToken(ManifestReader(application).readGoogleClientId())
         .requestEmail()
         .build()
 

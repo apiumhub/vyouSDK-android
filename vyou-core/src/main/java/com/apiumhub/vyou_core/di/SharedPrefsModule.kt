@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.apiumhub.vyou_core.data.CredentialsSharedPrefs
+import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -26,6 +27,6 @@ val sharedPrefsModule = module {
     }
 
     single {
-        CredentialsSharedPrefs(get())
+        CredentialsSharedPrefs(get(), Gson())
     }
 }

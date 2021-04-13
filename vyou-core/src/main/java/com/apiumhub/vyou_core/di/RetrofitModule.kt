@@ -6,6 +6,7 @@ import com.apiumhub.vyou_core.data.ManifestReader
 import com.apiumhub.vyou_core.data.VyouApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -15,7 +16,7 @@ val retrofitModule = module {
     single {
         Retrofit
             .Builder()
-            .baseUrl(ManifestReader.readVyouUrl(androidContext()))
+            .baseUrl(ManifestReader(androidApplication()).readVyouUrl())
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -29,5 +30,5 @@ val retrofitModule = module {
     }
     single { get<Retrofit>().create(VyouApi::class.java) }
     single { AuthInterceptor(get()) }
-    single { Base64Encoder(ManifestReader.readVyouClientId(androidContext())) }
+    single { Base64Encoder(ManifestReader(androidApplication()).readVyouClientId()) }
 }
