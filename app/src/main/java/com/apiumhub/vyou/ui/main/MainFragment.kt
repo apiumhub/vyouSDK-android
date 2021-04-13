@@ -2,19 +2,17 @@ package com.apiumhub.vyou.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.activity.ComponentActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
 import com.apiumhub.vyou_core.VyouCore
+import com.apiumhub.vyou_core.VyouCredentials
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.properties.Delegates
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
@@ -26,25 +24,23 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainAuthBtn.setOnClickListener {
-            lifecycleScope.launch {
-                vyouCore.signInWithAuth()
-                refreshLogoutVisibility()
-            }
+            launchLogin { vyouCore.signInWithAuth() }
         }
         binding.mainGoogleSingInBtn.setOnClickListener {
-            lifecycleScope.launch {
-                vyouCore.signInWithGoogle()
-                refreshLogoutVisibility()
-            }
+            launchLogin { vyouCore.signInWithGoogle() }
         }
         binding.mainFbSignInBtn.setOnClickListener {
-            lifecycleScope.launch {
-                vyouCore.signInWithFacebook(this@MainFragment)
-                refreshLogoutVisibility()
-            }
+            launchLogin { vyouCore.signInWithFacebook(this@MainFragment) }
         }
         binding.mainLogoutBtn.setOnClickListener {
             vyouCore.signOut()
+            refreshLogoutVisibility()
+        }
+    }
+
+    private fun launchLogin(function: suspend () -> VyouCredentials) {
+        lifecycleScope.launch {
+            function()
             refreshLogoutVisibility()
         }
     }

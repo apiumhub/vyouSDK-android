@@ -58,7 +58,6 @@ class VyouCore(actResultCaller: ActivityResultCaller) : KoinComponent {
             val manifestReader = ManifestReader(application)
             FacebookSdk.setApplicationId(manifestReader.readFacebookClientId())
             FacebookSdk.sdkInitialize(application)
-
         }
     }
 }
