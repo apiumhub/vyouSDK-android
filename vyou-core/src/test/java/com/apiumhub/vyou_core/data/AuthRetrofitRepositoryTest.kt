@@ -10,8 +10,9 @@ import io.mockk.mockk
 import io.mockk.verify
 import junit.framework.TestCase
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Test
 
-class AuthRetrofitRepositoryTest : TestCase() {
+class AuthRetrofitRepositoryTest {
 
     private val vyouApi: VyouApi = mockk()
     private val sharedPrefs: CredentialsSharedPrefs = mockk(relaxed = true)
@@ -21,7 +22,8 @@ class AuthRetrofitRepositoryTest : TestCase() {
 
     private val sut: AuthRepository = AuthRetrofitRepository(vyouApi, sharedPrefs, manifestReader)
 
-    fun testShouldWriteToPreferencesWhenVyouLogin() = runBlockingTest {
+    @Test
+    fun shouldWriteToPreferencesWhenVyouLogin() = runBlockingTest {
         every {
             manifestReader.readVyouRedirectUri()
         } returns REDIRECT_URI
@@ -36,7 +38,8 @@ class AuthRetrofitRepositoryTest : TestCase() {
         }
     }
 
-    fun testShouldWriteToPreferencesWhenGoogleLogin() = runBlockingTest {
+    @Test
+    fun shouldWriteToPreferencesWhenGoogleLogin() = runBlockingTest {
         every {
             manifestReader.readGoogleClientId()
         } returns GOOGLE_CLIENT_ID
@@ -51,7 +54,8 @@ class AuthRetrofitRepositoryTest : TestCase() {
         }
     }
 
-    fun testShouldWriteToPreferencesWhenFacebookLogin() = runBlockingTest {
+    @Test
+    fun shouldWriteToPreferencesWhenFacebookLogin() = runBlockingTest {
         coEvery {
             vyouApi.loginWithFacebook(FacebookAuthBody(FACEBOOK_TOKEN))
         } returns vyouCredentials

@@ -18,6 +18,12 @@ class CredentialsSharedPrefs(private val sharedPrefs: SharedPreferences, private
             gson.fromJson(sharedPrefs.getString(CREDENTIALS_KEY, ""), VyouCredentials::class.java)
         }.getOrNull()
 
+    fun clearCredentials() {
+        sharedPrefs.edit {
+            remove(CREDENTIALS_KEY)
+        }
+    }
+
     companion object {
         const val CREDENTIALS_KEY = "vyouCredentialsKey"
     }
