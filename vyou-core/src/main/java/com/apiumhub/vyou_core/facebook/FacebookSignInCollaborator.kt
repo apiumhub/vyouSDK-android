@@ -14,7 +14,7 @@ internal class FacebookSignInCollaborator {
 
     suspend fun start(fragment: Fragment): String {
         fbLoginManager.registerCallback(callbackManager, MyFbCallback())
-        fbLoginManager.logInWithReadPermissions(fragment, listOf("public_profile"))
+        fbLoginManager.logInWithReadPermissions(fragment, listOf("public_profile", "email"))
         return resultChannel.receive()
     }
 

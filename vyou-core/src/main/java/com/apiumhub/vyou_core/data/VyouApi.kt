@@ -1,6 +1,7 @@
 package com.apiumhub.vyou_core.data
 
 import com.apiumhub.vyou_core.VyouCredentials
+import com.apiumhub.vyou_core.facebook.FacebookAuthBody
 import com.apiumhub.vyou_core.google.GoogleAuthBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,4 +15,6 @@ interface VyouApi {
     @POST("/googlelogin")
     suspend fun loginWithGoogle(@Body body: GoogleAuthBody): VyouCredentials
 
+    @POST("/facebooklogin")
+    suspend fun loginWithFacebook(@Body body: FacebookAuthBody): VyouCredentials
 }
