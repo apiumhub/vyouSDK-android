@@ -9,29 +9,16 @@ import com.apiumhub.vyou_core.login.google.GoogleAuthBody
 
 internal class AuthRetrofitRepository(
     private val authApi: AuthApi,
-    private val sharedPrefs: CredentialsSharedPrefs,
     private val manifestReader: ManifestReader,
     private val base64Encoder: Base64Encoder
 ) : LoginRepository {
 
     override suspend fun authenticateWithVyouCode(code: String): VyouCredentials =
-        authApi
-            .webAccessToken(code, manifestReader.readVyouRedirectUri())
-            .also {
-                sharedPrefs.storeVyouCredentials(it)
-            }
+        authApi.webAccessToken(code, manifestReader.readVyouRedirectUri())
 
     override suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials =
-        authApi
-            .loginWithGoogle("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
-            .also {
-                sharedPrefs.storeVyouCredentials(it)
-            }
+        authApi.loginWithGoogle("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
 
     override suspend fun authenticateWithFacebook(facebookToken: String): VyouCredentials =
-        authApi
-            .loginWithFacebook("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", FacebookAuthBody(facebookToken))
-            .also {
-                sharedPrefs.storeVyouCredentials(it)
-            }
+        authApi.loginWithFacebook("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", FacebookAuthBody(facebookToken))
 }

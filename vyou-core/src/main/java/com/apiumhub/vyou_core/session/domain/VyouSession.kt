@@ -5,7 +5,7 @@ import com.apiumhub.vyou_core.tenant.domain.TenantRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class VyouSession internal constructor(private val credentials: VyouCredentials) : KoinComponent {
+class VyouSession internal constructor(val credentials: VyouCredentials) : KoinComponent {
 
     private val sessionRepository: SessionRepository by inject()
     private val tenantRepository: TenantRepository by inject()
