@@ -1,8 +1,8 @@
-package com.apiumhub.vyou_core.data
+package com.apiumhub.vyou_core.login.data
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.apiumhub.vyou_core.VyouCredentials
+import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.google.gson.Gson
 
 class CredentialsSharedPrefs(private val sharedPrefs: SharedPreferences, private val gson: Gson) {

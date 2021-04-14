@@ -2,7 +2,8 @@ package com.apiumhub.vyou_core.data
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.apiumhub.vyou_core.VyouCredentials
+import com.apiumhub.vyou_core.login.data.CredentialsSharedPrefs
+import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.apiumhub.vyou_core.di.sharedPrefsModule
 import org.junit.After
 import org.junit.Before

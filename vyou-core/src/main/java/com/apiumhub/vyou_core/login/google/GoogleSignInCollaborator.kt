@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_core.google
+package com.apiumhub.vyou_core.login.google
 
 import android.app.Application
 import android.content.Context

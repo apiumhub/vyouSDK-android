@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_core.facebook
+package com.apiumhub.vyou_core.login.facebook
 
 import android.content.Intent
 import androidx.fragment.app.Fragment

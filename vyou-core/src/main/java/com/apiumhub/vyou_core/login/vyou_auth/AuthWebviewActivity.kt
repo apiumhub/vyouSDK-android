@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_core.auth
+package com.apiumhub.vyou_core.login.vyou_auth
 
 import android.app.Activity
 import android.content.Context

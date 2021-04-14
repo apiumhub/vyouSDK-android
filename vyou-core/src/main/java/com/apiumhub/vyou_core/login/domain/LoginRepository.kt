@@ -1,12 +1,7 @@
-package com.apiumhub.vyou_core.domain
+package com.apiumhub.vyou_core.login.domain
 
-import com.apiumhub.vyou_core.VyouCredentials
-
-interface AuthRepository {
-    val isUserLoggedIn: Boolean
-
+interface LoginRepository {
     suspend fun authenticateWithVyouCode(code: String): VyouCredentials
     suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials
     suspend fun authenticateWithFacebook(facebookToken: String): VyouCredentials
-    fun signOut()
 }
