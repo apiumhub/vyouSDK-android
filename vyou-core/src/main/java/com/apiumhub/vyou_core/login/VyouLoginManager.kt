@@ -13,7 +13,7 @@ import org.koin.core.component.get
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-class VyouLogin internal constructor(actResultCaller: ActivityResultCaller) : KoinComponent {
+class VyouLoginManager internal constructor(actResultCaller: ActivityResultCaller) : KoinComponent {
     //Need to eager inject due to ActivityResultCaller needing to register for result before onStart
     private val googleSignIn: GoogleSignInCollaborator = get { parametersOf(actResultCaller) }
     private val vyouSignIn: VyouSignInCollaborator = get { parametersOf(actResultCaller) }

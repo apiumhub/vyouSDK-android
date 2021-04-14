@@ -6,12 +6,11 @@ import com.apiumhub.vyou_core.data.ManifestReader
 import com.apiumhub.vyou_core.di.retrofitModule
 import com.apiumhub.vyou_core.di.sharedPrefsModule
 import com.apiumhub.vyou_core.di.vyouCoreModule
-import com.apiumhub.vyou_core.login.VyouLogin
-import com.apiumhub.vyou_core.login.domain.LoginRepository
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
+import com.apiumhub.vyou_core.login.VyouLoginManager
 import com.apiumhub.vyou_core.session.di.sessionModule
 import com.apiumhub.vyou_core.session.domain.SessionRepository
 import com.apiumhub.vyou_core.session.domain.VyouSession
+import com.apiumhub.vyou_core.tenant.VyouTenantManager
 import com.facebook.FacebookSdk
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
@@ -34,7 +33,8 @@ object Vyou : KoinComponent {
         FacebookSdk.sdkInitialize(application)
     }
 
-    fun getLogin(actResultCaller: ActivityResultCaller) = VyouLogin(actResultCaller)
+    fun getLogin(actResultCaller: ActivityResultCaller) = VyouLoginManager(actResultCaller)
+    val tenantManager by lazy { VyouTenantManager() }
     val session: VyouSession?
         get() = sessionRepository.getSession()
 }

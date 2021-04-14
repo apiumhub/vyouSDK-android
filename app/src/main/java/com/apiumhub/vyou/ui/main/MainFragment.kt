@@ -9,7 +9,7 @@ import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
 import com.apiumhub.vyou.ui.authenticated.AuthenticatedUserFragment
 import com.apiumhub.vyou_core.Vyou
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
+import com.apiumhub.vyou_core.session.domain.VyouSession
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
 
@@ -32,9 +32,14 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 vyouLogin.signInWithFacebook(this@MainFragment)
             }
         }
+        binding.mainLoadTenantBtn.setOnClickListener {
+            lifecycleScope.launch {
+                Vyou.tenantManager.getTenant()
+            }
+        }
     }
 
-    private fun launchLogin(function: suspend () -> VyouCredentials) {
+    private fun launchLogin(function: suspend () -> VyouSession) {
         lifecycleScope.launch {
             function()
             parentFragmentManager.beginTransaction()

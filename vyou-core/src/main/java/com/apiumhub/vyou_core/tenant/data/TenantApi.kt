@@ -6,5 +6,5 @@ import retrofit2.http.Header
 
 interface TenantApi {
     @GET("/api/v1/tenant")
-    suspend fun getTenant(@Header("Authorization") bearerToken: String): VyouTenant
+    suspend fun getTenant(@Header("Authorization") basicAuth: String): VyouTenant
 }
