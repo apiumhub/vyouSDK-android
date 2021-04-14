@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_core.domain
+package com.apiumhub.vyou_core.tenant.domain
 
 import com.google.gson.annotations.SerializedName
 

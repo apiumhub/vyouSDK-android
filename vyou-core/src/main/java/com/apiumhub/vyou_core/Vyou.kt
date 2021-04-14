@@ -37,6 +37,4 @@ object Vyou : KoinComponent {
     fun getLogin(actResultCaller: ActivityResultCaller) = VyouLogin(actResultCaller)
     val session: VyouSession?
         get() = sessionRepository.getSession()
-
-
 }

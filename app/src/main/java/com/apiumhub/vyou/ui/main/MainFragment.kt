@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
+import com.apiumhub.vyou.ui.authenticated.AuthenticatedUserFragment
 import com.apiumhub.vyou_core.Vyou
 import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
@@ -36,7 +37,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun launchLogin(function: suspend () -> VyouCredentials) {
         lifecycleScope.launch {
             function()
-            //navigate to new fragment
+            parentFragmentManager.beginTransaction()
+                .add(R.id.container, AuthenticatedUserFragment.newInstance())
+                .commitNow()
         }
     }
 

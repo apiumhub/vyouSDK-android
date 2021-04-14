@@ -1,6 +1,5 @@
 package com.apiumhub.vyou_core.session.domain
 
-import com.apiumhub.vyou_core.login.domain.LoginRepository
 import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.apiumhub.vyou_core.tenant.domain.TenantRepository
 import org.koin.core.component.KoinComponent
@@ -8,11 +7,11 @@ import org.koin.core.component.inject
 
 class VyouSession internal constructor(private val credentials: VyouCredentials) : KoinComponent {
 
-    private val authRepository: LoginRepository by inject()
+    private val sessionRepository: SessionRepository by inject()
     private val tenantRepository: TenantRepository by inject()
 
     fun signOut() {
-//        authRepository.signOut()
+        sessionRepository.signOut()
     }
 
     suspend fun getTenant() = tenantRepository.getTenant()
