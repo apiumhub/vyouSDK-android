@@ -1,14 +1,14 @@
 package com.apiumhub.vyou_core.data
 
 import com.apiumhub.vyou_core.di.Base64Encoder
-import com.apiumhub.vyou_core.login.data.AuthRetrofitRepository
-import com.apiumhub.vyou_core.login.data.CredentialsSharedPrefs
 import com.apiumhub.vyou_core.login.data.AuthApi
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
+import com.apiumhub.vyou_core.login.data.AuthRetrofitRepository
 import com.apiumhub.vyou_core.login.domain.LoginRepository
 import com.apiumhub.vyou_core.login.facebook.FacebookAuthBody
 import com.apiumhub.vyou_core.login.google.GoogleAuthBody
-import io.mockk.*
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test

@@ -34,7 +34,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
         binding.mainLoadTenantBtn.setOnClickListener {
             lifecycleScope.launch {
-                Vyou.tenantManager.getTenant()
+                Vyou.tenantManager.tenant()
             }
         }
     }
