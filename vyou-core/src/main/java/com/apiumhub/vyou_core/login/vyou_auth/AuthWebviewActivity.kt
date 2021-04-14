@@ -9,8 +9,10 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.apiumhub.vyou_core.R
 import com.apiumhub.vyou_core.data.ManifestReader
+import org.koin.android.ext.android.inject
 
-internal class AuthWebviewActivity(private val manifestReader: ManifestReader) : AppCompatActivity(R.layout.activity_auth_webview) {
+internal class AuthWebviewActivity : AppCompatActivity(R.layout.activity_auth_webview) {
+    private val manifestReader: ManifestReader by inject()
     private val clientId by lazy { manifestReader.readVyouClientId() }
     private val redirectUri by lazy { manifestReader.readVyouRedirectUri() }
     private val vyouUrl by lazy { manifestReader.readVyouUrl() }

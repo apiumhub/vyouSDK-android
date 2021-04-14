@@ -23,14 +23,14 @@ internal class AuthRetrofitRepository(
 
     override suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials =
         authApi
-            .loginWithGoogle(base64Encoder.vyouClientIdEncodedForAuth, GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
+            .loginWithGoogle("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
             .also {
                 sharedPrefs.storeVyouCredentials(it)
             }
 
     override suspend fun authenticateWithFacebook(facebookToken: String): VyouCredentials =
         authApi
-            .loginWithFacebook(base64Encoder.vyouClientIdEncodedForAuth, FacebookAuthBody(facebookToken))
+            .loginWithFacebook("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", FacebookAuthBody(facebookToken))
             .also {
                 sharedPrefs.storeVyouCredentials(it)
             }
