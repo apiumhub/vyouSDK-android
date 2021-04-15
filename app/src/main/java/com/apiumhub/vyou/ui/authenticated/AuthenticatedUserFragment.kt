@@ -19,15 +19,9 @@ class AuthenticatedUserFragment : Fragment(R.layout.authenticated_user_fragment)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.authLoadTenantBtn.setOnClickListener {
-            session?.let {
-                lifecycleScope.launch {
-                    Log.d("Tenant", session.getTenant().toString())
-                }
-            }
-        }
         binding.authLogoutBtn.setOnClickListener {
             session?.signOut()
+            requireActivity().onBackPressed()
         }
     }
 

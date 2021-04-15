@@ -8,22 +8,13 @@
     tools:context=".ui.authenticated.AuthenticatedUserFragment">
 
     <Button
-        android:id="@+id/authLoadTenantBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Load tenant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/authLogoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/authLoadTenantBtn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

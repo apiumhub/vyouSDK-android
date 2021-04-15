@@ -5,18 +5,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
 import com.apiumhub.vyou.ui.authenticated.AuthenticatedUserFragment
 import com.apiumhub.vyou_core.Vyou
 import com.apiumhub.vyou_core.session.domain.VyouSession
+import com.apiumhub.vyou_ui.VyouUI
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
-    private val vyouLogin = Vyou.getLogin(this)
+    private val navController: NavController by lazy { findNavController() }
 
+    private val vyouLogin = Vyou.getLogin(this)
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,9 +36,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 vyouLogin.signInWithFacebook(this@MainFragment)
             }
         }
-        binding.mainLoadTenantBtn.setOnClickListener {
+        binding.mainRegisterBtn.setOnClickListener {
             lifecycleScope.launch {
-                Vyou.tenantManager.tenant()
+                navController.navigate(MainFragmentDirections.mainFragmentToRegister())
             }
         }
     }
@@ -42,9 +46,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun launchLogin(function: suspend () -> VyouSession) {
         lifecycleScope.launch {
             function()
-            parentFragmentManager.beginTransaction()
-                .add(R.id.container, AuthenticatedUserFragment.newInstance())
-                .commitNow()
+            navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
         }
     }
 
