@@ -4,7 +4,7 @@
     package="com.apiumhub.vyou_core">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk tools:overrideLibrary="androidx.security.identity.credential"/>
+    <uses-sdk tools:overrideLibrary="androidx.security.identity.credential" />
     <application>
         <activity android:name="com.apiumhub.vyou_core.login.vyou_auth.AuthWebviewActivity" />
     </application>

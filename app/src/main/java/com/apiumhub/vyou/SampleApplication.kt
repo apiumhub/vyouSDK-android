@@ -1,11 +1,11 @@
 package com.apiumhub.vyou
 
 import android.app.Application
-import com.apiumhub.vyou_core.Vyou
+import com.apiumhub.vyou_ui.VyouUI
 
-class SampleApplication: Application() {
+class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        Vyou.initialize(this)
+        VyouUI.initialize(this)
     }
 }

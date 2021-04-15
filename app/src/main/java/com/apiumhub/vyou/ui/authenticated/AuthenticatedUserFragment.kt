@@ -25,8 +25,4 @@ class AuthenticatedUserFragment : Fragment(R.layout.authenticated_user_fragment)
         }
     }
 
-    companion object {
-        fun newInstance() = AuthenticatedUserFragment()
-    }
-
 }

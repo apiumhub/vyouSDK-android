@@ -17,16 +17,17 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 
 object Vyou : KoinComponent {
 
     private val sessionRepository: SessionRepository by inject()
     private val koinModules = listOf(retrofitModule, vyouCoreModule, sharedPrefsModule, sessionModule)
 
-    fun initialize(application: Application) {
+    fun initialize(application: Application, additionalModules: List<Module> = emptyList()) {
         startKoin {
             androidContext(application)
-            loadKoinModules(koinModules)
+            loadKoinModules(koinModules + additionalModules)
         }
         val manifestReader = ManifestReader(application)
         FacebookSdk.setApplicationId(manifestReader.readFacebookClientId())

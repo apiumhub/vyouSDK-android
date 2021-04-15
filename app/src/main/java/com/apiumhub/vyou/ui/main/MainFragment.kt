@@ -54,8 +54,4 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onActivityResult(requestCode, resultCode, data)
         vyouLogin.onActivityResult(requestCode, resultCode, data)
     }
-
-    companion object {
-        fun newInstance(): MainFragment = MainFragment()
-    }
 }

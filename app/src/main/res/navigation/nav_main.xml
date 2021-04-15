@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/registerUserFragment"
-        android:name="com.apiumhub.vyou_ui.VyouRegisterFragment"
+        android:name="com.apiumhub.vyou_ui.register.presentation.VyouRegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/vyou_register_fragment" />
 
