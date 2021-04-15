@@ -4,9 +4,15 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import com.apiumhub.vyou_core.tenant.domain.VyouFieldDto
+import com.apiumhub.vyou_ui.register.domain.DateField
+import com.apiumhub.vyou_ui.register.domain.InputField
+import com.apiumhub.vyou_ui.register.domain.RadioGroupField
+import com.apiumhub.vyou_ui.register.domain.TextField
+import com.apiumhub.vyou_ui.register.ui.components.DateInputView
+import com.apiumhub.vyou_ui.register.ui.components.RadioGroupInputView
+import com.apiumhub.vyou_ui.register.ui.components.TextInputView
 
-class DynamicFormView @JvmOverloads constructor(
+internal class DynamicFormView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -16,16 +22,16 @@ class DynamicFormView @JvmOverloads constructor(
         orientation = VERTICAL
     }
 
-    fun setupWithFields(fields: List<VyouFieldDto>) {
+    fun render(fields: List<InputField>) {
         fields
             .map { createComponent(it) }
             .forEach { addView(it) }
     }
 
-    private fun createComponent(it: VyouFieldDto): View {
-        if (it.name == "birth") {
-            return TODO("Date selector component(it.required)")
+    private fun createComponent(it: InputField): View =
+        when (it) {
+            is DateField -> DateInputView(context, it)
+            is RadioGroupField -> RadioGroupInputView(context, it)
+            is TextField -> TextInputView(context, it)
         }
-        return TODO("Text input(it.type, it.required)")
-    }
 }

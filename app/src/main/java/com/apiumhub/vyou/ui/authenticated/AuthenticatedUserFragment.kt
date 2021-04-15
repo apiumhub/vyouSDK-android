@@ -24,5 +24,4 @@ class AuthenticatedUserFragment : Fragment(R.layout.authenticated_user_fragment)
             requireActivity().onBackPressed()
         }
     }
-
 }

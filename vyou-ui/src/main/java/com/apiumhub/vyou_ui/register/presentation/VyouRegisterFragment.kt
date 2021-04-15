@@ -9,13 +9,15 @@ import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VyouRegisterFragment : Fragment(R.layout.vyou_register_fragment) {
-    
+
     private val binding: VyouRegisterFragmentBinding by viewBinding(VyouRegisterFragmentBinding::bind)
     private val viewModel: VyouRegisterViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.start()
+        viewModel.dynamicForm.observe(viewLifecycleOwner) {
+            binding.registerDynamicForm.render(it.fields)
+        }
     }
 
     companion object {
