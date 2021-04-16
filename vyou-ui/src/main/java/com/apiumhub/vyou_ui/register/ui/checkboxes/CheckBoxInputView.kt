@@ -1,16 +1,10 @@
 package com.apiumhub.vyou_ui.register.ui.checkboxes
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.text.Spannable
-import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import com.apiumhub.vyou_ui.databinding.VyouCheckBoxInputBinding
 import com.apiumhub.vyou_ui.extensions.applySpans
@@ -34,4 +28,6 @@ internal class CheckBoxInputView @JvmOverloads constructor(
         )
         binding.checkBox.movementMethod = LinkMovementMethod.getInstance()
     }
+
+    fun isChecked() = binding.checkBox.isChecked
 }

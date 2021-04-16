@@ -2,7 +2,7 @@ package com.apiumhub.vyou_ui.register.domain
 
 import java.util.*
 
-internal sealed class InputField(val id: String) {
+internal sealed class InputField(val id: String, val isMandatory: Boolean) {
     open fun isValid() = true
     val title = when(id){
         "birth" -> "Fecha de Nacimiento"
@@ -18,7 +18,7 @@ internal sealed class InputField(val id: String) {
     }
 }
 
-internal class TextField(id: String, val inputType: VyouInputType, val regex: String? = null) : InputField(id) {
+internal class TextField(id: String, isMandatory: Boolean, val inputType: VyouInputType, val regex: String? = null) : InputField(id, isMandatory) {
 
     enum class VyouInputType(val type: String) {
         TEXT("string"),
@@ -32,10 +32,10 @@ internal class TextField(id: String, val inputType: VyouInputType, val regex: St
     }
 }
 
-internal class DateField(id: String) : InputField(id) {
+internal class DateField(id: String, isMandatory: Boolean) : InputField(id, isMandatory) {
 
 }
 
-internal class RadioGroupField(id: String, val options: List<String>) : InputField(id) {
+internal class RadioGroupField(id: String, isMandatory: Boolean, val options: List<String>) : InputField(id, isMandatory) {
 
 }

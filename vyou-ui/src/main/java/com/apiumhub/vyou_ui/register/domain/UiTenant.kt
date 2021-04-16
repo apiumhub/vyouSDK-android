@@ -10,31 +10,31 @@ internal class UiTenant(from: VyouTenant) {
 
     init {
         fields = listOf(
-            TextField("vyou_internal_email", TextField.VyouInputType.EMAIL),
+            TextField("vyou_internal_email", true, TextField.VyouInputType.EMAIL),
             *mapFields(from.mandatoryFields),
             *mapFields(from.dynamicFields),
-            TextField("vyou_internal_password", TextField.VyouInputType.PASSWORD),
-            TextField("vyou_internal_repeat_password", TextField.VyouInputType.PASSWORD))
+            TextField("vyou_internal_password", true, TextField.VyouInputType.PASSWORD),
+            TextField("vyou_internal_repeat_password", true, TextField.VyouInputType.PASSWORD))
     }
 
     private fun mapFields(from: List<VyouFieldDto>) =
         from
             .map {
                 when (it.name) {
-                    "birth" -> DateField("birth")
-                    "gender" -> RadioGroupField("gender", listOf("Male", "Female"))
-                    else -> TextField(it.name, TextField.VyouInputType.fromType(it.type))
+                    "birth" -> DateField("birth", it.required)
+                    "gender" -> RadioGroupField("gender", it.required, listOf("Male", "Female"))
+                    else -> TextField(it.name, it.required,TextField.VyouInputType.fromType(it.type))
                 }
             }
             .toTypedArray()
 
     private fun mapCheckBoxes(from: VyouTenant): List<CheckBoxField>{
         val listCheckBoxes = mutableListOf(
-            CheckBoxField("privacy_policy", from.privacyUrl),
-            CheckBoxField("terms_conditions", from.termsConditionsUrl)
+            CheckBoxField("privacy_policy", true,from.privacyUrl),
+            CheckBoxField("terms_conditions", true, from.termsConditionsUrl)
         )
         from.infoUrl?.let {
-            listCheckBoxes.add(CheckBoxField("comercial_info", it))
+            listCheckBoxes.add(CheckBoxField("comercial_info", false, it))
         }
         return listCheckBoxes
     }

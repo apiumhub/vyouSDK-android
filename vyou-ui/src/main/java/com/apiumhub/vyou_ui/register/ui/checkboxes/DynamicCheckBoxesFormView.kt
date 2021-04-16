@@ -21,5 +21,4 @@ internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
             .forEach { addView(it) }
     }
 
-
 }
