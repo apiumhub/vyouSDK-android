@@ -1,10 +1,24 @@
 package com.apiumhub.vyou_ui.register.domain
 
+import java.util.*
+
 internal sealed class InputField(val id: String) {
     open fun isValid() = true
+    val title = when(id){
+        "birth" -> "Fecha de Nacimiento"
+        "country" -> "País"
+        "name" -> "Nombre"
+        "phone" -> "Teléfono"
+        "gender" -> "Género"
+        "surname" -> "Apellido"
+        "vyou_internal_email" -> "Email"
+        "vyou_internal_password" -> "Contraseña"
+        "vyou_internal_repeat_password" -> "Repetir contraseña"
+        else -> id.capitalize()
+    }
 }
 
-internal class TextField(id: String, inputType: VyouInputType, val regex: String? = null) : InputField(id) {
+internal class TextField(id: String, val inputType: VyouInputType, val regex: String? = null) : InputField(id) {
 
     enum class VyouInputType(val type: String) {
         TEXT("string"),

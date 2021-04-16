@@ -24,7 +24,7 @@ internal class DateInputView @JvmOverloads constructor(
 
     fun render(inputField: DateField) {
         tag = inputField.id
-        binding.dateInputEt.hint = inputField.id
+        binding.dateInputEt.hint = inputField.title
         binding.dateInputEt.setOnClickListener { openCalendarComponent() }
     }
 

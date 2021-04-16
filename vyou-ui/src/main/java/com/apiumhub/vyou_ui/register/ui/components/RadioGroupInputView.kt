@@ -22,6 +22,7 @@ internal class RadioGroupInputView @JvmOverloads constructor(
 
     fun render(inputField: RadioGroupField) {
         tag = inputField.id
+        binding.titleRadioGroup.text = inputField.title
         inputField.options
             .mapIndexed(::mapToRadioButton)
             .forEach(binding.radioGroup::addView)
