@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.apiumhub.vyou_ui.databinding.VyouCheckBoxInputBinding
+import com.apiumhub.vyou_ui.extensions.applySpans
 
 
 internal fun CheckBoxInputView(context: Context, inputField: CheckBoxField) =
@@ -29,28 +30,8 @@ internal class CheckBoxInputView @JvmOverloads constructor(
     fun render(inputView: CheckBoxField) {
         val urlSpan = URLSpan(inputView.url)
         binding.checkBox.text = inputView.title.first.applySpans(
-            inputView.url, inputView.title.second to urlSpan
+            context, inputView.url, inputView.title.second to urlSpan
         )
         binding.checkBox.movementMethod = LinkMovementMethod.getInstance()
     }
-
-    private fun String.applySpans(
-        url: String,
-        vararg pairs: Pair<String, Any>
-    ): SpannableStringBuilder {
-        val spannable = SpannableStringBuilder(this)
-        val clickableSpan: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                context.startActivity(browserIntent)
-            }
-        }
-        pairs.forEach {
-            val start = this.indexOf(it.first)
-            val end = start + it.first.length
-            spannable.setSpan(clickableSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-        return spannable
-    }
-
 }
