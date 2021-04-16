@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.ui.components
+package com.apiumhub.vyou_ui.register.ui.form
 
 import android.content.Context
 import android.text.InputType

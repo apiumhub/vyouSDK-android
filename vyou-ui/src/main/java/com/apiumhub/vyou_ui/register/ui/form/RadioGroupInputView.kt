@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.ui.components
+package com.apiumhub.vyou_ui.register.ui.form
 
 import android.content.Context
 import android.util.AttributeSet
@@ -36,7 +36,7 @@ internal class RadioGroupInputView @JvmOverloads constructor(
 
     override fun getKeyValue(): Pair<String, String> = tag.toString() to binding.radioGroup.checkedRadioButton.text.toString()
 
-    val RadioGroup.checkedRadioButton
+    private val RadioGroup.checkedRadioButton
             get() = get(checkedRadioButtonId) as RadioButton
 
 }

@@ -1,20 +1,14 @@
-package com.apiumhub.vyou_ui.register.ui
+package com.apiumhub.vyou_ui.register.ui.form
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.view.children
 import com.apiumhub.vyou_ui.register.domain.DateField
 import com.apiumhub.vyou_ui.register.domain.InputField
 import com.apiumhub.vyou_ui.register.domain.RadioGroupField
 import com.apiumhub.vyou_ui.register.domain.TextField
-import com.apiumhub.vyou_ui.register.ui.components.DateInputView
-import com.apiumhub.vyou_ui.register.ui.components.RadioGroupInputView
-import com.apiumhub.vyou_ui.register.ui.components.TextInputView
-import com.apiumhub.vyou_ui.register.ui.components.VyouInputComponent
 
 internal class DynamicFormView @JvmOverloads constructor(
     context: Context,
