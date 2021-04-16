@@ -6,7 +6,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouDateInputBinding
+import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.DateField
 import java.util.*
 
@@ -20,12 +22,13 @@ internal class DateInputView @JvmOverloads constructor(
 
     private val binding: VyouDateInputBinding = VyouDateInputBinding.inflate(LayoutInflater.from(context), this, true)
 
-    override fun getKeyValue(): Pair<String, String> = tag.toString() to binding.dateInputEt.text.toString()
+    override fun getKeyValue(): Pair<String, String> = tag.toString() to binding.dateTextInputEt.text.toString()
 
     fun render(inputField: DateField) {
         tag = inputField.id
-        binding.dateInputEt.hint = inputField.title
-        binding.dateInputEt.setOnClickListener { openCalendarComponent() }
+        binding.dateInputLayout.hint = inputField.title
+        binding.dateTextInputEt.setOnClickListener { openCalendarComponent() }
+        addLeftIconToTextField(inputField.isMandatory, binding.dateInputLayout, R.drawable.ic_mandatory_field)
     }
 
     private fun openCalendarComponent() {
@@ -36,10 +39,10 @@ internal class DateInputView @JvmOverloads constructor(
 
         val datePickerDialog =
             DatePickerDialog(context,
-                OnDateSetListener { _, year, month, dayOfMonth ->
+                { _, year, month, dayOfMonth ->
                     val newMonth = month +1
                     val date = "$dayOfMonth/$newMonth/$year"
-                    binding.dateInputEt.setText(date) },
+                    binding.dateTextInputEt.setText(date) },
                 year,
                 month,
                 day

@@ -7,6 +7,11 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ClickableSpan
 import android.view.View
+import android.widget.TextView
+import com.apiumhub.vyou_ui.R
+import com.apiumhub.vyou_ui.register.domain.TextField
+import com.apiumhub.vyou_ui.register.ui.form.TextInputView
+import com.google.android.material.textfield.TextInputLayout
 
 fun String.applySpans(context: Context,
     url: String,
@@ -25,4 +30,20 @@ fun String.applySpans(context: Context,
         spannable.setSpan(clickableSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
     return spannable
+}
+
+fun addLeftIconToTextField(isMandatory: Boolean, view: View,  drawable: Int){
+    when (view) {
+        is TextView -> {
+            when {
+                !isMandatory -> view.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0)
+                else -> view.setCompoundDrawablesWithIntrinsicBounds(drawable,0,0,0)
+            }
+        }
+        is TextInputLayout -> {
+            when {
+                !isMandatory -> view.setStartIconDrawable(0)
+                else -> view.setStartIconDrawable(drawable)}
+        }
+    }
 }

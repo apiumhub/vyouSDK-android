@@ -7,7 +7,9 @@ import android.widget.FrameLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.view.get
+import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouRadioGroupInputBinding
+import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.RadioGroupField
 
 internal fun RadioGroupInputView(context: Context, inputfield: RadioGroupField) = RadioGroupInputView(context).apply { render(inputfield) }
@@ -23,6 +25,7 @@ internal class RadioGroupInputView @JvmOverloads constructor(
     fun render(inputField: RadioGroupField) {
         tag = inputField.id
         binding.titleRadioGroup.text = inputField.title
+        addLeftIconToTextField(inputField.isMandatory, binding.titleRadioGroup, R.drawable.ic_mandatory_field)
         inputField.options
             .mapIndexed(::mapToRadioButton)
             .forEach(binding.radioGroup::addView)

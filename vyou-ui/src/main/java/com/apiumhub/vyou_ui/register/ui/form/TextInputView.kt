@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouTextInputBinding
+import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.TextField
 
 internal fun TextInputView(context: Context, inputField: TextField) = TextInputView(context).apply { render(inputField) }
@@ -36,12 +37,8 @@ internal class TextInputView @JvmOverloads constructor(
         if (inputField.inputType == TextField.VyouInputType.PASSWORD){
             binding.textInputEt.transformationMethod = PasswordTransformationMethod.getInstance()
         }
-
-        if (!inputField.isMandatory){
-            binding.inputLayout.setStartIconDrawable(0)
-        }
-        else{
-            binding.inputLayout.setStartIconDrawable(R.drawable.ic_mandatory_field)
-        }
+        addLeftIconToTextField(inputField.isMandatory, binding.inputLayout, R.drawable.ic_mandatory_field)
     }
+
+
 }
