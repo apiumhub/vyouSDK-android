@@ -3,6 +3,7 @@ package com.apiumhub.vyou_ui.register.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouRegisterFragmentBinding
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
@@ -18,6 +19,14 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_register_fragment) {
         viewModel.dynamicForm.observe(viewLifecycleOwner) {
             binding.registerDynamicForm.render(it.fields)
         }
+
+        binding.registerCustomerrBtn.setOnClickListener {
+            createCustomerDto()
+        }
+    }
+
+    private fun createCustomerDto(){
+        binding.registerDynamicForm.getResponses()
     }
 
     companion object {

@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.RadioButton
+import android.widget.RadioGroup
+import androidx.core.view.get
 import com.apiumhub.vyou_ui.databinding.VyouRadioGroupInputBinding
 import com.apiumhub.vyou_ui.register.domain.RadioGroupField
 
@@ -18,22 +20,22 @@ internal class RadioGroupInputView @JvmOverloads constructor(
 
     private val binding = VyouRadioGroupInputBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private lateinit var currentSelected: RadioButton
-
     fun render(inputField: RadioGroupField) {
         tag = inputField.id
         inputField.options
-            .map(::mapToRadioButton)
+            .mapIndexed(::mapToRadioButton)
             .forEach(binding.radioGroup::addView)
     }
 
-    private fun mapToRadioButton(field: String) =
+    private fun mapToRadioButton(index: Int, field: String) =
         RadioButton(context).also { radioButton ->
             radioButton.text = field
-            setOnClickListener {
-                currentSelected = radioButton
-            }
+            radioButton.id = index
         }
 
-    override fun getKeyValue(): Pair<String, String> = tag.toString() to currentSelected.text.toString()
+    override fun getKeyValue(): Pair<String, String> = tag.toString() to binding.radioGroup.checkedRadioButton.text.toString()
+
+    val RadioGroup.checkedRadioButton
+            get() = get(checkedRadioButtonId) as RadioButton
+
 }
