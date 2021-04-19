@@ -3,6 +3,8 @@ package com.apiumhub.vyou_ui.register.ui.checkboxes
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import androidx.core.view.children
+
 
 
 internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
@@ -20,5 +22,11 @@ internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
             .map { CheckBoxInputView(context, it) }
             .forEach { addView(it) }
     }
+
+
+    fun getResponses(): List<Pair<String, Boolean>> =
+        children
+            .map { (it as CheckBoxInputView).isChecked() }
+            .toList()
 
 }

@@ -20,7 +20,10 @@ internal class VyouRegisterViewModel(private val tenantManager: VyouTenantManage
         }
     }
 
-    suspend fun sendDataToRegister(customer: CreateCustomerDto){
-        tenantManager.register(customer)
+    fun sendDataToRegister(customer: CreateCustomerDto){
+        viewModelScope.launch {
+            tenantManager.register(customer)
+        }
+
     }
 }

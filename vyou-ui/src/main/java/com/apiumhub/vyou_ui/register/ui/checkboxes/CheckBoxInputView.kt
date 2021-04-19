@@ -29,5 +29,5 @@ internal class CheckBoxInputView @JvmOverloads constructor(
         binding.checkBox.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    fun isChecked() = binding.checkBox.isChecked
+    fun isChecked(): Pair<String, Boolean> = tag.toString() to binding.checkBox.isChecked
 }
