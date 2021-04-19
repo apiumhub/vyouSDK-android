@@ -9,6 +9,7 @@ import com.apiumhub.vyou_ui.register.domain.DateField
 import com.apiumhub.vyou_ui.register.domain.InputField
 import com.apiumhub.vyou_ui.register.domain.RadioGroupField
 import com.apiumhub.vyou_ui.register.domain.TextField
+import com.apiumhub.vyou_ui.register.ui.FieldOutModel
 
 internal class DynamicFormView @JvmOverloads constructor(
     context: Context,
@@ -26,7 +27,7 @@ internal class DynamicFormView @JvmOverloads constructor(
             .forEach { addView(it) }
     }
 
-    fun getResponses(): List<Pair<String, String>> =
+    fun getResponses(): List<FieldOutModel> =
         children
             .map { (it as VyouInputComponent).validate().getKeyValue() }
             .filterNotNull()

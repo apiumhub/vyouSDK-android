@@ -11,6 +11,7 @@ import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouTextInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.TextField
+import com.apiumhub.vyou_ui.register.ui.FieldOutModel
 import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
 
 internal fun TextInputView(context: Context, inputField: TextField) =
@@ -25,10 +26,12 @@ internal class TextInputView @JvmOverloads constructor(
     private val binding: VyouTextInputBinding =
         VyouTextInputBinding.inflate(LayoutInflater.from(context), this, true)
 
-    override fun getKeyValue(): Pair<String, String> =
-        tag.toString() to binding.textInputEt.text.toString()
-
     private lateinit var inputField: TextField
+
+    override fun getKeyValue(): FieldOutModel? =
+        binding.textInputEt.text?.takeIf { it.isNotEmpty() }?.let {
+            FieldOutModel(inputField.fieldType, inputField.id, it.toString())
+        }
 
     fun render(inputField: TextField) {
         this.inputField = inputField
@@ -58,7 +61,7 @@ internal class TextInputView @JvmOverloads constructor(
                 binding.inputLayout.error = "Field is mandatory"
                 throw ValidationException(this)
             }
-            if (inputField.inputType == TextField.VyouInputType.EMAIL && !Patterns.EMAIL_ADDRESS.matcher(it).matches()){
+            if (it.isNotEmpty() && inputField.inputType == TextField.VyouInputType.EMAIL && !Patterns.EMAIL_ADDRESS.matcher(it).matches()) {
                 binding.inputLayout.error = "Invalid E-mail"
                 throw ValidationException(this)
             }

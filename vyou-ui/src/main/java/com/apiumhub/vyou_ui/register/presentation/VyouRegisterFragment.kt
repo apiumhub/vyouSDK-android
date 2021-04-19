@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouRegisterFragmentBinding
-import com.apiumhub.vyou_ui.register.domain.ModelTenant
 import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,10 +24,8 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_register_fragment) {
         binding.registerCustomerBtn.setOnClickListener {
             runCatching {
                 viewModel.sendDataToRegister(
-                    ModelTenant().parseResponsesToModel(
-                        binding.registerDynamicForm.getResponses(),
-                        binding.checkBoxesDynamicForm.getResponses()
-                    )
+                    binding.registerDynamicForm.getResponses().groupBy { it.fieldType },
+                    binding.checkBoxesDynamicForm.getResponses()
                 )
             }.onFailure {
                 (it as ValidationException).view.requestFocus()

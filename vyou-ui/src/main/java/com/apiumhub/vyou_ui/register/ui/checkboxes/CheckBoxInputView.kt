@@ -32,7 +32,7 @@ internal class CheckBoxInputView @JvmOverloads constructor(
         binding.checkBox.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    fun isChecked(): Pair<String, Boolean> = tag.toString() to binding.checkBox.isChecked
+    fun isChecked(): Pair<String, Boolean> = inputField.id to binding.checkBox.isChecked
 
     @Throws(ValidationException::class)
     fun validate(): CheckBoxInputView = apply {

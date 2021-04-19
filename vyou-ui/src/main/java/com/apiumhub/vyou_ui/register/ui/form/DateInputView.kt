@@ -9,6 +9,7 @@ import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouDateInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.DateField
+import com.apiumhub.vyou_ui.register.ui.FieldOutModel
 import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
 import java.util.*
 
@@ -25,10 +26,12 @@ internal class DateInputView @JvmOverloads constructor(
     private val binding: VyouDateInputBinding =
         VyouDateInputBinding.inflate(LayoutInflater.from(context), this, true)
 
-    override fun getKeyValue(): Pair<String, String> =
-        tag.toString() to binding.dateTextInputEt.text.toString()
-
     private lateinit var inputField: DateField
+
+    override fun getKeyValue(): FieldOutModel? =
+        binding.dateTextInputEt.text?.takeIf { it.isNotEmpty() }?.let {
+            FieldOutModel(inputField.fieldType, inputField.id, it.toString())
+        }
 
     fun render(inputField: DateField) {
         this.inputField = inputField

@@ -12,6 +12,7 @@ import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouRadioGroupInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.RadioGroupField
+import com.apiumhub.vyou_ui.register.ui.FieldOutModel
 import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
 
 internal fun RadioGroupInputView(context: Context, inputfield: RadioGroupField) =
@@ -47,9 +48,9 @@ internal class RadioGroupInputView @JvmOverloads constructor(
             radioButton.id = index
         }
 
-    override fun getKeyValue(): Pair<String, String>? =
+    override fun getKeyValue(): FieldOutModel?=
         binding.radioGroup.checkedRadioButton?.text?.let {
-            tag.toString() to it.toString()
+            FieldOutModel(inputField.fieldType, inputField.id, it.toString())
         }
 
     private val RadioGroup.checkedRadioButton
