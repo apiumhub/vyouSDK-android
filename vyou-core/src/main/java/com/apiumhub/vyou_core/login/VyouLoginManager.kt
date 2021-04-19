@@ -3,6 +3,7 @@ package com.apiumhub.vyou_core.login
 import android.content.Intent
 import androidx.activity.result.ActivityResultCaller
 import androidx.fragment.app.Fragment
+import com.apiumhub.vyou_core.domain.VyouResult
 import com.apiumhub.vyou_core.login.domain.LoginRepository
 import com.apiumhub.vyou_core.login.facebook.FacebookSignInCollaborator
 import com.apiumhub.vyou_core.login.google.GoogleSignInCollaborator
@@ -22,20 +23,23 @@ class VyouLoginManager internal constructor(actResultCaller: ActivityResultCalle
     private val authRepository: LoginRepository by inject()
     private val sessionRepository: SessionRepository by inject()
 
-    suspend fun signInWithAuth() =
-        authRepository
-            .authenticateWithVyouCode(vyouSignIn.start())
-            .run (sessionRepository::storeSession)
+    suspend fun signInWithAuth() {
+        runCatching {
+            authRepository
+                .authenticateWithVyouCode(vyouSignIn.start())
+                .run(sessionRepository::storeSession)
+        }.fold(VyouResult::Success, VyouResult::Error)
+    }
 
     suspend fun signInWithGoogle() =
         authRepository
             .authenticateWithGoogle(googleSignIn.start())
-            .run (sessionRepository::storeSession)
+            .run(sessionRepository::storeSession)
 
     suspend fun signInWithFacebook(fragment: Fragment) =
         authRepository
             .authenticateWithFacebook(facebookSignIn.start(fragment))
-            .run (sessionRepository::storeSession)
+            .run(sessionRepository::storeSession)
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         facebookSignIn.onActivityResult(requestCode, resultCode, data)
