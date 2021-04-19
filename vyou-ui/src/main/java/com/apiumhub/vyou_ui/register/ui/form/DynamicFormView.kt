@@ -28,7 +28,8 @@ internal class DynamicFormView @JvmOverloads constructor(
 
     fun getResponses(): List<Pair<String, String>> =
         children
-            .map { (it as VyouInputComponent).getKeyValue() }
+            .map { (it as VyouInputComponent).validate().getKeyValue() }
+            .filterNotNull()
             .toList()
 
     private fun createComponent(it: InputField): View =

@@ -16,7 +16,7 @@ data class CreateCustomerDto(
     @SerializedName("tenant_roles")
     val tenantRoles: List<String>,
     @SerializedName("dynamic_fields")
-    val dynamicFields: Map<String, String>,
+    val customFields: Map<String, String>,
     @SerializedName("mandatory_fields")
-    val mandatoryFields: Map<String, String>
+    val defaultFields: Map<String, String>
 )

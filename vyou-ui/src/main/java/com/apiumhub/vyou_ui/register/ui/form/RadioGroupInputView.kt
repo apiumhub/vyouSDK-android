@@ -7,12 +7,15 @@ import android.widget.FrameLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouRadioGroupInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.RadioGroupField
+import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
 
-internal fun RadioGroupInputView(context: Context, inputfield: RadioGroupField) = RadioGroupInputView(context).apply { render(inputfield) }
+internal fun RadioGroupInputView(context: Context, inputfield: RadioGroupField) =
+    RadioGroupInputView(context).apply { render(inputfield) }
 
 internal class RadioGroupInputView @JvmOverloads constructor(
     context: Context,
@@ -20,12 +23,19 @@ internal class RadioGroupInputView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), VyouInputComponent {
 
-    private val binding = VyouRadioGroupInputBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding =
+        VyouRadioGroupInputBinding.inflate(LayoutInflater.from(context), this, true)
+    private lateinit var inputField: RadioGroupField
 
     fun render(inputField: RadioGroupField) {
+        this.inputField = inputField
         tag = inputField.id
         binding.titleRadioGroup.text = inputField.title
-        addLeftIconToTextField(inputField.isMandatory, binding.titleRadioGroup, R.drawable.ic_mandatory_field)
+        addLeftIconToTextField(
+            inputField.isRequired,
+            binding.titleRadioGroup,
+            R.drawable.ic_mandatory_field
+        )
         inputField.options
             .mapIndexed(::mapToRadioButton)
             .forEach(binding.radioGroup::addView)
@@ -37,9 +47,20 @@ internal class RadioGroupInputView @JvmOverloads constructor(
             radioButton.id = index
         }
 
-    override fun getKeyValue(): Pair<String, String> = tag.toString() to binding.radioGroup.checkedRadioButton.text.toString()
+    override fun getKeyValue(): Pair<String, String>? =
+        binding.radioGroup.checkedRadioButton?.text?.let {
+            tag.toString() to it.toString()
+        }
 
     private val RadioGroup.checkedRadioButton
-            get() = get(checkedRadioButtonId) as RadioButton
+        get() = runCatching { get(checkedRadioButtonId) as RadioButton }.getOrNull()
 
+    override fun validate() = apply {
+        if (inputField.isRequired && binding.radioGroup.checkedRadioButton == null) {
+            binding.radioGroupError.isVisible = true
+            throw ValidationException(this)
+        } else
+            binding.radioGroupError.isVisible = false
+
+    }
 }

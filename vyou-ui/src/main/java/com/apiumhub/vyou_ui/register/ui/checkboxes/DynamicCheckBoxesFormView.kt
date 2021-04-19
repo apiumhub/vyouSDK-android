@@ -4,8 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.core.view.children
-
-
+import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
 
 internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
     context: Context,
@@ -23,10 +22,8 @@ internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
             .forEach { addView(it) }
     }
 
-
     fun getResponses(): List<Pair<String, Boolean>> =
         children
-            .map { (it as CheckBoxInputView).isChecked() }
+            .map { (it as CheckBoxInputView).validate().isChecked() }
             .toList()
-
 }
