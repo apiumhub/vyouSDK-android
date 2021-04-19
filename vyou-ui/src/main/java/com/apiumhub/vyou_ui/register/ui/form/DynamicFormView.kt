@@ -5,10 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.children
-import com.apiumhub.vyou_ui.register.domain.DateField
-import com.apiumhub.vyou_ui.register.domain.InputField
-import com.apiumhub.vyou_ui.register.domain.RadioGroupField
-import com.apiumhub.vyou_ui.register.domain.TextField
+import com.apiumhub.vyou_ui.register.domain.*
 import com.apiumhub.vyou_ui.register.ui.FieldOutModel
 
 internal class DynamicFormView @JvmOverloads constructor(
@@ -38,5 +35,6 @@ internal class DynamicFormView @JvmOverloads constructor(
             is DateField -> DateInputView(context, it)
             is RadioGroupField -> RadioGroupInputView(context, it)
             is TextField -> TextInputView(context, it)
+            is PasswordField -> PasswordInputView(context, it)
         }
 }

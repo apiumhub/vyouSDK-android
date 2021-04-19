@@ -16,6 +16,9 @@ internal class VyouRegisterViewModel(private val tenantManager: VyouTenantManage
     private val _dynamicForm = MutableLiveData<UiTenant>()
     val dynamicForm: LiveData<UiTenant> = _dynamicForm
 
+    private val _userRegistered = MutableLiveData<Unit>()
+    val userRegistered: LiveData<Unit> = _userRegistered
+
     init {
         viewModelScope.launch {
             _dynamicForm.value = UiTenant(tenantManager.tenant())
@@ -36,6 +39,7 @@ internal class VyouRegisterViewModel(private val tenantManager: VyouTenantManage
                     termsConditionsAccepted = checkboxes.first { it.first == "terms_conditions" }.second
                 )
             )
+            _userRegistered.value = Unit
         }
     }
 }

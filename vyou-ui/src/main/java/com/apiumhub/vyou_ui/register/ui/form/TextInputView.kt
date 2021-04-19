@@ -42,11 +42,6 @@ internal class TextInputView @JvmOverloads constructor(
             TextField.VyouInputType.TEXT -> InputType.TYPE_CLASS_TEXT
             TextField.VyouInputType.NUMBER -> InputType.TYPE_CLASS_NUMBER
             TextField.VyouInputType.EMAIL -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-            TextField.VyouInputType.PASSWORD -> InputType.TYPE_TEXT_VARIATION_PASSWORD
-        }
-
-        if (inputField.inputType == TextField.VyouInputType.PASSWORD) {
-            binding.textInputEt.transformationMethod = PasswordTransformationMethod.getInstance()
         }
         addLeftIconToTextField(
             inputField.isRequired,
