@@ -18,6 +18,9 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_register_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+        }
         viewModel.dynamicForm.observe(viewLifecycleOwner) {
             binding.checkBoxesDynamicForm.isVisible = true
             binding.registerCustomerBtn.isVisible = true

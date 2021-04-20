@@ -9,10 +9,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
-import com.apiumhub.vyou.ui.authenticated.AuthenticatedUserFragment
 import com.apiumhub.vyou_core.Vyou
+import com.apiumhub.vyou_core.domain.VyouResult
 import com.apiumhub.vyou_core.session.domain.VyouSession
-import com.apiumhub.vyou_ui.VyouUI
+import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
 
@@ -32,9 +32,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             launchLogin { vyouLogin.signInWithGoogle() }
         }
         binding.mainFbSignInBtn.setOnClickListener {
-            launchLogin {
-                vyouLogin.signInWithFacebook(this@MainFragment)
-            }
+            launchLogin { vyouLogin.signInWithFacebook(this@MainFragment) }
         }
         binding.mainRegisterBtn.setOnClickListener {
             lifecycleScope.launch {
@@ -43,10 +41,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
-    private fun launchLogin(function: suspend () -> VyouSession) {
+    private fun launchLogin(function: suspend () -> VyouResult<VyouSession>) {
         lifecycleScope.launch {
-            function()
-            navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+            when(function()) {
+                is VyouResult.Failure -> Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+                is VyouResult.Success -> navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+            }
         }
     }
 
