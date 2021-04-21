@@ -1,10 +1,16 @@
 package com.apiumhub.vyou_ui.profile.presentation
 
 import android.os.Parcelable
+import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TenantCompliant(
     val tenantDataCompliant: Boolean,
     val tenantConsentCompliant: Boolean
-): Parcelable
+) : Parcelable {
+    constructor(credentials: VyouCredentials) : this(
+        credentials.tenantCompliant,
+        credentials.tenantConsentCompliant
+    )
+}

@@ -1,6 +1,5 @@
 package com.apiumhub.vyou_ui.profile.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,18 +12,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProfileFragment internal constructor(
+class VyouProfileFragment internal constructor(
     private val onProfileSaved: () -> Unit,
-    private val onError: (error: Throwable) -> Unit
+    private val onError: (error: Throwable) -> Unit,
+    private val tenantCompliant: TenantCompliant
 ) : Fragment(R.layout.vyou_profile_fragment) {
 
     private val viewModel: ProfileViewModel by viewModel()
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
-    private val args: TenantCompliant by lazy {
-        arguments?.let {
-            it["tenantCompliant"] as TenantCompliant
-        } ?: throw IllegalArgumentException()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +30,7 @@ class ProfileFragment internal constructor(
             binding.profileDynamicForm.isVisible = true
             binding.profileLoadingPb.isVisible = false
             binding.profileDynamicForm.render(it.fields)
-            binding.checkBoxesDynamicForm.render(it.checkBoxes, args.tenantConsentCompliant)
+            binding.checkBoxesDynamicForm.render(it.checkBoxes, tenantCompliant.tenantConsentCompliant)
         }
 
         viewModel.profile.observe(viewLifecycleOwner) {
@@ -43,11 +38,13 @@ class ProfileFragment internal constructor(
         }
 
         viewModel.saved.observe(viewLifecycleOwner) {
-            Log.d("Saved", "Saved")
+//            Log.d("Saved", "Saved")
+            onProfileSaved()
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+//            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+            onError(it)
         }
 
         binding.saveBtn.text = "Save"
@@ -60,16 +57,6 @@ class ProfileFragment internal constructor(
             }.onFailure {
                 (it as ValidationException).view.requestFocus()
             }
-        }
-    }
-
-    companion object {
-        fun newInstance(
-            tenantCompliant: TenantCompliant,
-            onProfileSaved: () -> Unit,
-            onError: (error: Throwable) -> Unit
-        ) = ProfileFragment(onProfileSaved, onError).apply {
-            arguments?.putParcelable("tenantCompliant", tenantCompliant)
         }
     }
 }

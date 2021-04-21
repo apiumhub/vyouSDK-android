@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.apiumhub.vyou_ui.profile.presentation.ProfileFragment"
+        android:name="com.apiumhub.vyou_ui.profile.presentation.VyouProfileFragment"
         android:label="EditProfileFragment"
         tools:layout="@layout/vyou_profile_fragment">
         <argument

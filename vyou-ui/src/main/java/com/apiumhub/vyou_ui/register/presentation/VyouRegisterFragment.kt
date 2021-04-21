@@ -11,7 +11,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
+class VyouRegisterFragment(
+    private val onSuccess: () -> Unit,
+    private val onError: (error: Throwable) -> Unit
+) : Fragment(R.layout.vyou_profile_fragment) {
 
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
     private val viewModel: VyouRegisterViewModel by viewModel()
@@ -19,7 +22,7 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+            onError(it)
         }
         viewModel.dynamicForm.observe(viewLifecycleOwner) {
             binding.checkBoxesDynamicForm.isVisible = true
@@ -31,8 +34,7 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
         }
 
         viewModel.userRegistered.observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, "User registered successfully!\nPlease login", Snackbar.LENGTH_LONG).show()
-            requireActivity().onBackPressed()
+            onSuccess()
         }
 
         binding.saveBtn.text = "Register user"
@@ -46,9 +48,5 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
                 (it as ValidationException).view.requestFocus()
             }
         }
-    }
-
-    companion object {
-        fun newInstance() = VyouRegisterFragment()
     }
 }
