@@ -9,9 +9,9 @@ import retrofit2.http.POST
 
 interface TenantApi {
     @GET("/api/v1/tenant")
-    suspend fun getTenant(@Header("Authorization") basicAuth: String): VyouTenant
+    suspend fun getTenant(): VyouTenant
 
     @POST("/api/v1/customer")
-    suspend fun createCustomer(@Header("Authorization") basicAuth: String, @Body customer: CreateCustomerDto)
+    suspend fun createCustomer(@Body customer: CreateCustomerDto)
 
 }

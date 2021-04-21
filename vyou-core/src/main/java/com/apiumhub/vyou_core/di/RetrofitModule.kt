@@ -1,5 +1,6 @@
 package com.apiumhub.vyou_core.di
 
+import com.apiumhub.vyou_core.data.ClientCredentialsInterceptor
 import com.apiumhub.vyou_core.data.ManifestReader
 import com.apiumhub.vyou_core.login.data.AuthApi
 import com.apiumhub.vyou_core.tenant.data.TenantApi
@@ -22,6 +23,7 @@ val retrofitModule = module {
     single {
         OkHttpClient
             .Builder()
+            .addInterceptor(ClientCredentialsInterceptor(get()))
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
     }

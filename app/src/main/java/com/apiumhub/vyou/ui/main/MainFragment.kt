@@ -12,6 +12,8 @@ import com.apiumhub.vyou.databinding.MainFragmentBinding
 import com.apiumhub.vyou_core.Vyou
 import com.apiumhub.vyou_core.domain.VyouResult
 import com.apiumhub.vyou_core.session.domain.VyouSession
+import com.apiumhub.vyou_ui.profile.presentation.ProfileFragmentArgs
+import com.apiumhub.vyou_ui.profile.presentation.TenantCompliant
 import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
@@ -43,9 +45,20 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun launchLogin(function: suspend () -> VyouResult<VyouSession>) {
         lifecycleScope.launch {
-            when(function()) {
+            when (val result = function()) {
                 is VyouResult.Failure -> Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
-                is VyouResult.Success -> navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+                is VyouResult.Success -> {
+                    ProfileFragmentArgs
+                    val credentials = result.value.credentials
+                    if (credentials.tenantCompliant && credentials.tenantConsentCompliant)
+                        navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+                    else
+                        navController.navigate(
+                            MainFragmentDirections.mainFragmentToEditProfile(
+                                TenantCompliant(credentials.tenantCompliant, credentials.tenantConsentCompliant)
+                            )
+                        )
+                }
             }
         }
     }

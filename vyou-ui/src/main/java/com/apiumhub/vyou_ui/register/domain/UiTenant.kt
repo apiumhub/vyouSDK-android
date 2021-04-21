@@ -2,8 +2,8 @@ package com.apiumhub.vyou_ui.register.domain
 
 import com.apiumhub.vyou_core.tenant.domain.VyouFieldDto
 import com.apiumhub.vyou_core.tenant.domain.VyouTenant
-import com.apiumhub.vyou_ui.register.ui.FieldType
-import com.apiumhub.vyou_ui.register.ui.checkboxes.CheckBoxField
+import com.apiumhub.vyou_ui.components.FieldType
+import com.apiumhub.vyou_ui.components.checkboxes.CheckBoxField
 
 internal class UiTenant(from: VyouTenant) {
     val fields: List<InputField>

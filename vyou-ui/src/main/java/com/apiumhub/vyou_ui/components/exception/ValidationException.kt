@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.ui.exception
+package com.apiumhub.vyou_ui.components.exception
 
 import android.view.View
 

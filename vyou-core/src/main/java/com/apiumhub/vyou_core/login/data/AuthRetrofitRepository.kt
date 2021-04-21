@@ -17,8 +17,8 @@ internal class AuthRetrofitRepository(
         authApi.webAccessToken(code, manifestReader.readVyouRedirectUri())
 
     override suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials =
-        authApi.loginWithGoogle("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
+        authApi.loginWithGoogle(GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
 
     override suspend fun authenticateWithFacebook(facebookToken: String): VyouCredentials =
-        authApi.loginWithFacebook("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", FacebookAuthBody(facebookToken))
+        authApi.loginWithFacebook(FacebookAuthBody(facebookToken))
 }

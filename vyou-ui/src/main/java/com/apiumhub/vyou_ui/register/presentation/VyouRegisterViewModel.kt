@@ -9,8 +9,8 @@ import com.apiumhub.vyou_core.domain.VyouResult.Success
 import com.apiumhub.vyou_core.tenant.VyouTenantManager
 import com.apiumhub.vyou_core.tenant.domain.CreateCustomerDto
 import com.apiumhub.vyou_ui.register.domain.UiTenant
-import com.apiumhub.vyou_ui.register.ui.FieldOutModel
-import com.apiumhub.vyou_ui.register.ui.FieldType
+import com.apiumhub.vyou_ui.components.FieldOutModel
+import com.apiumhub.vyou_ui.components.FieldType
 import kotlinx.coroutines.launch
 
 internal class VyouRegisterViewModel(private val tenantManager: VyouTenantManager) : ViewModel() {
@@ -33,7 +33,10 @@ internal class VyouRegisterViewModel(private val tenantManager: VyouTenantManage
         }
     }
 
-    fun sendDataToRegister(customer: Map<FieldType, List<FieldOutModel>>, checkboxes: List<Pair<String, Boolean>>) {
+    fun sendDataToRegister(
+        customer: Map<FieldType, List<FieldOutModel>>,
+        checkboxes: List<Pair<String, Boolean>>
+    ) {
         viewModelScope.launch {
             when (val result = tryRegister(customer, checkboxes)) {
                 is Failure -> _errorLiveData.value = result.error
@@ -49,7 +52,7 @@ internal class VyouRegisterViewModel(private val tenantManager: VyouTenantManage
                 password = customer.getValue(FieldType.PASSWORD).first().value,
                 customFields = customer[FieldType.CUSTOM]?.associate { it.key to it.value } ?: emptyMap(),
                 defaultFields = customer[FieldType.DEFAULT]?.associate { it.key to it.value } ?: emptyMap(),
-                tenantRoles = emptyList(),
+                tenantRoles = listOf("CUSTOMER"),
                 infoAccepted = checkboxes.first { it.first == "comercial_info" }.second,
                 privacyAccepted = checkboxes.first { it.first == "privacy_policy" }.second,
                 termsConditionsAccepted = checkboxes.first { it.first == "terms_conditions" }.second

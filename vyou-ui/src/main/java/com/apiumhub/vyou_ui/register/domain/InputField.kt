@@ -1,6 +1,6 @@
 package com.apiumhub.vyou_ui.register.domain
 
-import com.apiumhub.vyou_ui.register.ui.FieldType
+import com.apiumhub.vyou_ui.components.FieldType
 
 internal sealed class InputField(val id: String, val isRequired: Boolean, val fieldType: FieldType) {
     val title = when (id) {

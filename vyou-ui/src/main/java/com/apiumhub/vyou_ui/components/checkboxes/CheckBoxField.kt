@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.ui.checkboxes
+package com.apiumhub.vyou_ui.components.checkboxes
 
 internal class CheckBoxField(val id: String, val isRequired: Boolean, val url: String){
     val title : Pair<String, String> = when(id){

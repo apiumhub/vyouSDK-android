@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.presentation
+package com.apiumhub.vyou_ui.profile.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -11,17 +11,20 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
+class ProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
 
+    private val viewModel: ProfileViewModel by viewModel()
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
-    private val viewModel: VyouRegisterViewModel by viewModel()
+    private val args: TenantCompliant by lazy {
+        arguments?.let {
+            it["tenantCompliant"] as TenantCompliant
+        } ?: throw IllegalArgumentException()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
-        }
-        viewModel.dynamicForm.observe(viewLifecycleOwner) {
+
+        viewModel.tenant.observe(viewLifecycleOwner) {
             binding.checkBoxesDynamicForm.isVisible = true
             binding.saveBtn.isVisible = true
             binding.profileDynamicForm.isVisible = true
@@ -30,15 +33,18 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
             binding.checkBoxesDynamicForm.render(it.checkBoxes)
         }
 
-        viewModel.userRegistered.observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, "User registered successfully!\nPlease login", Snackbar.LENGTH_LONG).show()
-            requireActivity().onBackPressed()
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.profileDynamicForm.fillWithProfile(it)
         }
 
-        binding.saveBtn.text = "Register user"
+        viewModel.error.observe(viewLifecycleOwner) {
+            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+        }
+
+        binding.saveBtn.text = "Save"
         binding.saveBtn.setOnClickListener {
             runCatching {
-                viewModel.sendDataToRegister(
+                viewModel.saveData(
                     binding.profileDynamicForm.getResponses().groupBy { it.fieldType },
                     binding.checkBoxesDynamicForm.getResponses()
                 )
@@ -49,6 +55,9 @@ class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
     }
 
     companion object {
-        fun newInstance() = VyouRegisterFragment()
+        fun newInstance(tenantCompliant: TenantCompliant) = ProfileFragment().apply {
+            arguments?.putParcelable("tenantCompliant", tenantCompliant)
+        }
     }
+
 }

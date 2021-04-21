@@ -1,12 +1,13 @@
-package com.apiumhub.vyou_ui.register.ui.form
+package com.apiumhub.vyou_ui.components.form
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.children
+import com.apiumhub.vyou_core.session.domain.VyouProfile
 import com.apiumhub.vyou_ui.register.domain.*
-import com.apiumhub.vyou_ui.register.ui.FieldOutModel
+import com.apiumhub.vyou_ui.components.FieldOutModel
 
 internal class DynamicFormView @JvmOverloads constructor(
     context: Context,
@@ -37,4 +38,24 @@ internal class DynamicFormView @JvmOverloads constructor(
             is TextField -> TextInputView(context, it)
             is PasswordField -> PasswordInputView(context, it)
         }
+
+    fun fillWithProfile(profile: VyouProfile) {
+        val components = children.map { it as VyouInputComponent }.groupBy { it.id }
+        profile.email?.let {
+            components["vyou_internal_email"]?.first()?.setValue(it)
+        }
+        profile.customFields.entries.forEach { entry ->
+            entry.value?.let {
+                if (it.isNotEmpty() && it.isNotBlank())
+                    components[entry.key]?.first()?.setValue(it)
+            }
+        }
+        profile.defaultFields.entries.forEach { entry ->
+            entry.value?.let {
+                if (it.isNotEmpty() && it.isNotBlank())
+                    components[entry.key]?.first()?.setValue(it)
+            }
+        }
+        components["vyou_internal_password"]?.firstOrNull()?.visible = false
+    }
 }

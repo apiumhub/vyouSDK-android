@@ -11,9 +11,9 @@ class TenantRetrofitRepository(
 ) : TenantRepository {
 
     override suspend fun getTenant() =
-        tenantApi.getTenant("Basic ${base64Encoder.vyouClientIdEncodedForAuth}")
+        tenantApi.getTenant()
 
     override suspend fun createCustomer(customer: CreateCustomerDto) =
-        tenantApi.createCustomer("Basic ${base64Encoder.vyouClientIdEncodedForAuth}", customer)
+        tenantApi.createCustomer( customer)
 
 }

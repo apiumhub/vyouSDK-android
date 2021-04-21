@@ -1,10 +1,9 @@
-package com.apiumhub.vyou_ui.register.ui.checkboxes
+package com.apiumhub.vyou_ui.components.checkboxes
 
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.core.view.children
-import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
 
 internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
     context: Context,

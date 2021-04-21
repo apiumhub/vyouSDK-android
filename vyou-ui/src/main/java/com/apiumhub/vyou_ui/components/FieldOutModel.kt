@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.ui
+package com.apiumhub.vyou_ui.components
 
 data class FieldOutModel (
     val fieldType: FieldType,

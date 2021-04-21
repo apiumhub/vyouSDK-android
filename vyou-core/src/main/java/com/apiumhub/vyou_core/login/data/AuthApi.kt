@@ -10,8 +10,8 @@ interface AuthApi {
     suspend fun webAccessToken(@Query("code") code: String, @Query("redirect_uri") redirectUri: String): VyouCredentials
 
     @POST("/googlelogin")
-    suspend fun loginWithGoogle(@Header("Authorization") authHeader: String, @Body body: GoogleAuthBody): VyouCredentials
+    suspend fun loginWithGoogle(@Body body: GoogleAuthBody): VyouCredentials
 
     @POST("/facebooklogin")
-    suspend fun loginWithFacebook(@Header("Authorization") authHeader: String, @Body body: FacebookAuthBody): VyouCredentials
+    suspend fun loginWithFacebook(@Body body: FacebookAuthBody): VyouCredentials
 }

@@ -1,18 +1,18 @@
-package com.apiumhub.vyou_ui.register.ui.form
+package com.apiumhub.vyou_ui.components.form
 
 import android.content.Context
 import android.text.InputType
-import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouTextInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.TextField
-import com.apiumhub.vyou_ui.register.ui.FieldOutModel
-import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
+import com.apiumhub.vyou_ui.components.FieldOutModel
+import com.apiumhub.vyou_ui.components.exception.ValidationException
 
 internal fun TextInputView(context: Context, inputField: TextField) =
     TextInputView(context).apply { render(inputField) }
@@ -27,6 +27,19 @@ internal class TextInputView @JvmOverloads constructor(
         VyouTextInputBinding.inflate(LayoutInflater.from(context), this, true)
 
     private lateinit var inputField: TextField
+
+    override val id: String
+        get() = inputField.id
+
+    override var visible: Boolean
+        get() = isVisible
+        set(value) {
+            isVisible = value
+        }
+
+    override fun setValue(value: String) {
+        binding.textInputEt.setText(value)
+    }
 
     override fun getKeyValue(): FieldOutModel? =
         binding.textInputEt.text?.takeIf { it.isNotEmpty() }?.let {

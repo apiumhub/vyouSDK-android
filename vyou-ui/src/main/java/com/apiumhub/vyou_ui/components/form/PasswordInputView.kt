@@ -1,14 +1,15 @@
-package com.apiumhub.vyou_ui.register.ui.form
+package com.apiumhub.vyou_ui.components.form
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.databinding.VyouPasswordInputBinding
 import com.apiumhub.vyou_ui.register.domain.PasswordField
-import com.apiumhub.vyou_ui.register.ui.FieldOutModel
-import com.apiumhub.vyou_ui.register.ui.FieldType
-import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
+import com.apiumhub.vyou_ui.components.FieldOutModel
+import com.apiumhub.vyou_ui.components.FieldType
+import com.apiumhub.vyou_ui.components.exception.ValidationException
 
 internal fun PasswordInputView(context: Context, inputField: PasswordField) =
     PasswordInputView(context).apply { render(inputField) }
@@ -23,6 +24,16 @@ internal class PasswordInputView @JvmOverloads constructor(
         VyouPasswordInputBinding.inflate(LayoutInflater.from(context), this, true)
 
     private lateinit var inputField: PasswordField
+    override val id: String
+        get() = inputField.id
+
+    override var visible: Boolean
+        get() = isVisible
+        set(value) { isVisible = value }
+
+    override fun setValue(value: String) {
+        //NoOp
+    }
 
     override fun getKeyValue(): FieldOutModel? = binding.passwordInputEt.text?.let {
         FieldOutModel(FieldType.PASSWORD, inputField.id, it.toString())

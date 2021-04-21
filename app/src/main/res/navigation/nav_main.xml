@@ -19,6 +19,16 @@
             android:id="@+id/mainFragment_to_register"
             app:destination="@id/registerUserFragment" />
 
+        <action
+            android:id="@+id/mainFragment_to_editProfile"
+            app:destination="@id/editProfileFragment">
+            <argument
+                android:name="tenantCompliant"
+                app:argType="com.apiumhub.vyou_ui.profile.presentation.TenantCompliant"
+                app:nullable="true"
+                />
+        </action>
+
     </fragment>
 
     <fragment
@@ -31,6 +41,18 @@
         android:id="@+id/registerUserFragment"
         android:name="com.apiumhub.vyou_ui.register.presentation.VyouRegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/vyou_register_fragment" />
+        tools:layout="@layout/vyou_profile_fragment" />
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.apiumhub.vyou_ui.profile.presentation.ProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/vyou_profile_fragment">
+        <argument
+            android:name="tenantCompliant"
+            app:argType="com.apiumhub.vyou_ui.profile.presentation.TenantCompliant"
+            app:nullable="false"
+            />
+    </fragment>
 
 </navigation>

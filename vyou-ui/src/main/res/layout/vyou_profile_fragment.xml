@@ -11,15 +11,15 @@
         android:layout_height="wrap_content">
 
         <ProgressBar
-            android:id="@+id/registerLoadingPb"
+            android:id="@+id/profile_loading_pb"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.apiumhub.vyou_ui.register.ui.form.DynamicFormView
-            android:id="@+id/registerDynamicForm"
+        <com.apiumhub.vyou_ui.components.form.DynamicFormView
+            android:id="@+id/profile_dynamic_form"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -28,21 +28,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.apiumhub.vyou_ui.register.ui.checkboxes.DynamicCheckBoxesFormView
+        <com.apiumhub.vyou_ui.components.checkboxes.DynamicCheckBoxesFormView
             android:id="@+id/checkBoxesDynamicForm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registerDynamicForm" />
+            app:layout_constraintTop_toBottomOf="@id/profile_dynamic_form" />
 
         <Button
-            android:id="@+id/register_customer_btn"
+            android:id="@+id/saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="Register user"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

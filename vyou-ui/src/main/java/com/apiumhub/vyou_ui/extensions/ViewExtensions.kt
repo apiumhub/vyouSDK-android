@@ -8,9 +8,6 @@ import android.text.SpannableStringBuilder
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
-import com.apiumhub.vyou_ui.R
-import com.apiumhub.vyou_ui.register.domain.TextField
-import com.apiumhub.vyou_ui.register.ui.form.TextInputView
 import com.google.android.material.textfield.TextInputLayout
 
 fun String.applySpans(context: Context,

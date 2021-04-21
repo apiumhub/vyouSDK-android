@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.ui.checkboxes
+package com.apiumhub.vyou_ui.components.checkboxes
 
 import android.content.Context
 import android.text.method.LinkMovementMethod
@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.databinding.VyouCheckBoxInputBinding
 import com.apiumhub.vyou_ui.extensions.applySpans
-import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
+import com.apiumhub.vyou_ui.components.exception.ValidationException
 
 internal fun CheckBoxInputView(context: Context, inputField: CheckBoxField) =
     CheckBoxInputView(context).apply { render(inputField) }

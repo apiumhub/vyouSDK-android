@@ -13,6 +13,10 @@ class VyouSession internal constructor(val credentials: VyouCredentials) : KoinC
     fun signOut() = runCatching {
         sessionRepository.signOut()
     }.fold(::Success, ::Failure)
+
+    suspend fun tenantProfile() = runCatching {
+        sessionRepository.getTenantProfile()
+    }.fold(::Success, ::Failure)
 }
 
 /*

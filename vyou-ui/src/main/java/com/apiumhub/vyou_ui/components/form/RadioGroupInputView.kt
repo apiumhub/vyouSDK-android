@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.register.ui.form
+package com.apiumhub.vyou_ui.components.form
 
 import android.content.Context
 import android.util.AttributeSet
@@ -12,8 +12,8 @@ import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.databinding.VyouRadioGroupInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.RadioGroupField
-import com.apiumhub.vyou_ui.register.ui.FieldOutModel
-import com.apiumhub.vyou_ui.register.ui.exception.ValidationException
+import com.apiumhub.vyou_ui.components.FieldOutModel
+import com.apiumhub.vyou_ui.components.exception.ValidationException
 
 internal fun RadioGroupInputView(context: Context, inputfield: RadioGroupField) =
     RadioGroupInputView(context).apply { render(inputfield) }
@@ -27,6 +27,17 @@ internal class RadioGroupInputView @JvmOverloads constructor(
     private val binding =
         VyouRadioGroupInputBinding.inflate(LayoutInflater.from(context), this, true)
     private lateinit var inputField: RadioGroupField
+
+    override val id: String
+        get() = inputField.id
+
+    override var visible: Boolean
+        get() = isVisible
+        set(value) { isVisible = value }
+
+    override fun setValue(value: String) {
+        //TODO
+    }
 
     fun render(inputField: RadioGroupField) {
         this.inputField = inputField
