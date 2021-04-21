@@ -32,9 +32,9 @@ data class VyouTenant(
     @SerializedName("one_signal")
     val oneSignal: Boolean?,
     @SerializedName("mandatory_fields")
-    val defaultFields: List<VyouFieldDto>,
+    val mandatoryFields: List<VyouFieldDto>,
     @SerializedName("dynamic_fields")
-    val customFields: List<VyouFieldDto>
+    val dynamicFields: List<VyouFieldDto>
 )
 
 data class VyouFieldDto(

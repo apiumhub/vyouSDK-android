@@ -12,8 +12,8 @@ internal class UiTenant(from: VyouTenant) {
     init {
         fields = listOf(
             TextField("vyou_internal_email", true, TextField.VyouInputType.EMAIL, FieldType.EMAIL),
-            *mapFields(from.defaultFields, FieldType.DEFAULT),
-            *mapFields(from.customFields, FieldType.CUSTOM),
+            *mapFields(from.mandatoryFields, FieldType.DEFAULT),
+            *mapFields(from.dynamicFields, FieldType.CUSTOM),
             PasswordField("vyou_internal_password")
         )
     }

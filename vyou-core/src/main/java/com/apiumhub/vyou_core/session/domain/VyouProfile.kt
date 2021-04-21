@@ -8,7 +8,7 @@ data class VyouProfile (
     @SerializedName("email")
     val email: String?,
     @SerializedName("mandatory_fields")
-    val defaultFields: Map<String, String?>,
+    val mandatoryFields: Map<String, String?>,
     @SerializedName("dynamic_fields")
-    val customFields: Map<String, String?>
+    val dynamicFields: Map<String, String?>
 )

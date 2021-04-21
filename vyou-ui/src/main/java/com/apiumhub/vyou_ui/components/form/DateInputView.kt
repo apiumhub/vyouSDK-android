@@ -42,12 +42,12 @@ internal class DateInputView @JvmOverloads constructor(
         }
 
     override fun setValue(value: String) {
-        binding.dateTextInputEt.setText(formatDate(parseDate(value)))
+        binding.dateTextInputEt.setText(formatDate(parseIsoDate(value)))
     }
 
     override fun getKeyValue(): FieldOutModel? =
         binding.dateTextInputEt.text?.takeIf { it.isNotEmpty() }?.let {
-            FieldOutModel(inputField.fieldType, inputField.id, it.toString())
+            FieldOutModel(inputField.fieldType, inputField.id, parseShortDate(it.toString()).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
         }
 
     fun render(inputField: DateField) {
@@ -92,8 +92,11 @@ internal class DateInputView @JvmOverloads constructor(
         }
     }
 
-    private fun parseDate(date: String): LocalDateTime =
+    private fun parseIsoDate(date: String): LocalDateTime =
         LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+
+    private fun parseShortDate(date: String): LocalDateTime =
+        LocalDate.parse(date, DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)).atStartOfDay()
 
     private fun formatDate(date: LocalDateTime) =
         date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))

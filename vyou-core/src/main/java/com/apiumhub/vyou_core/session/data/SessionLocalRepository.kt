@@ -1,6 +1,5 @@
 package com.apiumhub.vyou_core.session.data
 
-import com.apiumhub.vyou_core.di.Base64Encoder
 import com.apiumhub.vyou_core.login.data.CredentialsSharedPrefs
 import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.apiumhub.vyou_core.session.domain.NotAuthenticatedException
@@ -10,7 +9,6 @@ import com.apiumhub.vyou_core.session.domain.VyouSession
 
 class SessionLocalRepository(
     private val credentialsSharedPrefs: CredentialsSharedPrefs,
-    private val base64Encoder: Base64Encoder,
     private val sessionApi: SessionApi
 ) : SessionRepository {
     override fun getSession() =
@@ -29,6 +27,12 @@ class SessionLocalRepository(
         credentialsSharedPrefs.readVyouCredentials()?.let {
             sessionApi.getTenantProfile("Bearer ${it.accessToken}")
         } ?: throw NotAuthenticatedException()
+
+    override suspend fun editProfile(editProfileDto: EditProfileDto) {
+        credentialsSharedPrefs.readVyouCredentials()?.let {
+            sessionApi.updateProfile("Bearer ${it.accessToken}", editProfileDto)
+        } ?: throw NotAuthenticatedException()
+    }
 
     override fun signOut() = credentialsSharedPrefs.clearCredentials()
 }

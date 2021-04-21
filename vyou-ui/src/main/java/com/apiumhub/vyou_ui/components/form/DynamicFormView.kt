@@ -44,18 +44,18 @@ internal class DynamicFormView @JvmOverloads constructor(
         profile.email?.let {
             components["vyou_internal_email"]?.first()?.setValue(it)
         }
-        profile.customFields.entries.forEach { entry ->
+        profile.dynamicFields.entries.forEach { entry ->
             entry.value?.let {
                 if (it.isNotEmpty() && it.isNotBlank())
                     components[entry.key]?.first()?.setValue(it)
             }
         }
-        profile.defaultFields.entries.forEach { entry ->
+        profile.mandatoryFields.entries.forEach { entry ->
             entry.value?.let {
                 if (it.isNotEmpty() && it.isNotBlank())
                     components[entry.key]?.first()?.setValue(it)
             }
         }
-        components["vyou_internal_password"]?.firstOrNull()?.visible = false
+        removeView(findViewWithTag("vyou_internal_password"))
     }
 }

@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 
 val sessionModule = module {
     single<SessionRepository> {
-        SessionLocalRepository(get(), get(), get())
+        SessionLocalRepository(get(), get())
     }
     single<SessionApi> {
         get<Retrofit>().create(SessionApi::class.java)

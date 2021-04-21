@@ -1,6 +1,7 @@
 package com.apiumhub.vyou_ui.profile.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -21,6 +22,9 @@ class ProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
         } ?: throw IllegalArgumentException()
     }
 
+    private var onProfileSaved: () -> Unit = {}
+    private var onError: (error:Throwable) -> Unit = {}
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,6 +39,10 @@ class ProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
 
         viewModel.profile.observe(viewLifecycleOwner) {
             binding.profileDynamicForm.fillWithProfile(it)
+        }
+
+        viewModel.saved.observe(viewLifecycleOwner) {
+            Log.d("Saved", "Saved")
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
