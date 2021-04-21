@@ -1,5 +1,6 @@
 package com.apiumhub.vyou_ui.profile.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,7 +13,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
+class ProfileFragment internal constructor(
+    private val onProfileSaved: () -> Unit,
+    private val onError: (error: Throwable) -> Unit
+) : Fragment(R.layout.vyou_profile_fragment) {
 
     private val viewModel: ProfileViewModel by viewModel()
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
@@ -21,9 +25,6 @@ class ProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
             it["tenantCompliant"] as TenantCompliant
         } ?: throw IllegalArgumentException()
     }
-
-    private var onProfileSaved: () -> Unit = {}
-    private var onError: (error:Throwable) -> Unit = {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,9 +64,12 @@ class ProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
     }
 
     companion object {
-        fun newInstance(tenantCompliant: TenantCompliant) = ProfileFragment().apply {
+        fun newInstance(
+            tenantCompliant: TenantCompliant,
+            onProfileSaved: () -> Unit,
+            onError: (error: Throwable) -> Unit
+        ) = ProfileFragment(onProfileSaved, onError).apply {
             arguments?.putParcelable("tenantCompliant", tenantCompliant)
         }
     }
-
 }
