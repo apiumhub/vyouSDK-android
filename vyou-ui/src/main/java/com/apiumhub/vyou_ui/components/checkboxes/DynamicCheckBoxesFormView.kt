@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.core.view.children
+import com.apiumhub.vyou_ui.profile.presentation.TenantCompliant
 
 internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
     context: Context,
@@ -15,9 +16,9 @@ internal class DynamicCheckBoxesFormView @JvmOverloads constructor(
         orientation = VERTICAL
     }
 
-    fun render(fields: List<CheckBoxField>) {
+    fun render(fields: List<CheckBoxField>, isTenantCompliant: Boolean = false) {
         fields
-            .map { CheckBoxInputView(context, it) }
+            .map { CheckBoxInputView(context, it, isTenantCompliant) }
             .forEach { addView(it) }
     }
 

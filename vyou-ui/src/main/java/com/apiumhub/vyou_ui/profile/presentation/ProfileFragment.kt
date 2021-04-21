@@ -34,7 +34,7 @@ class ProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
             binding.profileDynamicForm.isVisible = true
             binding.profileLoadingPb.isVisible = false
             binding.profileDynamicForm.render(it.fields)
-            binding.checkBoxesDynamicForm.render(it.checkBoxes)
+            binding.checkBoxesDynamicForm.render(it.checkBoxes, args.tenantConsentCompliant)
         }
 
         viewModel.profile.observe(viewLifecycleOwner) {

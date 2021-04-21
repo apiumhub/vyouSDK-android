@@ -10,9 +10,10 @@ import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.databinding.VyouCheckBoxInputBinding
 import com.apiumhub.vyou_ui.extensions.applySpans
 import com.apiumhub.vyou_ui.components.exception.ValidationException
+import com.apiumhub.vyou_ui.profile.presentation.TenantCompliant
 
-internal fun CheckBoxInputView(context: Context, inputField: CheckBoxField) =
-    CheckBoxInputView(context).apply { render(inputField) }
+internal fun CheckBoxInputView(context: Context, inputField: CheckBoxField, isTenantCompliant: Boolean) =
+    CheckBoxInputView(context).apply { render(inputField, isTenantCompliant) }
 
 internal class CheckBoxInputView @JvmOverloads constructor(
     context: Context,
@@ -23,13 +24,14 @@ internal class CheckBoxInputView @JvmOverloads constructor(
     private val binding = VyouCheckBoxInputBinding.inflate(LayoutInflater.from(context), this, true)
     private lateinit var inputField: CheckBoxField
 
-    fun render(inputField: CheckBoxField) {
+    fun render(inputField: CheckBoxField, isTenantCompliant: Boolean) {
         this.inputField = inputField
         val urlSpan = URLSpan(inputField.url)
         binding.checkBox.text = inputField.title.first.applySpans(
             context, inputField.url, inputField.title.second to urlSpan
         )
         binding.checkBox.movementMethod = LinkMovementMethod.getInstance()
+        binding.checkBox.isChecked = isTenantCompliant && inputField.isRequired
     }
 
     fun isChecked(): Pair<String, Boolean> = inputField.id to binding.checkBox.isChecked
@@ -39,8 +41,7 @@ internal class CheckBoxInputView @JvmOverloads constructor(
         if (inputField.isRequired && !binding.checkBox.isChecked) {
             binding.checkboxErrorTv.isVisible = true
             throw ValidationException(this)
-        }
-        else {
+        } else {
             binding.checkboxErrorTv.isVisible = false
         }
     }
