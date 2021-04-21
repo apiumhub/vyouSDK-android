@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.core.view.children
 import androidx.core.view.get
 import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.R
@@ -36,7 +37,12 @@ internal class RadioGroupInputView @JvmOverloads constructor(
         set(value) { isVisible = value }
 
     override fun setValue(value: String) {
-        //TODO
+        binding
+            .radioGroup
+            .children
+            .map { it as RadioButton }
+            .firstOrNull { it.text.toString().equals(value, true) }
+            ?.isChecked = true
     }
 
     fun render(inputField: RadioGroupField) {
