@@ -6,7 +6,7 @@ import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.apiumhub.vyou_core.login.facebook.FacebookAuthBody
 import com.apiumhub.vyou_core.login.google.GoogleAuthBody
 
-internal class AuthRetrofitRepository(
+internal class LoginRetrofitRepository(
     private val authApi: AuthApi,
     private val manifestReader: ManifestReader
 ) : LoginRepository {

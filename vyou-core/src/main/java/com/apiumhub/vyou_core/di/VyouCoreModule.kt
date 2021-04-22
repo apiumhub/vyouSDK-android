@@ -2,7 +2,7 @@ package com.apiumhub.vyou_core.di
 
 import androidx.activity.result.ActivityResultCaller
 import com.apiumhub.vyou_core.login.vyou_auth.VyouSignInCollaborator
-import com.apiumhub.vyou_core.login.data.AuthRetrofitRepository
+import com.apiumhub.vyou_core.login.data.LoginRetrofitRepository
 import com.apiumhub.vyou_core.data.ManifestReader
 import com.apiumhub.vyou_core.login.domain.LoginRepository
 import com.apiumhub.vyou_core.login.facebook.FacebookSignInCollaborator
@@ -18,7 +18,7 @@ val vyouCoreModule = module {
         ManifestReader(androidApplication())
     }
     single<LoginRepository> {
-        AuthRetrofitRepository(authApi = get(), manifestReader = get())
+        LoginRetrofitRepository(authApi = get(), manifestReader = get())
     }
     single<TenantRepository> {
         TenantRetrofitRepository(get(), get())

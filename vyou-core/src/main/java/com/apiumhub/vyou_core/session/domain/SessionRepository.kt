@@ -8,5 +8,6 @@ internal interface SessionRepository {
     fun storeSession(credentials: VyouCredentials): VyouSession
     suspend fun getTenantProfile(): VyouProfile
     suspend fun editProfile(editProfileDto: EditProfileDto)
+    suspend fun refreshToken(): VyouCredentials
     suspend fun signOut()
 }

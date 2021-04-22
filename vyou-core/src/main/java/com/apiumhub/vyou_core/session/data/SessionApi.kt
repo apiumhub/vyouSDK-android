@@ -1,5 +1,6 @@
 package com.apiumhub.vyou_core.session.data
 
+import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.apiumhub.vyou_core.session.domain.VyouProfile
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,4 +16,7 @@ interface SessionApi {
 
     @POST("/api/v1/updatecustomer")
     suspend fun updateProfile(@Header("Authorization") authorization: String, @Body editProfileDto: EditProfileDto)
+
+    @POST("/refreshtoken")
+    suspend fun refreshToken(@Body token: RefreshTokenDto): VyouCredentials
 }

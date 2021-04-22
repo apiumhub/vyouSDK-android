@@ -8,13 +8,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val sessionModule = module {
-    single<SessionRepository> {
-        SessionLocalRepository(get(), get(), get())
-    }
-    single<SessionApi> {
-        get<Retrofit>().create(SessionApi::class.java)
-    }
-    single {
-        CookieManager.getInstance()
-    }
+    single<SessionRepository> { SessionLocalRepository(get(), get(), get(), get()) }
+    single<SessionApi> { get<Retrofit>().create(SessionApi::class.java) }
+    single { CookieManager.getInstance() }
 }

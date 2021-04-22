@@ -2,7 +2,7 @@ package com.apiumhub.vyou_core.data
 
 import com.apiumhub.vyou_core.di.Base64Encoder
 import com.apiumhub.vyou_core.login.data.AuthApi
-import com.apiumhub.vyou_core.login.data.AuthRetrofitRepository
+import com.apiumhub.vyou_core.login.data.LoginRetrofitRepository
 import com.apiumhub.vyou_core.login.domain.LoginRepository
 import com.apiumhub.vyou_core.login.facebook.FacebookAuthBody
 import com.apiumhub.vyou_core.login.google.GoogleAuthBody
@@ -19,7 +19,7 @@ class AuthRetrofitRepositoryTest {
     private val manifestReader: ManifestReader = mockk()
     private val base64Encoder: Base64Encoder = mockk()
 
-    private val sut: LoginRepository = AuthRetrofitRepository(authApi, manifestReader)
+    private val sut: LoginRepository = LoginRetrofitRepository(authApi, manifestReader)
 
     @Before
     fun setUp() {
