@@ -2,6 +2,7 @@ package com.apiumhub.vyou.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -62,13 +63,15 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun navigateToProfile(credentials: VyouCredentials) {
         lifecycleScope.launch {
-            vyouUi.startProfile(credentials)
+            val result = vyouUi.startProfile(credentials)
+            Log.d("Result", result.toString())
         }
     }
 
     private fun navigateToRegister() {
         lifecycleScope.launch {
-            vyouUi.startRegister()
+            val result = vyouUi.startRegister()
+            Log.d("Result", result.toString())
         }
     }
 

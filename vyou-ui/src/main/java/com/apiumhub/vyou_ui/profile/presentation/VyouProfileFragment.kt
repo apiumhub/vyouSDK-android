@@ -1,10 +1,15 @@
 package com.apiumhub.vyou_ui.profile.presentation
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.apiumhub.vyou_core.domain.VyouException
+import com.apiumhub.vyou_core.domain.VyouResult
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouProfileFragmentBinding
@@ -35,13 +40,14 @@ internal class VyouProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
         }
 
         viewModel.saved.observe(viewLifecycleOwner) {
-//            Log.d("Saved", "Saved")
-            //TODO
+            requireActivity().setResult(Activity.RESULT_OK)
+            requireActivity().finish()
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-//            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
-            //TODO
+            Log.e("Vyou", "Profile error", it)
+            requireActivity().setResult(Activity.RESULT_CANCELED)
+            requireActivity().finish()
         }
 
         binding.saveBtn.text = "Save"

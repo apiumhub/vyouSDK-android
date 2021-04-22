@@ -1,9 +1,15 @@
 package com.apiumhub.vyou_ui.register.presentation
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.apiumhub.vyou_core.domain.VyouException
+import com.apiumhub.vyou_core.domain.VyouResult
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouProfileFragmentBinding
@@ -19,7 +25,9 @@ internal class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            //TODO
+            Log.e("Vyou", "Register error", it)
+            requireActivity().setResult(Activity.RESULT_CANCELED)
+            requireActivity().finish()
         }
         viewModel.dynamicForm.observe(viewLifecycleOwner) {
             binding.checkBoxesDynamicForm.isVisible = true
@@ -29,9 +37,9 @@ internal class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
             binding.profileDynamicForm.render(it.fields)
             binding.checkBoxesDynamicForm.render(it.checkBoxes)
         }
-
         viewModel.userRegistered.observe(viewLifecycleOwner) {
-            //TODO requireActivity().setResult()
+            requireActivity().setResult(Activity.RESULT_OK)
+            requireActivity().finish()
         }
 
         binding.saveBtn.text = "Register user"
