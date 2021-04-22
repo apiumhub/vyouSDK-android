@@ -11,10 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class VyouRegisterFragment(
-    private val onSuccess: () -> Unit,
-    private val onError: (error: Throwable) -> Unit
-) : Fragment(R.layout.vyou_profile_fragment) {
+internal class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
 
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
     private val viewModel: VyouRegisterViewModel by viewModel()
@@ -22,7 +19,7 @@ class VyouRegisterFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            onError(it)
+            //TODO
         }
         viewModel.dynamicForm.observe(viewLifecycleOwner) {
             binding.checkBoxesDynamicForm.isVisible = true
@@ -34,7 +31,7 @@ class VyouRegisterFragment(
         }
 
         viewModel.userRegistered.observe(viewLifecycleOwner) {
-            onSuccess()
+            //TODO requireActivity().setResult()
         }
 
         binding.saveBtn.text = "Register user"

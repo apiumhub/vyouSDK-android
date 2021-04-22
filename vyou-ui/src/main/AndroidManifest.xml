@@ -2,4 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apiumhub.vyou_ui">
 
+    <application>
+        <activity android:name=".register.presentation.VyouRegisterActivity"/>
+        <activity android:name=".profile.presentation.VyouProfileActivity"/>
+    </application>
+
 </manifest>

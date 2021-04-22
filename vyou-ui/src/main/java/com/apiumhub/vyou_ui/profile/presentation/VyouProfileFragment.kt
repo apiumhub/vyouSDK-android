@@ -12,12 +12,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class VyouProfileFragment internal constructor(
-    private val onProfileSaved: () -> Unit,
-    private val onError: (error: Throwable) -> Unit,
-    private val tenantCompliant: TenantCompliant
-) : Fragment(R.layout.vyou_profile_fragment) {
+internal class VyouProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
 
+    lateinit var tenantCompliant: TenantCompliant
     private val viewModel: ProfileViewModel by viewModel()
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
 
@@ -39,12 +36,12 @@ class VyouProfileFragment internal constructor(
 
         viewModel.saved.observe(viewLifecycleOwner) {
 //            Log.d("Saved", "Saved")
-            onProfileSaved()
+            //TODO
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
 //            Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
-            onError(it)
+            //TODO
         }
 
         binding.saveBtn.text = "Save"
