@@ -28,23 +28,26 @@ class VyouLoginManager internal constructor(actResultCaller: ActivityResultCalle
 
     suspend fun signInWithAuth() =
         runCatching {
-            authRepository
-                .authenticateWithVyouCode(vyouSignIn.start())
-                .run(sessionRepository::storeSession)
+            when (val result = vyouSignIn.start()) {
+                is Success -> authRepository.authenticateWithVyouCode(result.value).run(sessionRepository::storeSession)
+                is Failure -> throw result.error
+            }
         }.fold(::Success, ::Failure)
 
     suspend fun signInWithGoogle() =
         runCatching {
-            authRepository
-                .authenticateWithGoogle(googleSignIn.start())
-                .run(sessionRepository::storeSession)
+            when (val result = googleSignIn.start()) {
+                is Success -> authRepository.authenticateWithGoogle(result.value).run(sessionRepository::storeSession)
+                is Failure -> throw result.error
+            }
         }.fold(::Success, ::Failure)
 
     suspend fun signInWithFacebook(fragment: Fragment) =
         runCatching {
-            authRepository
-                .authenticateWithFacebook(facebookSignIn.start(fragment))
-                .run(sessionRepository::storeSession)
+            when (val result = facebookSignIn.start(fragment)) {
+                is Success -> authRepository.authenticateWithFacebook(result.value).run(sessionRepository::storeSession)
+                is Failure -> throw result.error
+            }
         }.fold(::Success, ::Failure)
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

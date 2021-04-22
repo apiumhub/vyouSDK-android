@@ -7,6 +7,9 @@ import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import com.apiumhub.vyou_core.data.ManifestReader
+import com.apiumhub.vyou_core.domain.VyouResult
+import com.apiumhub.vyou_core.domain.VyouResult.Failure
+import com.apiumhub.vyou_core.domain.VyouResult.Success
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -22,22 +25,23 @@ class GoogleSignInCollaborator(activityResultCaller: ActivityResultCaller, conte
 
     private val signInClient = GoogleSignIn.getClient(context, gso)
 
-    private val resultChannel = Channel<String>()
+    private val resultChannel = Channel<VyouResult<String>>()
 
     private val googleSignInLauncher: ActivityResultLauncher<Unit> = activityResultCaller
         .registerForActivityResult(getContract()) {
             resultChannel.offer(it)
         }
 
-    suspend fun start(): String {
+    suspend fun start(): VyouResult<String> {
         googleSignInLauncher.launch(Unit)
         return resultChannel.receive()
     }
 
-    private fun getContract(): ActivityResultContract<Unit, String> = object : ActivityResultContract<Unit, String>() {
+    private fun getContract() = object : ActivityResultContract<Unit, VyouResult<String>>() {
         override fun createIntent(context: Context, input: Unit): Intent = signInClient.signInIntent
 
-        override fun parseResult(resultCode: Int, intent: Intent?) =
-            GoogleSignIn.getSignedInAccountFromIntent(intent).getResult(ApiException::class.java)?.idToken
+        override fun parseResult(resultCode: Int, intent: Intent?) = runCatching {
+            GoogleSignIn.getSignedInAccountFromIntent(intent).getResult(ApiException::class.java)?.idToken!!
+        }.fold(::Success, ::Failure)
     }
 }
