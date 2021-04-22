@@ -19,7 +19,7 @@ class AuthRetrofitRepositoryTest {
     private val manifestReader: ManifestReader = mockk()
     private val base64Encoder: Base64Encoder = mockk()
 
-    private val sut: LoginRepository = AuthRetrofitRepository(authApi, manifestReader, base64Encoder)
+    private val sut: LoginRepository = AuthRetrofitRepository(authApi, manifestReader)
 
     @Before
     fun setUp() {

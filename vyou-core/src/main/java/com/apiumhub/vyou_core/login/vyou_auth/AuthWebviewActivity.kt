@@ -3,6 +3,7 @@ package com.apiumhub.vyou_core.login.vyou_auth
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -26,8 +27,9 @@ internal class AuthWebviewActivity : AppCompatActivity(R.layout.activity_auth_we
     }
 
     private inner class VyouWebviewClient(private val activity: Activity) : WebViewClient() {
-        override fun onPageFinished(view: WebView?, url: String?) {
-            super.onPageFinished(view, url)
+
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
             if (url != null && url.startsWith(redirectUri)) {
                 val code = url.substringAfter("code=")
                 activity.setResult(Activity.RESULT_OK, Intent().apply { putExtra("code", code) })

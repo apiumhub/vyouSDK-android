@@ -8,7 +8,7 @@ import com.apiumhub.vyou_core.session.domain.SessionRepository
 import com.apiumhub.vyou_core.session.domain.VyouProfile
 import com.apiumhub.vyou_core.session.domain.VyouSession
 
-class SessionLocalRepository(
+internal class SessionLocalRepository(
     private val credentialsSharedPrefs: CredentialsSharedPrefs,
     private val sessionApi: SessionApi,
     private val cookieManager: CookieManager

@@ -18,7 +18,7 @@ val vyouCoreModule = module {
         ManifestReader(androidApplication())
     }
     single<LoginRepository> {
-        AuthRetrofitRepository(authApi = get(), manifestReader = get(), base64Encoder = get())
+        AuthRetrofitRepository(authApi = get(), manifestReader = get())
     }
     single<TenantRepository> {
         TenantRetrofitRepository(get(), get())
