@@ -7,6 +7,9 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface SessionApi {
+    @GET("/api/v1/signout")
+    suspend fun signOut(@Header("Authorization") authorization: String)
+
     @GET("/api/v1/customer/tenant/me")
     suspend fun getTenantProfile(@Header("Authorization") authorization: String): VyouProfile
 

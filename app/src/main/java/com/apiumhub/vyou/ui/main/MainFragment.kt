@@ -12,6 +12,7 @@ import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
 import com.apiumhub.vyou_core.Vyou
 import com.apiumhub.vyou_core.domain.VyouResult
+import com.apiumhub.vyou_core.domain.VyouResult.*
 import com.apiumhub.vyou_core.login.domain.VyouCredentials
 import com.apiumhub.vyou_core.session.domain.VyouSession
 import com.apiumhub.vyou_ui.VyouUI
@@ -48,8 +49,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun launchLogin(function: suspend () -> VyouResult<VyouSession>) {
         lifecycleScope.launch {
             when (val result = function()) {
-                is VyouResult.Failure -> Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
-                is VyouResult.Success -> {
+                is Failure -> Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+                is Success -> {
                     val credentials = result.value.credentials
                     if (credentials.tenantCompliant && credentials.tenantConsentCompliant)
                         navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
@@ -63,15 +64,19 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun navigateToProfile(credentials: VyouCredentials) {
         lifecycleScope.launch {
-            val result = vyouUi.startProfile(credentials)
-            Log.d("Result", result.toString())
+            when (vyouUi.startProfile(credentials)) {
+                is Success -> navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+                is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 
     private fun navigateToRegister() {
         lifecycleScope.launch {
-            val result = vyouUi.startRegister()
-            Log.d("Result", result.toString())
+            when (vyouUi.startRegister()) {
+                is Success -> Snackbar.make(binding.root, "User registered successfully.", Snackbar.LENGTH_LONG).show()
+                is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 
