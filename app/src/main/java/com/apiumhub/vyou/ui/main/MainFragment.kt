@@ -23,6 +23,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private val navController: NavController by lazy { findNavController() }
 
     private val vyouLogin = Vyou.getLogin(this)
+    private val vyouUi = VyouUI(this)
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,13 +62,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun navigateToProfile(credentials: VyouCredentials) {
         lifecycleScope.launch {
-            VyouUI.startProfile(requireActivity(), credentials)
+            vyouUi.startProfile(credentials)
         }
     }
 
     private fun navigateToRegister() {
         lifecycleScope.launch {
-            VyouUI.startRegister(requireActivity())
+            vyouUi.startRegister()
         }
     }
 
