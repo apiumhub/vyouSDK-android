@@ -2,7 +2,6 @@ package com.apiumhub.vyou.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -53,7 +52,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 is Success -> {
                     val credentials = result.value.credentials
                     if (credentials.tenantCompliant && credentials.tenantConsentCompliant)
-                        navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+                        launch {
+                            Vyou.session?.credentials?.let {
+                                vyouUi.startProfile(it)
+                            }
+                        }
                     else {
                         navigateToProfile(credentials)
                     }
@@ -65,7 +68,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun navigateToProfile(credentials: VyouCredentials) {
         lifecycleScope.launch {
             when (vyouUi.startProfile(credentials)) {
-                is Success -> navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+                is Success -> launch {
+                    Vyou.session?.credentials?.let {
+                        vyouUi.startProfile(it)
+                    }
+                }
                 is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
             }
         }

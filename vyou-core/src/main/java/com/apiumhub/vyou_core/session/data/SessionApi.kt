@@ -9,13 +9,13 @@ import retrofit2.http.POST
 
 interface SessionApi {
     @GET("/api/v1/signout")
-    suspend fun signOut(@Header("Authorization") authorization: String)
+    suspend fun signOut()
 
     @GET("/api/v1/customer/tenant/me")
-    suspend fun getTenantProfile(@Header("Authorization") authorization: String): VyouProfile
+    suspend fun getTenantProfile(): VyouProfile
 
     @POST("/api/v1/updatecustomer")
-    suspend fun updateProfile(@Header("Authorization") authorization: String, @Body editProfileDto: EditProfileDto)
+    suspend fun updateProfile(@Body editProfileDto: EditProfileDto)
 
     @POST("/refreshtoken")
     suspend fun refreshToken(@Body token: RefreshTokenDto): VyouCredentials

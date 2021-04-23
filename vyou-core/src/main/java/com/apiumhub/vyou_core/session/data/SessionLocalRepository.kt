@@ -29,12 +29,12 @@ internal class SessionLocalRepository(
 
     override suspend fun getTenantProfile(): VyouProfile =
         credentialsSharedPrefs.readVyouCredentials()?.let {
-            sessionApi.getTenantProfile("Bearer ${it.accessToken}")
+            sessionApi.getTenantProfile()
         } ?: throw NotAuthenticatedException()
 
     override suspend fun editProfile(editProfileDto: EditProfileDto) {
         credentialsSharedPrefs.readVyouCredentials()?.let {
-            sessionApi.updateProfile("Bearer ${it.accessToken}", editProfileDto)
+            sessionApi.updateProfile(editProfileDto)
         } ?: throw NotAuthenticatedException()
     }
 
@@ -46,7 +46,7 @@ internal class SessionLocalRepository(
         } ?: throw NotAuthenticatedException()
 
     override suspend fun signOut() = credentialsSharedPrefs.readVyouCredentials()?.let {
-        sessionApi.signOut("Bearer ${it.accessToken}")
+        sessionApi.signOut()
     }.also {
         cookieManager.removeAllCookies(null)
         credentialsSharedPrefs.clearCredentials()
