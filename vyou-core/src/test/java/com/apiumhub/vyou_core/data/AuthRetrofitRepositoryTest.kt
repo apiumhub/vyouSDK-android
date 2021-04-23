@@ -48,7 +48,7 @@ class AuthRetrofitRepositoryTest {
 
         sut.authenticateWithGoogle(GOOGLE_TOKEN)
         coVerify {
-            authApi.loginWithGoogle("Basic $ENCODED_CLIENT_ID", GoogleAuthBody(GOOGLE_TOKEN, GOOGLE_CLIENT_ID))
+            authApi.loginWithGoogle(GoogleAuthBody(GOOGLE_TOKEN, GOOGLE_CLIENT_ID))
         }
     }
 
@@ -56,7 +56,7 @@ class AuthRetrofitRepositoryTest {
     fun shouldWriteToPreferencesWhenFacebookLogin() = runBlockingTest {
         sut.authenticateWithFacebook(FACEBOOK_TOKEN)
         coVerify {
-            authApi.loginWithFacebook("Basic $ENCODED_CLIENT_ID", FacebookAuthBody(FACEBOOK_TOKEN))
+            authApi.loginWithFacebook(FacebookAuthBody(FACEBOOK_TOKEN))
         }
     }
 

@@ -23,11 +23,3 @@ class VyouSession internal constructor(val credentials: VyouCredentials) : KoinC
         sessionRepository.editProfile(editProfileDto)
     }.fold(::Success, ::Failure)
 }
-
-/*
-    func signout(completion: @escaping ((Result<Void, VYouError>) -> Void)) √
-    func register(dto: RegisterDTO, completion: @escaping ((Result<Void, VYouError>) -> Void))
-    func editProfile(dto: EditProfileDTO, completion: @escaping ((Result<Void, VYouError>) -> Void))
-    func tenantProfile(completion: @escaping ((Result<VYouProfile, VYouError>) -> Void))
-    func tenant(completion: @escaping ((Result<VYouTenant, VYouError>) -> Void))
- */
