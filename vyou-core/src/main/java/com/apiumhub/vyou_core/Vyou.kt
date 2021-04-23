@@ -12,6 +12,7 @@ import com.apiumhub.vyou_core.session.domain.SessionRepository
 import com.apiumhub.vyou_core.session.domain.VyouSession
 import com.apiumhub.vyou_core.tenant.VyouTenantManager
 import com.facebook.FacebookSdk
+import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -38,4 +39,6 @@ object Vyou : KoinComponent {
     val tenantManager by lazy { VyouTenantManager() }
     val session: VyouSession?
         get() = sessionRepository.getSession()
+
+    val httpClient: OkHttpClient by inject()
 }
