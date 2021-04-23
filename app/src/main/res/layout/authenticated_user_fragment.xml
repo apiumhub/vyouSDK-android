@@ -5,7 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:layout_margin="16dp"
     tools:context=".ui.authenticated.AuthenticatedUserFragment">
+
+
+    <TextView
+        android:id="@+id/userNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Hola!!!"/>
+
+
+    <Button
+        android:id="@+id/authEditProgfileBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@id/authLogoutBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userNameTv" />
 
     <Button
         android:id="@+id/authLogoutBtn"
@@ -13,7 +35,8 @@
         android:layout_height="wrap_content"
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/authEditProgfileBtn"
+        app:layout_constraintTop_toTopOf="@id/authEditProgfileBtn"
+        app:layout_constraintBottom_toBottomOf="@id/authEditProgfileBtn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
