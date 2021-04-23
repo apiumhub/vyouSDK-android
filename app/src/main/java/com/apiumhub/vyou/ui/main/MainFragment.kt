@@ -52,11 +52,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 is Success -> {
                     val credentials = result.value.credentials
                     if (credentials.tenantCompliant && credentials.tenantConsentCompliant)
-                        launch {
-                            Vyou.session?.credentials?.let {
-                                vyouUi.startProfile(it)
-                            }
-                        }
+                        navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
                     else {
                         navigateToProfile(credentials)
                     }

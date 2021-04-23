@@ -27,7 +27,7 @@ internal class VyouProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.tenant.observe(viewLifecycleOwner) {
-            binding.checkBoxesDynamicForm.isVisible = true
+            binding.checkBoxesDynamicForm.isVisible = !tenantCompliant.isBothCompliant
             binding.saveBtn.isVisible = true
             binding.profileDynamicForm.isVisible = true
             binding.profileLoadingPb.isVisible = false
