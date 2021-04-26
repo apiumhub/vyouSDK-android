@@ -2,7 +2,7 @@ package com.apiumhub.vyou_core.tenant.domain
 
 import com.google.gson.annotations.SerializedName
 
-data class CreateCustomerDto(
+data class RegisterDto(
     @SerializedName("email")
     val email: String,
     @SerializedName("password")

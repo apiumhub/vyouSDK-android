@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.apiumhub.vyou_core.domain.VYouResult.Failure
 import com.apiumhub.vyou_core.domain.VYouResult.Success
 import com.apiumhub.vyou_core.tenant.VYouTenantManager
-import com.apiumhub.vyou_core.tenant.domain.CreateCustomerDto
+import com.apiumhub.vyou_core.tenant.domain.RegisterDto
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.register.domain.UiTenant
@@ -50,7 +50,7 @@ internal class VYouRegisterViewModel(private val tenantManager: VYouTenantManage
         checkboxes: List<Pair<String, Boolean>>
     ) =
         tenantManager.register(
-            CreateCustomerDto(
+            RegisterDto(
                 email = customer.getValue(FieldType.EMAIL).first().value,
                 password = customer.getValue(FieldType.PASSWORD).first().value,
                 dynamicFields = customer[FieldType.CUSTOM]?.associate { it.key to it.value } ?: emptyMap(),

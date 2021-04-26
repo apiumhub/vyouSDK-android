@@ -1,8 +1,7 @@
 package com.apiumhub.vyou_core.tenant.data
 
 import com.apiumhub.vyou_core.di.Base64Encoder
-import com.apiumhub.vyou_core.login.data.CredentialsSharedPrefs
-import com.apiumhub.vyou_core.tenant.domain.CreateCustomerDto
+import com.apiumhub.vyou_core.tenant.domain.RegisterDto
 import com.apiumhub.vyou_core.tenant.domain.TenantRepository
 
 class TenantRetrofitRepository(
@@ -13,7 +12,7 @@ class TenantRetrofitRepository(
     override suspend fun getTenant() =
         tenantApi.getTenant()
 
-    override suspend fun createCustomer(customer: CreateCustomerDto) =
+    override suspend fun createCustomer(customer: RegisterDto) =
         tenantApi.createCustomer( customer)
 
 }
