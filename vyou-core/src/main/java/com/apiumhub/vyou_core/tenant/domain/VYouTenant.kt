@@ -2,7 +2,7 @@ package com.apiumhub.vyou_core.tenant.domain
 
 import com.google.gson.annotations.SerializedName
 
-data class VyouTenant(
+data class VYouTenant(
     @SerializedName("admin")
     val admin: String,
     @SerializedName("allowed_roles")
@@ -32,12 +32,12 @@ data class VyouTenant(
     @SerializedName("one_signal")
     val oneSignal: Boolean?,
     @SerializedName("mandatory_fields")
-    val mandatoryFields: List<VyouFieldDto>,
+    val mandatoryFields: List<VYouFieldDto>,
     @SerializedName("dynamic_fields")
-    val dynamicFields: List<VyouFieldDto>
+    val dynamicFields: List<VYouFieldDto>
 )
 
-data class VyouFieldDto(
+data class VYouFieldDto(
     val name: String,
     val required: Boolean,
     val type: String

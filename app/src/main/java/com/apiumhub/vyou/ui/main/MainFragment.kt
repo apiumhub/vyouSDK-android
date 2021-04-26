@@ -9,12 +9,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
-import com.apiumhub.vyou_core.Vyou
-import com.apiumhub.vyou_core.domain.VyouResult
-import com.apiumhub.vyou_core.domain.VyouResult.*
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
-import com.apiumhub.vyou_core.session.domain.VyouSession
-import com.apiumhub.vyou_ui.VyouUI
+import com.apiumhub.vyou_core.VYou
+import com.apiumhub.vyou_core.domain.VYouResult
+import com.apiumhub.vyou_core.domain.VYouResult.*
+import com.apiumhub.vyou_core.login.domain.VYouCredentials
+import com.apiumhub.vyou_core.session.domain.VYouSession
+import com.apiumhub.vyou_ui.VYouUI
 import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
@@ -23,8 +23,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private val navController: NavController by lazy { findNavController() }
 
-    private val vyouLogin = Vyou.getLogin(this)
-    private val vyouUi = VyouUI(this)
+    private val vyouLogin = VYou.getLogin(this)
+    private val vyouUi = VYouUI(this)
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
-    private fun launchLogin(function: suspend () -> VyouResult<VyouSession>) {
+    private fun launchLogin(function: suspend () -> VYouResult<VYouSession>) {
         lifecycleScope.launch {
             when (val result = function()) {
                 is Failure -> Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
@@ -61,11 +61,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
-    private fun navigateToProfile(credentials: VyouCredentials) {
+    private fun navigateToProfile(credentials: VYouCredentials) {
         lifecycleScope.launch {
             when (vyouUi.startProfile(credentials)) {
                 is Success -> launch {
-                    Vyou.session?.credentials?.let {
+                    VYou.session?.credentials?.let {
                         vyouUi.startProfile(it)
                     }
                 }

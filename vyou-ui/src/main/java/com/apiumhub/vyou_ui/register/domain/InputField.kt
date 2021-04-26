@@ -16,9 +16,9 @@ internal sealed class InputField(val id: String, val isRequired: Boolean, val fi
     }
 }
 
-internal class TextField(id: String, isRequired: Boolean, val inputType: VyouInputType, fieldType: FieldType) : InputField(id, isRequired, fieldType) {
+internal class TextField(id: String, isRequired: Boolean, val inputType: VYouInputType, fieldType: FieldType) : InputField(id, isRequired, fieldType) {
 
-    enum class VyouInputType(val type: String) {
+    enum class VYouInputType(val type: String) {
         TEXT("string"),
         NUMBER("number"),
         EMAIL("email");

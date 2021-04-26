@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.children
-import com.apiumhub.vyou_core.session.domain.VyouProfile
-import com.apiumhub.vyou_ui.register.domain.*
+import com.apiumhub.vyou_core.session.domain.VYouProfile
 import com.apiumhub.vyou_ui.components.FieldOutModel
+import com.apiumhub.vyou_ui.register.domain.*
 
 internal class DynamicFormView @JvmOverloads constructor(
     context: Context,
@@ -27,7 +27,7 @@ internal class DynamicFormView @JvmOverloads constructor(
 
     fun getResponses(): List<FieldOutModel> =
         children
-            .map { (it as VyouInputComponent).validate().getKeyValue() }
+            .map { (it as VYouInputComponent).validate().getKeyValue() }
             .filterNotNull()
             .toList()
 
@@ -39,8 +39,8 @@ internal class DynamicFormView @JvmOverloads constructor(
             is PasswordField -> PasswordInputView(context, it)
         }
 
-    fun fillWithProfile(profile: VyouProfile) {
-        val components = children.map { it as VyouInputComponent }.groupBy { it.id }
+    fun fillWithProfile(profile: VYouProfile) {
+        val components = children.map { it as VYouInputComponent }.groupBy { it.id }
         profile.email?.let {
             components["vyou_internal_email"]?.first()?.setValue(it)
         }

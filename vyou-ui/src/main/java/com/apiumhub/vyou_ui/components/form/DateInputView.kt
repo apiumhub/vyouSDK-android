@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.R
+import com.apiumhub.vyou_ui.components.FieldOutModel
+import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouDateInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.DateField
-import com.apiumhub.vyou_ui.components.FieldOutModel
-import com.apiumhub.vyou_ui.components.exception.ValidationException
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
@@ -25,7 +25,7 @@ internal class DateInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr), VyouInputComponent {
+) : FrameLayout(context, attrs, defStyleAttr), VYouInputComponent {
 
     private val binding: VyouDateInputBinding =
         VyouDateInputBinding.inflate(LayoutInflater.from(context), this, true)

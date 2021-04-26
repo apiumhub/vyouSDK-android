@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import com.apiumhub.vyou_ui.R
+import com.apiumhub.vyou_ui.components.FieldOutModel
+import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouTextInputBinding
 import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.TextField
-import com.apiumhub.vyou_ui.components.FieldOutModel
-import com.apiumhub.vyou_ui.components.exception.ValidationException
 
 internal fun TextInputView(context: Context, inputField: TextField) =
     TextInputView(context).apply { render(inputField) }
@@ -21,7 +21,7 @@ internal class TextInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr), VyouInputComponent {
+) : FrameLayout(context, attrs, defStyleAttr), VYouInputComponent {
 
     private val binding: VyouTextInputBinding =
         VyouTextInputBinding.inflate(LayoutInflater.from(context), this, true)
@@ -52,9 +52,9 @@ internal class TextInputView @JvmOverloads constructor(
         binding.inputLayout.hint = inputField.title
 
         binding.textInputEt.inputType = when (inputField.inputType) {
-            TextField.VyouInputType.TEXT -> InputType.TYPE_CLASS_TEXT
-            TextField.VyouInputType.NUMBER -> InputType.TYPE_CLASS_NUMBER
-            TextField.VyouInputType.EMAIL -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            TextField.VYouInputType.TEXT -> InputType.TYPE_CLASS_TEXT
+            TextField.VYouInputType.NUMBER -> InputType.TYPE_CLASS_NUMBER
+            TextField.VYouInputType.EMAIL -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         }
         addLeftIconToTextField(
             inputField.isRequired,
@@ -69,7 +69,7 @@ internal class TextInputView @JvmOverloads constructor(
                 binding.inputLayout.error = "Field is mandatory"
                 throw ValidationException(this)
             }
-            if (it.isNotEmpty() && inputField.inputType == TextField.VyouInputType.EMAIL && !Patterns.EMAIL_ADDRESS.matcher(it).matches()) {
+            if (it.isNotEmpty() && inputField.inputType == TextField.VYouInputType.EMAIL && !Patterns.EMAIL_ADDRESS.matcher(it).matches()) {
                 binding.inputLayout.error = "Invalid E-mail"
                 throw ValidationException(this)
             }

@@ -5,7 +5,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/profileFragment"
-        android:name="com.apiumhub.vyou_ui.profile.presentation.VyouProfileFragment"
+        android:name="com.apiumhub.vyou_ui.profile.presentation.VYouProfileFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag="profileFragmentTag"/>

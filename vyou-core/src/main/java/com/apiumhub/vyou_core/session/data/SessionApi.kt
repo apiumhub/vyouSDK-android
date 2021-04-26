@@ -1,10 +1,9 @@
 package com.apiumhub.vyou_core.session.data
 
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
-import com.apiumhub.vyou_core.session.domain.VyouProfile
+import com.apiumhub.vyou_core.login.domain.VYouCredentials
+import com.apiumhub.vyou_core.session.domain.VYouProfile
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface SessionApi {
@@ -12,11 +11,11 @@ interface SessionApi {
     suspend fun signOut()
 
     @GET("/api/v1/customer/tenant/me")
-    suspend fun getTenantProfile(): VyouProfile
+    suspend fun getTenantProfile(): VYouProfile
 
     @POST("/api/v1/updatecustomer")
     suspend fun updateProfile(@Body editProfileDto: EditProfileDto)
 
     @POST("/refreshtoken")
-    suspend fun refreshToken(@Body token: RefreshTokenDto): VyouCredentials
+    suspend fun refreshToken(@Body token: RefreshTokenDto): VYouCredentials
 }

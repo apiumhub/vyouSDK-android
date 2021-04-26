@@ -2,20 +2,20 @@ package com.apiumhub.vyou_core.login.data
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
+import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.google.gson.Gson
 
 class CredentialsSharedPrefs(private val sharedPrefs: SharedPreferences, private val gson: Gson) {
 
-    fun storeVyouCredentials(credentials: VyouCredentials) {
+    fun storeVYouCredentials(credentials: VYouCredentials) {
         sharedPrefs.edit(true) {
             putString(CREDENTIALS_KEY, gson.toJson(credentials))
         }
     }
 
-    fun readVyouCredentials(): VyouCredentials? =
+    fun readVYouCredentials(): VYouCredentials? =
         runCatching {
-            gson.fromJson(sharedPrefs.getString(CREDENTIALS_KEY, ""), VyouCredentials::class.java)
+            gson.fromJson(sharedPrefs.getString(CREDENTIALS_KEY, ""), VYouCredentials::class.java)
         }.getOrNull()
 
     fun clearCredentials() {

@@ -5,11 +5,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import com.apiumhub.vyou_ui.databinding.VyouPasswordInputBinding
-import com.apiumhub.vyou_ui.register.domain.PasswordField
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.components.exception.ValidationException
+import com.apiumhub.vyou_ui.databinding.VyouPasswordInputBinding
+import com.apiumhub.vyou_ui.register.domain.PasswordField
 
 internal fun PasswordInputView(context: Context, inputField: PasswordField) =
     PasswordInputView(context).apply { render(inputField) }
@@ -18,7 +18,7 @@ internal class PasswordInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr), VyouInputComponent {
+) : FrameLayout(context, attrs, defStyleAttr), VYouInputComponent {
 
     private val binding: VyouPasswordInputBinding =
         VyouPasswordInputBinding.inflate(LayoutInflater.from(context), this, true)
@@ -39,7 +39,7 @@ internal class PasswordInputView @JvmOverloads constructor(
         FieldOutModel(FieldType.PASSWORD, inputField.id, it.toString())
     }
 
-    override fun validate(): VyouInputComponent = apply {
+    override fun validate(): VYouInputComponent = apply {
         val password = binding.passwordInputEt.text ?: throw ValidationException(this)
         val repeatedPassword = binding.repeatPasswordEt.text ?: throw ValidationException(this)
         if (password.isEmpty()) {

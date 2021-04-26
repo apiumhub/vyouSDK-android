@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apiumhub.vyou_core.domain.VyouResult.Failure
-import com.apiumhub.vyou_core.domain.VyouResult.Success
-import com.apiumhub.vyou_core.tenant.VyouTenantManager
+import com.apiumhub.vyou_core.domain.VYouResult.Failure
+import com.apiumhub.vyou_core.domain.VYouResult.Success
+import com.apiumhub.vyou_core.tenant.VYouTenantManager
 import com.apiumhub.vyou_core.tenant.domain.CreateCustomerDto
-import com.apiumhub.vyou_ui.register.domain.UiTenant
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.FieldType
+import com.apiumhub.vyou_ui.register.domain.UiTenant
 import kotlinx.coroutines.launch
 
-internal class VyouRegisterViewModel(private val tenantManager: VyouTenantManager) : ViewModel() {
+internal class VYouRegisterViewModel(private val tenantManager: VYouTenantManager) : ViewModel() {
 
     private val _dynamicForm = MutableLiveData<UiTenant>()
     val dynamicForm: LiveData<UiTenant> = _dynamicForm

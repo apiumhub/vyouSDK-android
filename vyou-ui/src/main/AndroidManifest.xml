@@ -3,8 +3,8 @@
     package="com.apiumhub.vyou_ui">
 
     <application>
-        <activity android:name=".register.presentation.VyouRegisterActivity"/>
-        <activity android:name=".profile.presentation.VyouProfileActivity"/>
+        <activity android:name=".register.presentation.VYouRegisterActivity" />
+        <activity android:name=".profile.presentation.VYouProfileActivity" />
     </application>
 
 </manifest>

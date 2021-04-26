@@ -2,7 +2,7 @@ package com.apiumhub.vyou_core.login.domain
 
 import com.google.gson.annotations.SerializedName
 
-data class VyouCredentials(
+data class VYouCredentials(
     @SerializedName("id_token")
     val idToken: String,
     @SerializedName("access_token")

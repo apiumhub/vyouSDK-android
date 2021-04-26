@@ -2,7 +2,7 @@ package com.apiumhub.vyou_core.session.domain
 
 import com.google.gson.annotations.SerializedName
 
-data class VyouProfile (
+data class VYouProfile(
     @SerializedName("id")
     val id: String,
     @SerializedName("email")

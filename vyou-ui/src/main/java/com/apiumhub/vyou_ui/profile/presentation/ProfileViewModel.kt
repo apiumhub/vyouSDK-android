@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apiumhub.vyou_core.Vyou
-import com.apiumhub.vyou_core.domain.VyouResult.Failure
-import com.apiumhub.vyou_core.domain.VyouResult.Success
+import com.apiumhub.vyou_core.VYou
+import com.apiumhub.vyou_core.domain.VYouResult.Failure
+import com.apiumhub.vyou_core.domain.VYouResult.Success
 import com.apiumhub.vyou_core.session.data.EditProfileDto
-import com.apiumhub.vyou_core.session.domain.VyouProfile
+import com.apiumhub.vyou_core.session.domain.VYouProfile
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.register.domain.UiTenant
@@ -19,8 +19,8 @@ internal class ProfileViewModel : ViewModel() {
     private val _tenant = MutableLiveData<UiTenant>()
     val tenant: LiveData<UiTenant> = _tenant
 
-    private val _profile = MutableLiveData<VyouProfile>()
-    val profile: LiveData<VyouProfile> = _profile
+    private val _profile = MutableLiveData<VYouProfile>()
+    val profile: LiveData<VYouProfile> = _profile
 
     private val _saved = MutableLiveData<Unit>()
     val saved: LiveData<Unit> = _saved
@@ -30,8 +30,8 @@ internal class ProfileViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            Vyou.session?.let {
-                when (val tenantResult = Vyou.tenantManager.tenant()) {
+            VYou.session?.let {
+                when (val tenantResult = VYou.tenantManager.tenant()) {
                     is Success -> _tenant.value = UiTenant(tenantResult.value)
                     is Failure -> _error.value = tenantResult.error
                 }
@@ -48,7 +48,7 @@ internal class ProfileViewModel : ViewModel() {
         checkboxes: List<Pair<String, Boolean>>
     ) {
         viewModelScope.launch {
-            when (val result = Vyou.session?.editProfile(createDto(customer, checkboxes))) {
+            when (val result = VYou.session?.editProfile(createDto(customer, checkboxes))) {
                 is Success -> _saved.value = Unit
                 is Failure -> _error.value = result.error
             }

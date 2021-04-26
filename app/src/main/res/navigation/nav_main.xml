@@ -39,13 +39,13 @@
 
     <fragment
         android:id="@+id/registerUserFragment"
-        android:name="com.apiumhub.vyou_ui.register.presentation.VyouRegisterFragment"
+        android:name="com.apiumhub.vyou_ui.register.presentation.VYouRegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/vyou_profile_fragment" />
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.apiumhub.vyou_ui.profile.presentation.VyouProfileFragment"
+        android:name="com.apiumhub.vyou_ui.profile.presentation.VYouProfileFragment"
         android:label="EditProfileFragment"
         tools:layout="@layout/vyou_profile_fragment">
         <argument

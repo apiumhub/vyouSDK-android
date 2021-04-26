@@ -1,24 +1,24 @@
 package com.apiumhub.vyou_ui.register.domain
 
-import com.apiumhub.vyou_core.tenant.domain.VyouFieldDto
-import com.apiumhub.vyou_core.tenant.domain.VyouTenant
+import com.apiumhub.vyou_core.tenant.domain.VYouFieldDto
+import com.apiumhub.vyou_core.tenant.domain.VYouTenant
 import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.components.checkboxes.CheckBoxField
 
-internal class UiTenant(from: VyouTenant) {
+internal class UiTenant(from: VYouTenant) {
     val fields: List<InputField>
     val checkBoxes: List<CheckBoxField> = mapCheckBoxes(from)
 
     init {
         fields = listOf(
-            TextField("vyou_internal_email", true, TextField.VyouInputType.EMAIL, FieldType.EMAIL),
+            TextField("vyou_internal_email", true, TextField.VYouInputType.EMAIL, FieldType.EMAIL),
             *mapFields(from.mandatoryFields, FieldType.DEFAULT),
             *mapFields(from.dynamicFields, FieldType.CUSTOM),
             PasswordField("vyou_internal_password")
         )
     }
 
-    private fun mapFields(from: List<VyouFieldDto>, fieldType: FieldType) =
+    private fun mapFields(from: List<VYouFieldDto>, fieldType: FieldType) =
         from
             .map {
                 when (it.name) {
@@ -32,14 +32,14 @@ internal class UiTenant(from: VyouTenant) {
                     else -> TextField(
                         it.name,
                         it.required,
-                        TextField.VyouInputType.fromType(it.type),
+                        TextField.VYouInputType.fromType(it.type),
                         fieldType
                     )
                 }
             }
             .toTypedArray()
 
-    private fun mapCheckBoxes(from: VyouTenant): List<CheckBoxField> {
+    private fun mapCheckBoxes(from: VYouTenant): List<CheckBoxField> {
         val listCheckBoxes = mutableListOf(
             CheckBoxField("privacy_policy", true, from.privacyUrl),
             CheckBoxField("terms_conditions", true, from.termsConditionsUrl)

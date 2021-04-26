@@ -1,13 +1,13 @@
 package com.apiumhub.vyou_core.tenant
 
-import com.apiumhub.vyou_core.domain.VyouResult.Failure
-import com.apiumhub.vyou_core.domain.VyouResult.Success
+import com.apiumhub.vyou_core.domain.VYouResult.Failure
+import com.apiumhub.vyou_core.domain.VYouResult.Success
 import com.apiumhub.vyou_core.tenant.domain.CreateCustomerDto
 import com.apiumhub.vyou_core.tenant.domain.TenantRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class VyouTenantManager internal constructor() : KoinComponent {
+class VYouTenantManager internal constructor() : KoinComponent {
 
     private val tenantRepository: TenantRepository by inject()
 

@@ -1,13 +1,13 @@
 package com.apiumhub.vyou_core.session.domain
 
-import com.apiumhub.vyou_core.domain.VyouResult.Failure
-import com.apiumhub.vyou_core.domain.VyouResult.Success
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
+import com.apiumhub.vyou_core.domain.VYouResult.Failure
+import com.apiumhub.vyou_core.domain.VYouResult.Success
+import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.apiumhub.vyou_core.session.data.EditProfileDto
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class VyouSession internal constructor(val credentials: VyouCredentials) : KoinComponent {
+class VYouSession internal constructor(val credentials: VYouCredentials) : KoinComponent {
 
     private val sessionRepository: SessionRepository by inject()
 

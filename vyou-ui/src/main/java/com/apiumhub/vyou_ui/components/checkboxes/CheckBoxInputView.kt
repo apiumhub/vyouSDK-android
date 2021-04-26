@@ -7,10 +7,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouCheckBoxInputBinding
 import com.apiumhub.vyou_ui.extensions.applySpans
-import com.apiumhub.vyou_ui.components.exception.ValidationException
-import com.apiumhub.vyou_ui.profile.presentation.TenantCompliant
 
 internal fun CheckBoxInputView(context: Context, inputField: CheckBoxField, isTenantCompliant: Boolean) =
     CheckBoxInputView(context).apply { render(inputField, isTenantCompliant) }

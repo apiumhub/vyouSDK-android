@@ -6,17 +6,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import com.apiumhub.vyou_core.domain.VyouException
-import com.apiumhub.vyou_core.domain.VyouResult
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
+import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.apiumhub.vyou_ui.R
 
-class VyouProfileActivity : AppCompatActivity(R.layout.vyou_profile_activity) {
+class VYouProfileActivity : AppCompatActivity(R.layout.vyou_profile_activity) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tenantCompliant = intent?.extras?.getParcelable<TenantCompliant>("tenantCompliant") ?: throw IllegalArgumentException("Tenant compliant argument is mandatory for Profile activity")
-        (supportFragmentManager.findFragmentByTag("profileFragmentTag") as? VyouProfileFragment)?.let {
+        (supportFragmentManager.findFragmentByTag("profileFragmentTag") as? VYouProfileFragment)?.let {
             it.tenantCompliant = tenantCompliant
         }
     }
@@ -28,8 +26,8 @@ class VyouProfileActivity : AppCompatActivity(R.layout.vyou_profile_activity) {
     }
 
     companion object {
-        fun getCallingIntent(context: Context, credentials: VyouCredentials): Intent =
-            Intent(context, VyouProfileActivity::class.java)
+        fun getCallingIntent(context: Context, credentials: VYouCredentials): Intent =
+            Intent(context, VYouProfileActivity::class.java)
                 .apply {
                     putExtras(bundleOf("tenantCompliant" to TenantCompliant(credentials)))
                 }

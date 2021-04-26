@@ -14,19 +14,19 @@ import org.koin.android.ext.android.inject
 
 internal class AuthWebviewActivity : AppCompatActivity(R.layout.activity_auth_webview) {
     private val manifestReader: ManifestReader by inject()
-    private val clientId by lazy { manifestReader.readVyouClientId() }
-    private val redirectUri by lazy { manifestReader.readVyouRedirectUri() }
-    private val vyouUrl by lazy { manifestReader.readVyouUrl() }
+    private val clientId by lazy { manifestReader.readVYouClientId() }
+    private val redirectUri by lazy { manifestReader.readVYouRedirectUri() }
+    private val vyouUrl by lazy { manifestReader.readVYouUrl() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val webView: WebView = findViewById(R.id.authWebview)
-        webView.webViewClient = VyouWebviewClient(this)
+        webView.webViewClient = VYouWebviewClient(this)
         webView.loadUrl("$vyouUrl/oauth/authorize?client_id=$clientId&response_type=code&redirect_uri=$redirectUri")
     }
 
-    private inner class VyouWebviewClient(private val activity: Activity) : WebViewClient() {
+    private inner class VYouWebviewClient(private val activity: Activity) : WebViewClient() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)

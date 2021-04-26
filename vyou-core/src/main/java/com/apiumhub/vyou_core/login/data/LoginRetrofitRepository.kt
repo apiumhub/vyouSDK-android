@@ -2,7 +2,7 @@ package com.apiumhub.vyou_core.login.data
 
 import com.apiumhub.vyou_core.data.ManifestReader
 import com.apiumhub.vyou_core.login.domain.LoginRepository
-import com.apiumhub.vyou_core.login.domain.VyouCredentials
+import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.apiumhub.vyou_core.login.facebook.FacebookAuthBody
 import com.apiumhub.vyou_core.login.google.GoogleAuthBody
 
@@ -11,12 +11,12 @@ internal class LoginRetrofitRepository(
     private val manifestReader: ManifestReader
 ) : LoginRepository {
 
-    override suspend fun authenticateWithVyouCode(code: String): VyouCredentials =
-        authApi.webAccessToken(code, manifestReader.readVyouRedirectUri())
+    override suspend fun authenticateWithVYouCode(code: String): VYouCredentials =
+        authApi.webAccessToken(code, manifestReader.readVYouRedirectUri())
 
-    override suspend fun authenticateWithGoogle(googleToken: String): VyouCredentials =
+    override suspend fun authenticateWithGoogle(googleToken: String): VYouCredentials =
         authApi.loginWithGoogle(GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))
 
-    override suspend fun authenticateWithFacebook(facebookToken: String): VyouCredentials =
+    override suspend fun authenticateWithFacebook(facebookToken: String): VYouCredentials =
         authApi.loginWithFacebook(FacebookAuthBody(facebookToken))
 }

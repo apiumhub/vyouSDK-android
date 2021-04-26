@@ -17,7 +17,7 @@ val retrofitModule = module {
     single {
         Retrofit
             .Builder()
-            .baseUrl(ManifestReader(androidApplication()).readVyouUrl())
+            .baseUrl(ManifestReader(androidApplication()).readVYouUrl())
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -33,5 +33,5 @@ val retrofitModule = module {
     }
     single { get<Retrofit>().create(AuthApi::class.java) }
     single { get<Retrofit>().create(TenantApi::class.java) }
-    single { Base64Encoder(ManifestReader(androidApplication()).readVyouClientId()) }
+    single { Base64Encoder(ManifestReader(androidApplication()).readVYouClientId()) }
 }

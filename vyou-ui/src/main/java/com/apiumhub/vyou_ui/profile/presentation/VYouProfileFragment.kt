@@ -1,51 +1,54 @@
-package com.apiumhub.vyou_ui.register.presentation
+package com.apiumhub.vyou_ui.profile.presentation
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.apiumhub.vyou_core.domain.VyouException
-import com.apiumhub.vyou_core.domain.VyouResult
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouProfileFragmentBinding
-import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-internal class VyouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
+internal class VYouProfileFragment : Fragment(R.layout.vyou_profile_fragment) {
 
+    lateinit var tenantCompliant: TenantCompliant
+    private val viewModel: ProfileViewModel by viewModel()
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
-    private val viewModel: VyouRegisterViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            Log.e("Vyou", "Register error", it)
-            requireActivity().setResult(Activity.RESULT_CANCELED)
-            requireActivity().finish()
-        }
-        viewModel.dynamicForm.observe(viewLifecycleOwner) {
-            binding.checkBoxesDynamicForm.isVisible = true
+
+        viewModel.tenant.observe(viewLifecycleOwner) {
+            binding.checkBoxesDynamicForm.isVisible = !tenantCompliant.isBothCompliant
             binding.saveBtn.isVisible = true
             binding.profileDynamicForm.isVisible = true
             binding.profileLoadingPb.isVisible = false
             binding.profileDynamicForm.render(it.fields)
-            binding.checkBoxesDynamicForm.render(it.checkBoxes)
+            binding.checkBoxesDynamicForm.render(it.checkBoxes, tenantCompliant.tenantConsentCompliant)
         }
-        viewModel.userRegistered.observe(viewLifecycleOwner) {
+
+        viewModel.profile.observe(viewLifecycleOwner) {
+            binding.profileDynamicForm.fillWithProfile(it)
+        }
+
+        viewModel.saved.observe(viewLifecycleOwner) {
             requireActivity().setResult(Activity.RESULT_OK)
             requireActivity().finish()
         }
 
-        binding.saveBtn.text = "Register user"
+        viewModel.error.observe(viewLifecycleOwner) {
+            Log.e("Vyou", "Profile error", it)
+            requireActivity().setResult(Activity.RESULT_CANCELED)
+            requireActivity().finish()
+        }
+
+        binding.saveBtn.text = "Save"
         binding.saveBtn.setOnClickListener {
             runCatching {
-                viewModel.sendDataToRegister(
+                viewModel.saveData(
                     binding.profileDynamicForm.getResponses().groupBy { it.fieldType },
                     binding.checkBoxesDynamicForm.getResponses()
                 )

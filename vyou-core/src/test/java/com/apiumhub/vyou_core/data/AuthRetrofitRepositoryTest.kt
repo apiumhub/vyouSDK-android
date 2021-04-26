@@ -29,12 +29,12 @@ class AuthRetrofitRepositoryTest {
     }
 
     @Test
-    fun shouldWriteToPreferencesWhenVyouLogin() = runBlockingTest {
+    fun shouldWriteToPreferencesWhenVYouLogin() = runBlockingTest {
         every {
-            manifestReader.readVyouRedirectUri()
+            manifestReader.readVYouRedirectUri()
         } returns REDIRECT_URI
 
-        sut.authenticateWithVyouCode(VYOU_CODE)
+        sut.authenticateWithVYouCode(VYOU_CODE)
         coVerify {
             authApi.webAccessToken(VYOU_CODE, REDIRECT_URI)
         }

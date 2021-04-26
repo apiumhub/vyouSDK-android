@@ -18,7 +18,7 @@ val sharedPrefsModule = module {
     single {
         EncryptedSharedPreferences.create(
             androidContext(),
-            "VyouCredentialsSharedPrefs",
+            "VYouCredentialsSharedPrefs",
             get(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
