@@ -67,7 +67,7 @@ VYou.initialize(this)
 ```
 
 ### API
-Every public method inside the SDK return a `VYouResult` whic basically is a wrapper of the result of an action. This is represented by a `sealed class` whose possible values are
+Every public method inside the SDK return a `VYouResult` which basically is a wrapper of the result of an action. This is represented by a `sealed class` whose possible values are
 - `VYouResult.Success` which holds a `value: T` with the result of the action
 - `VYouResult.Failure` which holds an `error: Throwable` with the reason for the failure
 
@@ -90,7 +90,7 @@ The activityResultCaller can be an activity or a fragment, this class can call A
 
 Last but not least, if you are using Facebook to authenticate your users, you need to override
 ```kotlin
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
 ```
 in the Fragment or Activity that is calling the `signInWithFacebook(...)` method and call
 ```kotlin
@@ -175,3 +175,7 @@ In order to style the forms shown to the user, the SDK is integrated with the bu
 </resources>
 ```
 but everything that's configurable via theme.xml will also change the display inside the SDK.
+
+##Sample app
+We provide a sample application for developers to see how VYou is integrated inside a real android app.
+TODO (Google-services.json && keystore)
