@@ -88,7 +88,7 @@ To be able to interact with the VYouLoginManager, it's mandatory to pass an Acti
 fun getLogin(actResultCaller: ActivityResultCaller) = VYouLoginManager(actResultCaller)
 ```
 The activityResultCaller can be an activity or a fragment, this class can call APIs of type Activity#startActivityForResult without having to manage the request codes, and converting the request/response to an Intent.
-It's necessary to call this function before the onCreate of your Activity or fragment. You can do it like this:
+It's necessary to call this function before the onCreate of your Activity or Fragment. You can do it like this:
 ```kotlin
 private val vyouLogin = VYou.getLogin(this)
 ```
@@ -144,7 +144,7 @@ with the following
 ```kotlin
 VYouUI.initialize(this)
 ```
-As in the VYou-Core setup, you will need to call this function before the onCreate of your fragment or activity:
+As in the VYou-Core setup, you will need to call this function before the onCreate of your Activity or Fragment:
 ```kotlin
 private val vyouUi = VYouUI(this)
 ```
@@ -184,6 +184,8 @@ In order to style the forms shown to the user, the SDK is integrated with the bu
 ```
 but everything that's configurable via theme.xml will also change the display inside the SDK.
 
-##Sample app
+###Sample app
 We provide a sample application for developers to see how VYou is integrated inside a real android app.
+To be able to login with google, you must register the project in Firebase and add the google-services.json to the sample application.
+To add the login with Google through Firebase you can look at the [documentation](https://firebase.google.com/docs/auth/android/google-signin?hl=es) here.
 TODO (Google-services.json && keystore)
