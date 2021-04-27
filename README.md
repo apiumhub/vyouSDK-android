@@ -186,5 +186,7 @@ but everything that's configurable via theme.xml will also change the display in
 
 ### Sample App
 We provide a sample application for developers to see how VYou is integrated inside a real android app.
+
 To be able to login with google, you must register the project in Firebase, add the keystore and the google-services.json file to the sample application.
+
 Here you can find the Firebase [documentation](https://firebase.google.com/docs/auth/android/google-signin?hl=es) for adding the Google login.
