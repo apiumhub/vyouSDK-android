@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -30,15 +29,6 @@ android {
     buildFeatures {
         viewBinding {
             enabled = true
-        }
-    }
-
-    signingConfigs {
-        debug {
-            storeFile file("ext/debug-keystore.jks")
-            storePassword '*qfwNQKFWUb*oP8.vYKw9DEj'
-            keyAlias 'debug'
-            keyPassword '@GNitc-hM9UDndAEDYFZww9b'
         }
     }
 
