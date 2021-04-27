@@ -1,3 +1,4 @@
+
 # VYou SDK for Android
 
 The VYou SDK provides two modules, the core module that provides an API to interact directly with the backend and authenticate your users; and the UI module, in which you will have developed the interface to interact with dynamic forms, such as registration or profile. Those modules are structured as follows
@@ -87,7 +88,10 @@ To be able to interact with the VYouLoginManager, it's mandatory to pass an Acti
 fun getLogin(actResultCaller: ActivityResultCaller) = VYouLoginManager(actResultCaller)
 ```
 The activityResultCaller can be an activity or a fragment, this class can call APIs of type Activity#startActivityForResult without having to manage the request codes, and converting the request/response to an Intent.
-
+It's necessary to call this function before the onCreate of your Activity or fragment. You can do it like this:
+```kotlin
+private val vyouLogin = VYou.getLogin(this)
+```
 Last but not least, if you are using Facebook to authenticate your users, you need to override
 ```kotlin
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
@@ -139,6 +143,10 @@ VYou.initialize(this)
 with the following
 ```kotlin
 VYouUI.initialize(this)
+```
+As in the VYou-Core setup, you will need to call this function before the onCreate of your fragment or activity:
+```kotlin
+private val vyouUi = VYouUI(this)
 ```
 ### API
 As VYou-UI holds a dependency to VYou-Core, all of it's API will still be available, so please take a [look at it](#api) if you haven't done so yet.
