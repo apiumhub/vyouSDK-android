@@ -184,8 +184,7 @@ In order to style the forms shown to the user, the SDK is integrated with the bu
 ```
 but everything that's configurable via theme.xml will also change the display inside the SDK.
 
-###Sample app
+### Sample App
 We provide a sample application for developers to see how VYou is integrated inside a real android app.
-To be able to login with google, you must register the project in Firebase and add the google-services.json to the sample application.
-To add the login with Google through Firebase you can look at the [documentation](https://firebase.google.com/docs/auth/android/google-signin?hl=es) here.
-TODO (Google-services.json && keystore)
+To be able to login with google, you must register the project in Firebase, add the keystore and the google-services.json file to the sample application.
+Here you can find the Firebase [documentation](https://firebase.google.com/docs/auth/android/google-signin?hl=es) for adding the Google login.
