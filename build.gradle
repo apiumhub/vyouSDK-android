@@ -14,6 +14,23 @@ buildscript {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
+plugins {
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+}
+group = "com.apiumhub"
+version = "1.0.0-SNAPSHOT"
+
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            //TODO Check server address with jira ticket
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            username = "$System.env.SONATYPE_USERNAME"
+            password = "$System.env.SONATYPE_PASSWORD"
+        }
+    }
+}
 
 allprojects {
     repositories {

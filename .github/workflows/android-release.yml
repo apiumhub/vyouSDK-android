@@ -6,8 +6,4 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Create a Release
-        uses: elgohr/Github-Release-Action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: MyReleaseMessage
+        run: echo "$SONATYPE_USERNAME"
