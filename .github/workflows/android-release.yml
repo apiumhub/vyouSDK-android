@@ -4,7 +4,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      env:
-        SUPER_SECRET: ${{ secrets.SONATYPE_USERNAME }}
-      run:
-        echo "$SUPER_SECRET"
+      - shell: bash
+        env:
+          SUPER_SECRET: ${{ secrets.SONATYPE_USERNAME }}
+        run:
+          echo "$SUPER_SECRET"
