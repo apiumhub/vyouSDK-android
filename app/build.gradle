@@ -33,7 +33,7 @@ android {
     }
 
     signingConfigs {
-        debug {
+        release {
             storeFile file("ext/debug-keystore.jks")
             storePassword '*qfwNQKFWUb*oP8.vYKw9DEj'
             keyAlias 'debug'

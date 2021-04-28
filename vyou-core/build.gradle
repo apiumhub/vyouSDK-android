@@ -31,7 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
+    lintOptions {
+        abortOnError false
+    }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
