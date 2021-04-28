@@ -12,6 +12,7 @@ import com.apiumhub.vyou_core.domain.VYouException
 import com.apiumhub.vyou_core.domain.VYouResult
 import com.apiumhub.vyou_core.domain.VYouResult.Failure
 import com.apiumhub.vyou_core.domain.VYouResult.Success
+import com.apiumhub.vyou_core.login.data.CredentialsStorage
 import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.apiumhub.vyou_ui.profile.di.profileModule
 import com.apiumhub.vyou_ui.profile.presentation.VYouProfileActivity
@@ -19,6 +20,7 @@ import com.apiumhub.vyou_ui.register.di.registerModule
 import com.apiumhub.vyou_ui.register.presentation.VYouRegisterActivity
 import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.coroutines.channels.Channel
+import org.koin.core.module.Module
 
 class VYouUI(activityResultCaller: ActivityResultCaller) {
 
@@ -30,9 +32,15 @@ class VYouUI(activityResultCaller: ActivityResultCaller) {
     suspend fun startProfile(credentials: VYouCredentials) = profileCollaborator.start(credentials)
 
     companion object {
-        fun initialize(application: Application) {
+        fun initialize(application: Application, additionalModules: List<Module> = emptyList()) {
             AndroidThreeTen.init(application)
-            VYou.initialize(application, listOf(registerModule, profileModule))
+            VYou.initialize(
+                application,
+                listOf(
+                    registerModule,
+                    profileModule
+                ) + additionalModules
+            )
         }
     }
 }
