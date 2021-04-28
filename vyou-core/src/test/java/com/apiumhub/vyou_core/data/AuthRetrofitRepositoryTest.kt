@@ -34,9 +34,9 @@ class AuthRetrofitRepositoryTest {
             manifestReader.readVYouRedirectUri()
         } returns REDIRECT_URI
 
-        sut.authenticateWithVYouCode(VYOU_CODE)
+        sut.authenticateWithVYouCode(VYOU_CODE, VYOU_CODE_VERIFIER)
         coVerify {
-            authApi.webAccessToken(VYOU_CODE, REDIRECT_URI)
+            authApi.webAccessToken(VYOU_CODE, VYOU_CODE_VERIFIER, REDIRECT_URI)
         }
     }
 
@@ -64,6 +64,7 @@ class AuthRetrofitRepositoryTest {
         const val ENCODED_CLIENT_ID = "encodedClientId"
 
         const val VYOU_CODE = "vyouCode"
+        const val VYOU_CODE_VERIFIER = "vyouCodeVerifier"
         const val REDIRECT_URI = "redirectUri"
 
         const val GOOGLE_TOKEN = "googleToken"

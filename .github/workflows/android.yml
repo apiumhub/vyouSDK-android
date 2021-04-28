@@ -26,3 +26,9 @@ jobs:
       - name: Build VYou-UI
         run: ./gradlew vyou-ui:build
 
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test
+        run: echo "Hello world"
