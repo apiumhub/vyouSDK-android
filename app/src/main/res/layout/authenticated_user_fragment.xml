@@ -8,16 +8,16 @@
     android:layout_margin="16dp"
     tools:context=".ui.authenticated.AuthenticatedUserFragment">
 
-
     <TextView
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:id="@+id/userNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Hola!!!"/>
-
+        tools:text="Hello $username"/>
 
     <Button
         android:id="@+id/authEditProgfileBtn"

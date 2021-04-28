@@ -72,11 +72,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun navigateToProfile(credentials: VYouCredentials) {
         lifecycleScope.launch {
             when (vyouUi.startProfile(credentials)) {
-                is Success -> launch {
-                    VYou.session?.credentials?.let {
-                        vyouUi.startProfile(it)
-                    }
-                }
+                is Success -> navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
                 is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
             }
         }
@@ -85,7 +81,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun navigateToRegister() {
         lifecycleScope.launch {
             when (vyouUi.startRegister()) {
-                is Success -> Snackbar.make(binding.root, "User registered successfully.", Snackbar.LENGTH_LONG).show()
+                is Success -> Snackbar.make(binding.root, "User registered successfully. Please check your e-mail", Snackbar.LENGTH_LONG).show()
                 is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
             }
         }
