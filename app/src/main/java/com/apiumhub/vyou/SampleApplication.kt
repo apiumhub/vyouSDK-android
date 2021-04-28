@@ -1,6 +1,7 @@
 package com.apiumhub.vyou
 
 import android.app.Application
+import com.apiumhub.vyou_core.VYou
 import com.apiumhub.vyou_core.login.data.CredentialsStorage
 import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.apiumhub.vyou_ui.VYouUI
@@ -9,7 +10,7 @@ import org.koin.dsl.module
 class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        VYouUI.initialize(this, listOf(/*credentialsModule*/))
+        VYou.initialize(this, listOf(/*credentialsModule*/))
     }
 }
 

@@ -127,6 +127,52 @@ suspend fun editProfile(editProfileDto: EditProfileDto): VYouResult<Unit>
 This SDK also provides you with an `OkHttpClient` with the proper configuration so that you can make authenticated requests with any server that needs it. This client has three interceptors which are responsible for adding the `Client-Credentials` header which authenticated your application against the VYou servers, the `Authorization` header, which authenticates your user if it's logged in, and a last one responsible for refreshing the user's token if it's expired or invalid.
 This client is accessible via a static property `val httpClient: OkHttpClient` inside the VYou object.
 
+#### CredentialsStorage
+VYou provides a built-in storage for credentials based on EncryptedSharedPreferences provided by the OS. 
+It might be the case that this solution does not fit the security requirements for your application. 
+If that's the case, we provide an API so that you can install your own CredentialsStorage system to replace the one we provide.
+
+In order to do so, we provide an example with an InMemory storage.
+```kotlin
+class InMemoryCredentialsStorage: CredentialsStorage {
+
+    private var credentials: VYouCredentials? = null
+
+    override fun save(credentials: VYouCredentials) {
+        this.credentials = credentials
+    }
+
+    override fun read(): VYouCredentials? = credentials
+
+    override fun clear() {
+        credentials = null
+    }
+}
+```
+
+Notice that you need to implement the **CredentialsStorage** interface
+
+Once this is done, you need to override the storage inside VYou. 
+In order to do so, as we are using [Koin](https://insert-koin.io/) for dependency injection, this is pretty straightforward.
+
+You must create a module that provides your CredentialsStorage implementation and overrides our own, this is declared as follows.
+
+```kotlin
+val credentialsModule = module {
+    single<CredentialsStorage>(override = true) {
+        InMemoryCredentialsStorage()
+    }
+}
+```
+
+The last thing you have to do is pass a list containing this module when you initialize the SDK
+
+```kotlin
+VYou.initialize(this, listOf(credentialsModule))
+```
+
+All of this code is available for you to test inside the sample app we provide.
+
 ## VYou-UI
 Along with the Core SDK, we provide another library that provides built-in forms for registering a user and editing it's profile. Those forms are dynamically built with the information configured in the back office.
 ### Install
