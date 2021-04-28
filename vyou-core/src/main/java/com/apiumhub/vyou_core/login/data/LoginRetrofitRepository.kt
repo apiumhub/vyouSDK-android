@@ -11,8 +11,8 @@ internal class LoginRetrofitRepository(
     private val manifestReader: ManifestReader
 ) : LoginRepository {
 
-    override suspend fun authenticateWithVYouCode(code: String): VYouCredentials =
-        authApi.webAccessToken(code, manifestReader.readVYouRedirectUri())
+    override suspend fun authenticateWithVYouCode(code: String, codeVerifier: String): VYouCredentials =
+        authApi.webAccessToken(code, codeVerifier, manifestReader.readVYouRedirectUri())
 
     override suspend fun authenticateWithGoogle(googleToken: String): VYouCredentials =
         authApi.loginWithGoogle(GoogleAuthBody(googleToken, manifestReader.readGoogleClientId()))

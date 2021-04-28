@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.apiumhub.vyou.R
 import com.apiumhub.vyou.databinding.MainFragmentBinding
+import com.apiumhub.vyou.ui.extension.load
 import com.apiumhub.vyou_core.VYou
 import com.apiumhub.vyou_core.domain.VYouResult
 import com.apiumhub.vyou_core.domain.VYouResult.*
@@ -24,11 +25,18 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private val navController: NavController by lazy { findNavController() }
 
     private val vyouLogin = VYou.getLogin(this)
+    private val tenantManager = VYou.tenantManager
     private val vyouUi = VYouUI(this)
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            when (val result = tenantManager.tenant()) {
+                is Success -> binding.mainTenantLogoIv.load(result.value.imageUrl)
+                is Failure -> binding.mainTenantLogoIv.load(null)
+            }
+        }
         binding.mainAuthBtn.setOnClickListener {
             launchLogin { vyouLogin.signInWithAuth() }
         }

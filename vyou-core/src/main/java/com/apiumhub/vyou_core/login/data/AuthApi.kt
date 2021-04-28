@@ -9,8 +9,12 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface AuthApi {
-    @GET("/webaccesstoken")
-    suspend fun webAccessToken(@Query("code") code: String, @Query("redirect_uri") redirectUri: String): VYouCredentials
+    @GET("/accesstoken")
+    suspend fun webAccessToken(
+        @Query("code") code: String,
+        @Query("code_verifier") codeVerifier: String,
+        @Query("redirect_uri") redirectUri: String
+    ): VYouCredentials
 
     @POST("/googlelogin")
     suspend fun loginWithGoogle(@Body body: GoogleAuthBody): VYouCredentials

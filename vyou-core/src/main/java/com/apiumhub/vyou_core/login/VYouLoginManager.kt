@@ -27,7 +27,7 @@ class VYouLoginManager internal constructor(actResultCaller: ActivityResultCalle
     suspend fun signInWithAuth() =
         runCatching {
             when (val result = vyouSignIn.start()) {
-                is Success -> loginRepository.authenticateWithVYouCode(result.value).run(sessionRepository::storeSession)
+                is Success -> loginRepository.authenticateWithVYouCode(result.value.code, result.value.codeVerifier).run(sessionRepository::storeSession)
                 is Failure -> throw result.error
             }
         }.fold(::Success, ::Failure)

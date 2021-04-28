@@ -19,12 +19,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        resValue "string", "VYOU_CLIENT_ID", "8XxbGzbBAAbapQ9tppEaJvNa8jzKDw9h0KBWQYvT2P67T42lAlrZrG7KWg"
-        resValue "string", "VYOU_REDIRECT_URI", "vyouapp://com.vyouapp.auth"
+        resValue "string", "VYOU_CLIENT_ID", "AvVl53A1qobr0g9fCt8dlPgiaAYU4yTviTG0Ne50pKAqChnkBIE3mMVAzw"
+        resValue "string", "VYOU_REDIRECT_URI", "https://vyou-gallagher.vercel.app/vyou_oauth_callback.html"
         resValue "string", "VYOU_URL", "https://test.vyou-app.com:8380"
         resValue "string", "GOOGLE_CLIENT_ID", "975381680954-klti62p4cek1nombhmpkq7ti9tikbglf.apps.googleusercontent.com"
         resValue "string", "FACEBOOK_APP_ID", "834318853808440"
-        resValue "string", "FACEBOOK_PROTOCOL_SCHEME", "fb834318853808440"
     }
 
     buildFeatures {
@@ -81,6 +80,7 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation 'com.github.Zhuinden:fragmentviewbindingdelegate-kt:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.8'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

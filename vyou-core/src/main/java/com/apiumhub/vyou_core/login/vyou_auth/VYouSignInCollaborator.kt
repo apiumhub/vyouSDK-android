@@ -9,24 +9,31 @@ import com.apiumhub.vyou_core.domain.VYouResult
 import kotlinx.coroutines.channels.Channel
 
 class VYouSignInCollaborator(actResultCaller: ActivityResultCaller) {
-    private val resultChannel = Channel<VYouResult<String>>()
+    private val resultChannel = Channel<VYouResult<VyouAuthResponse>>()
 
     private val vyouAuthLauncher: ActivityResultLauncher<Unit> = actResultCaller
         .registerForActivityResult(getContract()) {
             resultChannel.offer(it)
         }
 
-    suspend fun start(): VYouResult<String> {
+    suspend fun start(): VYouResult<VyouAuthResponse> {
         vyouAuthLauncher.launch(Unit)
         return resultChannel.receive()
     }
 
-    private fun getContract() = object : ActivityResultContract<Unit, VYouResult<String>>() {
+    private fun getContract() = object : ActivityResultContract<Unit, VYouResult<VyouAuthResponse>>() {
         override fun createIntent(context: Context, input: Unit): Intent = AuthWebviewActivity.getCallingIntent(context)
 
-        override fun parseResult(resultCode: Int, intent: Intent?): VYouResult<String> =
-            intent?.getStringExtra("code")?.let {
-                VYouResult.Success(it)
-            } ?: VYouResult.Failure(IllegalStateException("Error retrieving parameter code from redirectUri"))
+        override fun parseResult(resultCode: Int, intent: Intent?): VYouResult<VyouAuthResponse> =
+            if (intent?.getStringExtra("code") == null || intent.getStringExtra("code_verifier") == null)
+                VYouResult.Failure(IllegalStateException("Error retrieving parameter code from redirectUri"))
+        else {
+            VYouResult.Success(VyouAuthResponse(intent.getStringExtra("code")!!, intent.getStringExtra("code_verifier")!!))
+            }
     }
 }
+
+data class VyouAuthResponse(
+    val code: String,
+    val codeVerifier: String
+)

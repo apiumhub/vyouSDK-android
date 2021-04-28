@@ -51,11 +51,10 @@ android:value="string" />
 Our proposed approach for including all of this data is adding them via build.gradle such as:
 ```groovy
 resValue "string", "VYOU_CLIENT_ID", "8XxbGzbBAAbapQ9t*******KDw9h0KBWQYvT2P67T42lAlrZrG7KWg"
-resValue "string", "VYOU_REDIRECT_URI", "vyouapp://com.vyouapp.auth"
+resValue "string", "VYOU_REDIRECT_URI", "https://vyou-gallagher.vercel.app/vyou_oauth_callback.html"
 resValue "string", "VYOU_URL", "https://test.vyou-app.com:8380"
 resValue "string", "GOOGLE_CLIENT_ID", "975381680954-klti62p4c***ti9tikbglf.apps.googleusercontent.com"
 resValue "string", "FACEBOOK_APP_ID", "83431****8440"
-resValue "string", "FACEBOOK_PROTOCOL_SCHEME", "fb83431****40"
 ```
 
 This allows you to setup those values by environment read them from any external file (such as local.properties) in case you need to.
