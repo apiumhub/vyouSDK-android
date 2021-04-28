@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'maven-publish'
 }
 
 android {
@@ -43,6 +44,31 @@ android {
     }
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.apiumhub'
+                artifactId = 'vyou-ui'
+                version = "1.0.0-SNAPSHOT"
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                from components.debug
+
+                groupId = 'com.apiumhub'
+                artifactId = 'vyou-ui'
+                version = '1.0.0-SNAPSHOT'
+            }
+        }
+    }
+}
 dependencies {
     api project(':vyou-core')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
