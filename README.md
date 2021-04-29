@@ -15,7 +15,7 @@ Also, if you don't have mavenCentral() as a repository, you should add it to you
 allprojects {
     repositories {
         mavenCentral()
-        ...
+        //The rest of your repositories
     }
 }
 ```
@@ -198,7 +198,7 @@ Also, if you don't have mavenCentral() as a repository, you should add it to you
 allprojects {
     repositories {
         mavenCentral()
-        ...
+        //The rest of your repositories
     }
 }
 ```
