@@ -12,9 +12,11 @@ jobs:
     steps:
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
+        with:
+          gpg-private-key: '${{ secrets.GPG_PRIVATE_KEY }}'
+          passphrase: '${{ secrets.SIGNING_PASSWORD }}'
         env:
           SIGNING_SECRET_KEY_RING_FILE: '${{ secrets.GPG_PRIVATE_KEY }}'
-          SIGNING_PASSWORD: '${{ secrets.SIGNING_PASSWORD }}'
       - uses: actions/checkout@v2
       - name: set up JDK 11
         uses: actions/setup-java@v2
