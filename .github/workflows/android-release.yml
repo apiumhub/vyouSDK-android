@@ -4,9 +4,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
-        env:
-          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
-        run:
-          #echo "$SUPER_SECRET"
+      - uses: actions/checkout@v2
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      env:
+        ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
+        ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build VYou-Core
+        run: ./gradlew vyou-core:build
+      - name: Build VYou-UI
+        run: ./gradlew vyou-ui:build
+      - name: Publish VYou-Core to Sonatype
+        run: ./gradlew vyou-core:publishReleasePublicationToSonatypeRepository
+      - name: Publish VYou-UI to Sonatype
+        run: ./gradlew vyou-ui:publishReleasePublicationToSonatypeRepository
+      - name: Publish both libraries to Maven Central
+        run: ./gradlew publishToSonatype closeSonatypeStagingRepository
+        #closeAndReleaseSonatypeStagingRepository
