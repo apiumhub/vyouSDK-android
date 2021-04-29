@@ -24,4 +24,4 @@ jobs:
       - name: Build VYou-UI
         run: './gradlew vyou-ui:build'
       - name: Publish both libraries to Maven Central
-        run: './gradlew publishToSonatype --max-workers 1 closeAndReleaseSonatypeStagingRepository'
+        run: './gradlew :vyou-core:publishReleasePublicationToSonatypeRepository --max-workers 1 :vyou-ui:publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository'
