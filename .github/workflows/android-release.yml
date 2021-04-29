@@ -23,9 +23,5 @@ jobs:
         run: './gradlew vyou-core:build'
       - name: Build VYou-UI
         run: './gradlew vyou-ui:build'
-      - name: Publish VYou-Core to Sonatype
-        run: './gradlew vyou-core:publishReleasePublicationToSonatypeRepository'
-      - name: Publish VYou-UI to Sonatype
-        run: './gradlew vyou-ui:publishReleasePublicationToSonatypeRepository'
       - name: Publish both libraries to Maven Central
         run: './gradlew publishToSonatype --max-workers 1 closeAndReleaseSonatypeStagingRepository'
