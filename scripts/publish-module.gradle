@@ -76,5 +76,6 @@ ext["signing.password"] = rootProject.ext["signing.password"]
 ext["signing.secretKeyRingFile"] = rootProject.ext["signing.secretKeyRingFile"]
 
 signing {
+    useInMemoryPgpKeys(signing.secretKeyRingFile, signing.password)
     sign publishing.publications
 }
