@@ -6,7 +6,7 @@ The VYou SDK provides two modules, the core module that provides an API to inter
 ## VYou-Core
 ### Install
 In order to install the VYou-Core SDK in your Android application you'll need to add the following dependency inside your application-level build.gradle file
-`TODO("Gradle dependency + repository")`
+`implementation "io.github.apiumhub:vyou-core:1.02`
 
 ### Setup
   You'll need to include to your AndroidManifest the following permissions, to allow the SDK to perform network operations.
@@ -177,7 +177,7 @@ All of this code is available for you to test inside the sample app we provide.
 Along with the Core SDK, we provide another library that provides built-in forms for registering a user and editing it's profile. Those forms are dynamically built with the information configured in the back office.
 ### Install
 In order to install the VYou-UI SDK in your Android application you'll need to add the following dependency inside your application-level build.gradle file
-`TODO("Gradle dependency + repository")`
+`implementation "io.github.apiumhub:vyou-ui:1.02`
 **Important note** Notice that VYou-Core is a dependency inside VYou-UI, so if you add VYou-UI to your project, you don't need to add the `Core` dependency anymore.
 ### Setup
 Please refer to the [VYou-Core setup](#setup), as you'll have to follow all of the steps described on it.
