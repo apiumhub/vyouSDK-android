@@ -46,7 +46,7 @@ ext {
     // Provide your own coordinates here
     PUBLISH_GROUP_ID = 'io.github.apiumhub'
     PUBLISH_ARTIFACT_ID = 'vyou-ui'
-    PUBLISH_VERSION = '1.0.1'
+    PUBLISH_VERSION = '1.0.2'
 }
 
 apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
