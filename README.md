@@ -11,7 +11,7 @@ In order to install the VYou-Core SDK in your Android application you'll need to
 
 Also, if you don't have mavenCentral() as a repository, you should add it to your project-level build.gradle file:
 
-```gradle
+```groovy
 allprojects {
     repositories {
         mavenCentral()
@@ -194,7 +194,7 @@ In order to install the VYou-UI SDK in your Android application you'll need to a
 
 Also, if you don't have mavenCentral() as a repository, you should add it to your project-level build.gradle file:
 
-```gradle
+```groovy
 allprojects {
     repositories {
         mavenCentral()
