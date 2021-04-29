@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'maven-publish'
 }
 
 android {
@@ -50,31 +49,14 @@ android {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                // Applies the component for the release build variant.
-                from components.release
-
-                // You can then customize attributes of the publication as shown below.
-                groupId = group
-                artifactId = 'vyou-core'
-                version = version
-            }
-            // Creates a Maven publication called “debug”.
-            debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-                from components.debug
-
-                groupId = group
-                artifactId = 'vyou-core-debug'
-                version = version
-            }
-        }
-    }
+ext {
+    // Provide your own coordinates here
+    PUBLISH_GROUP_ID = 'io.github.apiumhub'
+    PUBLISH_ARTIFACT_ID = 'vyou-core'
+    PUBLISH_VERSION = '1.0.0'
 }
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:27.0.0')
