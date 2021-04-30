@@ -10,7 +10,7 @@ import org.koin.dsl.module
 class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        VYou.initialize(this, listOf(/*credentialsModule*/))
+        VYouUI.initialize(this, listOf(/*credentialsModule*/))
     }
 }
 
