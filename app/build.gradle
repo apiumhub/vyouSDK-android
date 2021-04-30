@@ -32,11 +32,17 @@ android {
     }
 
     signingConfigs {
-        release {
+        debug {
             storeFile file("ext/debug-keystore.jks")
             storePassword '*qfwNQKFWUb*oP8.vYKw9DEj'
             keyAlias 'debug'
             keyPassword '@GNitc-hM9UDndAEDYFZww9b'
+        }
+        release {
+            storeFile file("ext/release-keystore.jks")
+            storePassword '8oxXrgejqE-APVPmfsM@xD7C'
+            keyAlias 'release'
+            keyPassword '@NgdeWehhc6VTgriRfhxZHW_'
         }
     }
 
@@ -81,7 +87,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'com.github.Zhuinden:fragmentviewbindingdelegate-kt:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
