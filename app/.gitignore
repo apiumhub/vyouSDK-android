@@ -1,6 +1,6 @@
 /build
 /ext/debug-keystore.jks
-app/release/*
+release/*
 google-services.json
 # Built application files
 *.apk
