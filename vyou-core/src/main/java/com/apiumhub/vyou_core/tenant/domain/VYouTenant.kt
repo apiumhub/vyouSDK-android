@@ -40,5 +40,6 @@ data class VYouTenant(
 data class VYouFieldDto(
     val name: String,
     val required: Boolean,
-    val type: String
+    val type: String,
+    val order: Int
 )

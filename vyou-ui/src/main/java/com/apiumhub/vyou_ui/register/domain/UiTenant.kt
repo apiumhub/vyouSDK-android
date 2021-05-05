@@ -20,6 +20,7 @@ internal class UiTenant(from: VYouTenant) {
 
     private fun mapFields(from: List<VYouFieldDto>, fieldType: FieldType) =
         from
+            .sortedBy { it.order }
             .map {
                 when (it.name) {
                     "birth" -> DateField("birth", it.required, fieldType)
@@ -36,8 +37,7 @@ internal class UiTenant(from: VYouTenant) {
                         fieldType
                     )
                 }
-            }
-            .toTypedArray()
+            }.toTypedArray()
 
     private fun mapCheckBoxes(from: VYouTenant): List<CheckBoxField> {
         val listCheckBoxes = mutableListOf(
