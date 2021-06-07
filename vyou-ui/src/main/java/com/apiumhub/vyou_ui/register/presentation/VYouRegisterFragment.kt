@@ -11,11 +11,20 @@ import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouProfileFragmentBinding
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 internal class VYouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
 
     private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
-    private val viewModel: VYouRegisterViewModel by viewModel()
+    private val viewModel: VYouRegisterViewModel by viewModel {
+        parametersOf(
+            listOf(
+                context?.getString(R.string.gender_male),
+                context?.getString(R.string.gender_female),
+                context?.getString(R.string.gender_other)
+            )
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,14 +39,21 @@ internal class VYouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
             binding.profileDynamicForm.isVisible = true
             binding.profileLoadingPb.isVisible = false
             binding.profileDynamicForm.render(it.fields)
+            binding.profileDynamicForm.observe {
+                binding.saveBtn.isEnabled = binding.profileDynamicForm.isValid && binding.checkBoxesDynamicForm.isValid
+            }
             binding.checkBoxesDynamicForm.render(it.checkBoxes)
+            binding.checkBoxesDynamicForm.observe {
+                binding.saveBtn.isEnabled = binding.profileDynamicForm.isValid && binding.checkBoxesDynamicForm.isValid
+            }
         }
+
         viewModel.userRegistered.observe(viewLifecycleOwner) {
             requireActivity().setResult(Activity.RESULT_OK)
             requireActivity().finish()
         }
 
-        binding.saveBtn.text = "Register user"
+        binding.saveBtn.text = context?.getString(R.string.button_register)
         binding.saveBtn.setOnClickListener {
             runCatching {
                 viewModel.sendDataToRegister(

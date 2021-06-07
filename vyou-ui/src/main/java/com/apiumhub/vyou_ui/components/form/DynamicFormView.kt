@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.children
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.apiumhub.vyou_core.session.domain.VYouProfile
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.register.domain.*
@@ -19,10 +21,18 @@ internal class DynamicFormView @JvmOverloads constructor(
         orientation = VERTICAL
     }
 
+    val isValid get() = children.map { it as VYouInputComponent }.all { it.isValid }
+
     fun render(fields: List<InputField>) {
         fields
             .map { createComponent(it) }
             .forEach { addView(it) }
+    }
+
+    fun observe(onChange: () -> Unit) {
+        children.map { it as VYouInputComponent }.forEach {  component ->
+            component.observe { onChange() }
+        }
     }
 
     fun getResponses(): List<FieldOutModel> =
@@ -34,6 +44,7 @@ internal class DynamicFormView @JvmOverloads constructor(
     private fun createComponent(it: InputField): View =
         when (it) {
             is DateField -> DateInputView(context, it)
+            is DropdownField -> DropdownInputView(context, it)
             is RadioGroupField -> RadioGroupInputView(context, it)
             is TextField -> TextInputView(context, it)
             is PasswordField -> PasswordInputView(context, it)

@@ -7,11 +7,11 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouTextInputBinding
-import com.apiumhub.vyou_ui.extensions.addLeftIconToTextField
 import com.apiumhub.vyou_ui.register.domain.TextField
 
 internal fun TextInputView(context: Context, inputField: TextField) =
@@ -37,6 +37,15 @@ internal class TextInputView @JvmOverloads constructor(
             isVisible = value
         }
 
+    override val isValid: Boolean
+        get() {
+            return inputField.isRequired.not() || (binding.textInputEt.text.toString().isNotEmpty() && when (inputField.inputType) {
+                TextField.VYouInputType.EMAIL -> Patterns.EMAIL_ADDRESS.matcher(binding.textInputEt.text.toString()).matches()
+                TextField.VYouInputType.PHONE -> Patterns.PHONE.matcher(binding.textInputEt.text.toString()).matches()
+                else -> true
+            })
+        }
+
     override fun setValue(value: String) {
         binding.textInputEt.setText(value)
     }
@@ -49,31 +58,44 @@ internal class TextInputView @JvmOverloads constructor(
     fun render(inputField: TextField) {
         this.inputField = inputField
         tag = inputField.id
-        binding.inputLayout.hint = inputField.title
+        binding.inputLayout.hint = inputField.getTitle(context)
 
         binding.textInputEt.inputType = when (inputField.inputType) {
             TextField.VYouInputType.TEXT -> InputType.TYPE_CLASS_TEXT
             TextField.VYouInputType.NUMBER -> InputType.TYPE_CLASS_NUMBER
+            TextField.VYouInputType.PHONE -> InputType.TYPE_CLASS_PHONE
             TextField.VYouInputType.EMAIL -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         }
-        addLeftIconToTextField(
-            inputField.isRequired,
-            binding.inputLayout,
-            R.drawable.ic_mandatory_field
-        )
+        if (inputField.isRequired.not()) {
+            binding.inputLayout.hint = inputField.getTitle(context) + " (${context.getString(R.string.field_optional)})"
+        }
+
+        binding.textInputEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus) runCatching { validate() }
+        }
     }
 
     override fun validate() = apply {
         binding.textInputEt.text?.let {
             if (inputField.isRequired && it.isEmpty()) {
-                binding.inputLayout.error = "Field is mandatory"
+                binding.inputLayout.error = context.getString(R.string.error_field_is_mandatory)
                 throw ValidationException(this)
             }
             if (it.isNotEmpty() && inputField.inputType == TextField.VYouInputType.EMAIL && !Patterns.EMAIL_ADDRESS.matcher(it).matches()) {
-                binding.inputLayout.error = "Invalid E-mail"
+                binding.inputLayout.error = context.getString(R.string.error_field_password_invalid_email)
+                throw ValidationException(this)
+            }
+            if (it.isNotEmpty() && inputField.inputType == TextField.VYouInputType.PHONE && !Patterns.PHONE.matcher(it).matches()) {
+                binding.inputLayout.error = context.getString(R.string.error_field_password_invalid_phone_number)
                 throw ValidationException(this)
             }
             binding.inputLayout.error = null
+        }
+    }
+
+    override fun observe(onChange: () -> Unit) {
+        binding.textInputEt.addTextChangedListener { text ->
+            onChange()
         }
     }
 }

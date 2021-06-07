@@ -14,7 +14,7 @@ import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.register.domain.UiTenant
 import kotlinx.coroutines.launch
 
-internal class ProfileViewModel : ViewModel() {
+internal class ProfileViewModel(private val genderList: List<String>) : ViewModel() {
 
     private val _tenant = MutableLiveData<UiTenant>()
     val tenant: LiveData<UiTenant> = _tenant
@@ -32,7 +32,7 @@ internal class ProfileViewModel : ViewModel() {
         viewModelScope.launch {
             VYou.session?.let {
                 when (val tenantResult = VYou.tenantManager.tenant()) {
-                    is Success -> _tenant.value = UiTenant(tenantResult.value)
+                    is Success -> _tenant.value = UiTenant(tenantResult.value, genderList)
                     is Failure -> _error.value = tenantResult.error
                 }
                 when (val profileResult = it.tenantProfile()) {

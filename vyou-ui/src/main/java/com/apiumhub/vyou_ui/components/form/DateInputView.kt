@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.exception.ValidationException
@@ -35,6 +36,9 @@ internal class DateInputView @JvmOverloads constructor(
     override val id: String
         get() = inputField.id
 
+    override val isValid: Boolean
+        get() = inputField.isRequired || binding.dateTextInputEt.text.toString().isNotEmpty()
+
     override var visible: Boolean
         get() = isVisible
         set(value) {
@@ -53,13 +57,15 @@ internal class DateInputView @JvmOverloads constructor(
     fun render(inputField: DateField) {
         this.inputField = inputField
         tag = inputField.id
-        binding.dateInputLayout.hint = inputField.title
+        binding.dateInputLayout.hint = inputField.getTitle(context)
         binding.dateTextInputEt.setOnClickListener { openCalendarComponent() }
-        addLeftIconToTextField(
-            inputField.isRequired,
-            binding.dateInputLayout,
-            R.drawable.ic_mandatory_field
-        )
+        if(inputField.isRequired.not()) {
+            binding.dateInputLayout.hint = inputField.getTitle(context) + " (${context.getString(R.string.field_optional)})"
+        }
+
+        binding.dateTextInputEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus) runCatching { validate() }
+        }
     }
 
     private fun openCalendarComponent() {
@@ -85,10 +91,16 @@ internal class DateInputView @JvmOverloads constructor(
     override fun validate() = apply {
         binding.dateTextInputEt.text?.let {
             if (inputField.isRequired && it.isEmpty()) {
-                binding.dateInputLayout.error = "This field is mandatory"
+                binding.dateInputLayout.error = context.getString(R.string.error_field_is_mandatory)
                 throw ValidationException(this)
             } else
                 binding.dateInputLayout.error = null
+        }
+    }
+
+    override fun observe(onChange: () -> Unit) {
+        binding.dateTextInputEt.addTextChangedListener {
+            onChange()
         }
     }
 

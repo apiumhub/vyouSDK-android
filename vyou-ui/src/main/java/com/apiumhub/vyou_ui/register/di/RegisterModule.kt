@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 val registerModule = module {
     viewModel {
-        VYouRegisterViewModel(VYou.tenantManager)
+        VYouRegisterViewModel(it[0], VYou.tenantManager)
     }
 }

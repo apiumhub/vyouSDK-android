@@ -32,6 +32,9 @@ internal class RadioGroupInputView @JvmOverloads constructor(
     override val id: String
         get() = inputField.id
 
+    override val isValid: Boolean
+        get() = inputField.isRequired || binding.radioGroup.checkedRadioButton != null
+
     override var visible: Boolean
         get() = isVisible
         set(value) { isVisible = value }
@@ -48,7 +51,7 @@ internal class RadioGroupInputView @JvmOverloads constructor(
     fun render(inputField: RadioGroupField) {
         this.inputField = inputField
         tag = inputField.id
-        binding.titleRadioGroup.text = inputField.title
+        binding.titleRadioGroup.text = inputField.getTitle(context)
         addLeftIconToTextField(
             inputField.isRequired,
             binding.titleRadioGroup,
@@ -57,6 +60,10 @@ internal class RadioGroupInputView @JvmOverloads constructor(
         inputField.options
             .mapIndexed(::mapToRadioButton)
             .forEach(binding.radioGroup::addView)
+
+        binding.radioGroup.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus) runCatching { validate() }
+        }
     }
 
     private fun mapToRadioButton(index: Int, field: String) =
@@ -80,5 +87,9 @@ internal class RadioGroupInputView @JvmOverloads constructor(
         } else
             binding.radioGroupError.isVisible = false
 
+    }
+
+    override fun observe(onChange: () -> Unit) {
+        onChange()
     }
 }

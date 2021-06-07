@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="field_unknown">Desconocido</string>
+    <string name="field_email_label">Email</string>
+    <string name="field_password_label">Contraseña</string>
+    <string name="field_repeat_password_label">Repetir contraseña</string>
+    <string name="field_name_label">Nombre</string>
+    <string name="field_birthdate_label">Fecha de nacimiento</string>
+    <string name="field_gender_label">Género</string>
+    <string name="field_phone_label">Teléfono</string>
+    <string name="field_surname_label">Apellidos</string>
+    <string name="field_country_label">País</string>
+    <string name="checkbox_privacy_policy_text">He leído y acepto la política de privacidad</string>
+    <string name="checkbox_privacy_policy_link">política de privacidad</string>
+    <string name="checkbox_terms_and_conditions_text">He leído y acepto los términos y condiciones de uso</string>
+    <string name="checkbox_terms_and_conditions_link">términos y condiciones de uso</string>
+    <string name="checkbox_commercial_info_text">Me gustaría recibir información comercial</string>
+    <string name="checkbox_commercial_info_link">información comercial</string>
+    <string name="field_optional">Opcional</string>
+    <string name="error_field_is_mandatory">Este campo es requerido</string>
+    <string name="error_field_password_doesnt_matches">Las contraseñas no coinciden</string>
+    <string name="error_field_password_invalid_email">Por favor, introduce un correo electrónico</string>
+    <string name="error_field_password_invalid_phone_number">Por favor, introduce un número de teléfono</string>
+    <string name="button_register">Registrarse</string>
+    <string name="button_save">Guardar</string>
+    <string name="gender_male">Hombre</string>
+    <string name="gender_female">Mujer</string>
+    <string name="gender_other">Otro</string>
+</resources>

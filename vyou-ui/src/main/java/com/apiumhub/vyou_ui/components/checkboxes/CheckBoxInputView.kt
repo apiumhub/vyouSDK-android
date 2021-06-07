@@ -22,15 +22,21 @@ internal class CheckBoxInputView @JvmOverloads constructor(
 
     private val binding = VyouCheckBoxInputBinding.inflate(LayoutInflater.from(context), this, true)
     private lateinit var inputField: CheckBoxField
+    val isRequired get() = inputField.isRequired
+    val isChecked get() = binding.checkBox.isChecked
 
     fun render(inputField: CheckBoxField, isTenantCompliant: Boolean) {
         this.inputField = inputField
         val urlSpan = URLSpan(inputField.url)
-        binding.checkBox.text = inputField.title.first.applySpans(
-            context, inputField.url, inputField.title.second to urlSpan
+        binding.checkBox.text = inputField.getTitle(context).first.applySpans(
+            context, inputField.url, inputField.getTitle(context).second to urlSpan
         )
         binding.checkBox.movementMethod = LinkMovementMethod.getInstance()
         binding.checkBox.isChecked = isTenantCompliant && inputField.isRequired
+
+        binding.checkBox.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus) runCatching { validate() }
+        }
     }
 
     fun isChecked(): Pair<String, Boolean> = inputField.id to binding.checkBox.isChecked
@@ -42,6 +48,12 @@ internal class CheckBoxInputView @JvmOverloads constructor(
             throw ValidationException(this)
         } else {
             binding.checkboxErrorTv.isVisible = false
+        }
+    }
+
+    fun observe(onChange: () -> Unit) {
+        binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            onChange()
         }
     }
 }

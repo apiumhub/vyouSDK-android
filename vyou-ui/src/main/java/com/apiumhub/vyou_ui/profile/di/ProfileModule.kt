@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val profileModule = module {
     viewModel {
-        ProfileViewModel()
+        ProfileViewModel(it[0])
     }
 }

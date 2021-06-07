@@ -13,7 +13,7 @@ import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.register.domain.UiTenant
 import kotlinx.coroutines.launch
 
-internal class VYouRegisterViewModel(private val tenantManager: VYouTenantManager) : ViewModel() {
+internal class VYouRegisterViewModel(private val genderList: List<String>, private val tenantManager: VYouTenantManager) : ViewModel() {
 
     private val _dynamicForm = MutableLiveData<UiTenant>()
     val dynamicForm: LiveData<UiTenant> = _dynamicForm
@@ -27,7 +27,7 @@ internal class VYouRegisterViewModel(private val tenantManager: VYouTenantManage
     init {
         viewModelScope.launch {
             when (val result = tenantManager.tenant()) {
-                is Success -> _dynamicForm.value = UiTenant(result.value)
+                is Success -> _dynamicForm.value = UiTenant(result.value, genderList)
                 is Failure -> _errorLiveData.value = result.error
             }
         }

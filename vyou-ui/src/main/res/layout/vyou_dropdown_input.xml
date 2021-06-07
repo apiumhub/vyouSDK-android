@@ -9,18 +9,16 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dateInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:id="@+id/dropInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="match_parent"
         app:helperText=" "
         android:layout_height="wrap_content"
-        app:endIconMode="custom"
-        app:endIconDrawable="@drawable/ic_baseline_date_range_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dateTextInputEt"
+        <AutoCompleteTextView
+            android:id="@+id/dropTextInputEt"
             android:inputType="none"
             android:focusable="false"
             android:layout_width="match_parent"

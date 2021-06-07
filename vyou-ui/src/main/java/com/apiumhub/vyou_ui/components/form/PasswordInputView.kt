@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
+import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.components.exception.ValidationException
@@ -27,9 +29,16 @@ internal class PasswordInputView @JvmOverloads constructor(
     override val id: String
         get() = inputField.id
 
+    override val isValid: Boolean
+        get() = inputField.isRequired || (binding.passwordInputEt.text.toString().isNotEmpty()
+                && binding.repeatPasswordEt.text.toString().isNotEmpty()
+                && binding.passwordInputEt.text.toString() == binding.repeatPasswordEt.text.toString())
+
     override var visible: Boolean
         get() = isVisible
-        set(value) { isVisible = value }
+        set(value) {
+            isVisible = value
+        }
 
     override fun setValue(value: String) {
         //NoOp
@@ -43,18 +52,18 @@ internal class PasswordInputView @JvmOverloads constructor(
         val password = binding.passwordInputEt.text ?: throw ValidationException(this)
         val repeatedPassword = binding.repeatPasswordEt.text ?: throw ValidationException(this)
         if (password.isEmpty()) {
-            binding.passwordInputLayout.error = "This field is mandatory"
+            binding.passwordInputLayout.error = context.getString(R.string.error_field_is_mandatory)
             throw ValidationException(this)
         } else
             binding.passwordInputLayout.error = null
         if (repeatedPassword.isEmpty()) {
-            binding.repeatPasswordInputLayout.error = "This field is mandatory"
+            binding.repeatPasswordInputLayout.error = context.getString(R.string.error_field_is_mandatory)
             throw ValidationException(this)
         } else
             binding.repeatPasswordInputLayout.error = null
         if (password.toString() != repeatedPassword.toString()) {
             binding.passwordInputLayout.error = null
-            binding.repeatPasswordInputLayout.error = "Passwords don't match"
+            binding.repeatPasswordInputLayout.error = context.getString(R.string.error_field_password_doesnt_matches)
             throw ValidationException(this)
         }
         binding.passwordInputLayout.error = null
@@ -64,7 +73,21 @@ internal class PasswordInputView @JvmOverloads constructor(
     fun render(inputField: PasswordField) {
         this.inputField = inputField
         tag = inputField.id
-        binding.passwordInputLayout.hint = "Type your password"
-        binding.repeatPasswordInputLayout.hint = "Repeat your password"
+        binding.passwordInputLayout.hint = context.getString(R.string.field_password_label)
+        binding.repeatPasswordInputLayout.hint = context.getString(R.string.field_repeat_password_label)
+
+        binding.repeatPasswordEt.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus) runCatching { validate() }
+        }
+    }
+
+    override fun observe(onChange: () -> Unit) {
+        binding.passwordInputEt.addTextChangedListener {
+            onChange()
+        }
+
+        binding.repeatPasswordEt.addTextChangedListener {
+            onChange()
+        }
     }
 }
