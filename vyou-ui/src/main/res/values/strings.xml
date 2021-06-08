@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="field_unknown">Unknown</string>
     <string name="field_email_label">Email</string>
     <string name="field_password_label">Password</string>
     <string name="field_repeat_password_label">Repeat password</string>
@@ -10,17 +9,20 @@
     <string name="field_phone_label">Phone</string>
     <string name="field_surname_label">Surname</string>
     <string name="field_country_label">Country</string>
+    <string name="field_optional">Optional</string>
+    <string name="field_unknown">Unknown</string>
     <string name="checkbox_privacy_policy_text">I have read and accept the privacy policy</string>
     <string name="checkbox_privacy_policy_link">privacy policy</string>
     <string name="checkbox_terms_and_conditions_text">I have read and accept the terms and conditions of use</string>
     <string name="checkbox_terms_and_conditions_link">terms and conditions of use</string>
     <string name="checkbox_commercial_info_text">I would like to receive commercial information</string>
     <string name="checkbox_commercial_info_link">commercial information</string>
-    <string name="field_optional">Optional</string>
     <string name="error_field_is_mandatory">This field is required</string>
     <string name="error_field_password_doesnt_matches">Passwords do not matches</string>
     <string name="error_field_password_invalid_email">Please enter an email address</string>
     <string name="error_field_password_invalid_phone_number">Please enter a phone number</string>
+    <string name="error_checkbox_privacy_policy">Please, you must agree to the privacy policy</string>
+    <string name="error_checkbox_terms_and_conditions">Please, you must agree to the terms and conditions of use</string>
     <string name="button_register">Sign up</string>
     <string name="button_save">Save</string>
     <string name="gender_male">Male</string>

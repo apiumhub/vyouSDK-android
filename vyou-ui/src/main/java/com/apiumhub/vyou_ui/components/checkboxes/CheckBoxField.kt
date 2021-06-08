@@ -10,4 +10,10 @@ internal class CheckBoxField(val id: String, val isRequired: Boolean, val url: S
         "comercial_info" -> context.getString(R.string.checkbox_commercial_info_text) to context.getString(R.string.checkbox_commercial_info_link)
         else -> id to ""
     }
+
+    fun getError(context: Context) = when(id) {
+        "privacy_policy" -> context.getString(R.string.error_checkbox_privacy_policy)
+        "terms_conditions" -> context.getString(R.string.error_checkbox_terms_and_conditions)
+        else -> id
+    }
 }

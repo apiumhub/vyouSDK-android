@@ -8,6 +8,9 @@
 
     <CheckBox
         android:id="@+id/checkBox"
+        android:focusable="true"
+        android:clickable="true"
+        android:textAppearance="@style/TextAppearance.VYouUI.Body2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,11 +20,12 @@
 
     <TextView
         android:id="@+id/checkboxErrorTv"
+        android:textAppearance="@style/TextAppearance.VYouUI.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please check this field"
+        android:layout_marginStart="8dp"
         android:visibility="gone"
-        android:textColor="@android:color/holo_red_light"
+        android:textColor="?attr/colorError"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkBox" />
 

@@ -10,7 +10,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dropInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        style="@style/Components.VYouUI.DropdownInputLayout"
         android:layout_width="match_parent"
         app:helperText=" "
         android:layout_height="wrap_content"

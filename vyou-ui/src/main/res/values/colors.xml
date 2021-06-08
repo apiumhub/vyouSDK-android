@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="vyou_primary">#04AB6C</color>
+    <color name="vyou_primary_light">#56de9b</color>
+    <color name="vyou_primary_dark">#007b40</color>
+    <color name="vyou_on_primary">@color/white</color>
+    <color name="vyou_secondary">#326E4F</color>
+    <color name="vyou_secondary_light">#609d7b</color>
+    <color name="vyou_secondary_dark">#004227</color>
+    <color name="vyou_on_secondary">@color/white</color>
+    <color name="vyou_background">@color/white</color>
+    <color name="vyou_on_background">@color/black</color>
+    <color name="vyou_surface">@color/white</color>
+    <color name="vyou_on_surface">@color/black</color>
+    <color name="vyou_error">#BA4A48</color>
+    <color name="vyou_on_error">@color/white</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

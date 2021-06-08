@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Components.VYouUI" parent="android:Widget"/>
+    <style name="Components.VYouUI.TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+    <style name="Components.VYouUI.DropdownInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"/>
+    <style name="Components.VYouUI.Button" parent="@style/Widget.MaterialComponents.Button"/>
+</resources>

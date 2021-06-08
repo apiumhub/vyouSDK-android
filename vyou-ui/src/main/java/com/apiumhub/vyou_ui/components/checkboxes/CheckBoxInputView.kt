@@ -33,10 +33,7 @@ internal class CheckBoxInputView @JvmOverloads constructor(
         )
         binding.checkBox.movementMethod = LinkMovementMethod.getInstance()
         binding.checkBox.isChecked = isTenantCompliant && inputField.isRequired
-
-        binding.checkBox.setOnFocusChangeListener { _, hasFocus ->
-            if(!hasFocus) runCatching { validate() }
-        }
+        binding.checkboxErrorTv.text = inputField.getError(context)
     }
 
     fun isChecked(): Pair<String, Boolean> = inputField.id to binding.checkBox.isChecked
@@ -52,7 +49,8 @@ internal class CheckBoxInputView @JvmOverloads constructor(
     }
 
     fun observe(onChange: () -> Unit) {
-        binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
+            binding.checkboxErrorTv.isVisible = !isChecked && isRequired
             onChange()
         }
     }

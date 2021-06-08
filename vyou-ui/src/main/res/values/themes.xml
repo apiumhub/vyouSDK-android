@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="VYouUI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Color appearance -->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/vyou_primary</item>
+        <item name="colorPrimaryVariant">@color/vyou_primary_dark</item>
+        <item name="colorOnPrimary">@color/vyou_on_primary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/vyou_secondary</item>
+        <item name="colorSecondaryVariant">@color/vyou_secondary_dark</item>
+        <item name="colorOnSecondary">@color/vyou_on_secondary</item>
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/vyou_background</item>
+        <item name="colorOnBackground">@color/vyou_on_background</item>
+        <!-- Surface color -->
+        <item name="colorSurface">@color/vyou_surface</item>
+        <item name="colorOnSurface">@color/vyou_on_surface</item>
+        <!-- Error color -->
+        <item name="colorError">@color/vyou_error</item>
+        <item name="colorOnError">@color/vyou_on_error</item>
+
+        <!-- Typography appearance -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.VYouUI.H1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.VYouUI.H2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.VYouUI.H3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.VYouUI.H4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.VYouUI.H5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.VYouUI.H6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.VYouUI.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.VYouUI.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.VYouUI.Body</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.VYouUI.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.VYouUI.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.VYouUI.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.VYouUI.Overline</item>
+
+        <!-- Shape appearance -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.VYouUI.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.VYouUI.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.VYouUI.LargeComponent</item>
+
+        <!-- Component appearance -->
+        <item name="materialButtonStyle">@style/Components.VYouUI.Button</item>
+        <item name="textInputStyle">@style/Components.VYouUI.TextInputLayout</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+    </style>
+</resources>
