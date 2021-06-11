@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressButton">
+        <attr name="iconButton" format="reference" />
+        <attr name="iconButtonTint" format="color" />
+        <attr name="iconButtonPadding" format="dimension"/>
+        <attr name="ctaButton" format="string" />
+    </declare-styleable>
+</resources>

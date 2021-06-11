@@ -35,10 +35,9 @@ class AuthenticatedUserFragment : Fragment(R.layout.authenticated_user_fragment)
         binding.authEditProgfileBtn.setOnClickListener {
             lifecycleScope.launch {
                 session?.credentials?.let {
-                    vyouUi.startProfile(it)
+                    vyouUi.startEditProfile(it)
                 }
             }
-
         }
     }
 

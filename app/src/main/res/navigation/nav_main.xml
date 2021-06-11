@@ -13,7 +13,12 @@
 
         <action
             android:id="@+id/mainFragment_to_authenticated"
-            app:destination="@id/authenticatedUserFragment" />
+            app:destination="@id/profileFragment">
+            <argument
+                android:name="tenantCompliant"
+                app:argType="com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant"
+                app:nullable="true" />
+        </action>
 
         <action
             android:id="@+id/mainFragment_to_register"
@@ -24,35 +29,38 @@
             app:destination="@id/editProfileFragment">
             <argument
                 android:name="tenantCompliant"
-                app:argType="com.apiumhub.vyou_ui.profile.presentation.TenantCompliant"
-                app:nullable="true"
-                />
+                app:argType="com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant"
+                app:nullable="true" />
         </action>
 
     </fragment>
 
     <fragment
-        android:id="@+id/authenticatedUserFragment"
-        android:name="com.apiumhub.vyou.ui.authenticated.AuthenticatedUserFragment"
-        android:label="AuthenticatedFragment"
-        tools:layout="@layout/authenticated_user_fragment" />
+        android:id="@+id/profileFragment"
+        android:name="com.apiumhub.vyou_ui.profile.presentation.VYouProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/vyou_profile_fragment">
+        <argument
+            android:name="tenantCompliant"
+            app:argType="com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant"
+            app:nullable="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerUserFragment"
         android:name="com.apiumhub.vyou_ui.register.presentation.VYouRegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/vyou_profile_fragment" />
+        tools:layout="@layout/vyou_register_fragment" />
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.apiumhub.vyou_ui.profile.presentation.VYouProfileFragment"
+        android:name="com.apiumhub.vyou_ui.edit_profile.presentation.VYouEditProfileFragment"
         android:label="EditProfileFragment"
-        tools:layout="@layout/vyou_profile_fragment">
+        tools:layout="@layout/vyou_edit_profile_fragment">
         <argument
             android:name="tenantCompliant"
-            app:argType="com.apiumhub.vyou_ui.profile.presentation.TenantCompliant"
-            app:nullable="false"
-            />
+            app:argType="com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant"
+            app:nullable="false" />
     </fragment>
 
 </navigation>

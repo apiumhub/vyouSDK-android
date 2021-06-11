@@ -12,8 +12,9 @@ import com.apiumhub.vyou_core.domain.VYouException
 import com.apiumhub.vyou_core.domain.VYouResult
 import com.apiumhub.vyou_core.domain.VYouResult.Failure
 import com.apiumhub.vyou_core.domain.VYouResult.Success
-import com.apiumhub.vyou_core.login.data.CredentialsStorage
 import com.apiumhub.vyou_core.login.domain.VYouCredentials
+import com.apiumhub.vyou_ui.edit_profile.di.editProfileModule
+import com.apiumhub.vyou_ui.edit_profile.presentation.VYouEditProfileActivity
 import com.apiumhub.vyou_ui.profile.di.profileModule
 import com.apiumhub.vyou_ui.profile.presentation.VYouProfileActivity
 import com.apiumhub.vyou_ui.register.di.registerModule
@@ -24,12 +25,21 @@ import org.koin.core.module.Module
 
 class VYouUI(activityResultCaller: ActivityResultCaller) {
 
-    private val registerCollaborator = RegisterCollaborator(activityResultCaller)
-    private val profileCollaborator = ProfileCollaborator(activityResultCaller)
+    private val registerCollaborator = Collaborator<Unit>(activityResultCaller) { context, _ ->
+        VYouRegisterActivity.getCallingIntent(context)
+    }
+    private val profileCollaborator = Collaborator<VYouCredentials>(activityResultCaller) { context, input ->
+        VYouProfileActivity.getCallingIntent(context, input)
+    }
+    private val editProfileCollaborator = Collaborator<VYouCredentials>(activityResultCaller) { context, input ->
+        VYouEditProfileActivity.getCallingIntent(context, input)
+    }
 
     suspend fun startRegister() = registerCollaborator.start()
 
     suspend fun startProfile(credentials: VYouCredentials) = profileCollaborator.start(credentials)
+
+    suspend fun startEditProfile(credentials: VYouCredentials) = editProfileCollaborator.start(credentials)
 
     companion object {
         fun initialize(application: Application, additionalModules: List<Module> = emptyList()) {
@@ -38,59 +48,34 @@ class VYouUI(activityResultCaller: ActivityResultCaller) {
                 application,
                 listOf(
                     registerModule,
-                    profileModule
+                    profileModule,
+                    editProfileModule
                 ) + additionalModules
             )
         }
     }
 }
 
-internal class RegisterCollaborator(activityResultCaller: ActivityResultCaller) {
-    private val registerResultChannel = Channel<VYouResult<Unit>>()
+private class Collaborator<T>(activityResultCaller: ActivityResultCaller, private val intent: (Context, T) -> Intent) {
+    private val resultChannel = Channel<VYouResult<Unit>>()
 
-    private val registerLauncher: ActivityResultLauncher<Unit> = activityResultCaller
+    private val resultLauncher: ActivityResultLauncher<T> = activityResultCaller
         .registerForActivityResult(getContract()) {
-            registerResultChannel.offer(it)
+            resultChannel.offer(it)
         }
 
-    suspend fun start(): VYouResult<Unit> {
-        registerLauncher.launch(Unit)
-        return registerResultChannel.receive()
+    suspend fun start(credentials: T = Unit as T): VYouResult<Unit> {
+        resultLauncher.launch(credentials)
+        return resultChannel.receive()
     }
 
-    private fun getContract() = object : ActivityResultContract<Unit, VYouResult<Unit>>() {
-        override fun createIntent(context: Context, input: Unit): Intent =
-            VYouRegisterActivity.getCallingIntent(context)
+    private fun getContract() = object : ActivityResultContract<T, VYouResult<Unit>>() {
+        override fun createIntent(context: Context, input: T): Intent = intent.invoke(context, input)
 
         override fun parseResult(resultCode: Int, intent: Intent?) =
             when (resultCode) {
                 Activity.RESULT_OK -> Success(Unit)
-                else -> Failure(VYouException("Error during register"))
-            }
-    }
-}
-
-internal class ProfileCollaborator(activityResultCaller: ActivityResultCaller) {
-    private val profileResultChannel = Channel<VYouResult<Unit>>()
-
-    private val profileLauncher: ActivityResultLauncher<VYouCredentials> = activityResultCaller
-        .registerForActivityResult(getContract()) {
-            profileResultChannel.offer(it)
-        }
-
-    suspend fun start(credentials: VYouCredentials): VYouResult<Unit> {
-        profileLauncher.launch(credentials)
-        return profileResultChannel.receive()
-    }
-
-    private fun getContract() = object : ActivityResultContract<VYouCredentials, VYouResult<Unit>>() {
-        override fun createIntent(context: Context, input: VYouCredentials): Intent =
-            VYouProfileActivity.getCallingIntent(context, input)
-
-        override fun parseResult(resultCode: Int, intent: Intent?) =
-            when (resultCode) {
-                Activity.RESULT_OK -> Success(Unit)
-                else -> Failure(VYouException("Error editing user's profile"))
+                else -> Failure(VYouException("Error invoking: $intent"))
             }
     }
 }

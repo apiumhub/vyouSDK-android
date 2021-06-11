@@ -1,4 +1,4 @@
-package com.apiumhub.vyou_ui.profile.presentation
+package com.apiumhub.vyou_ui.edit_profile.presentation
 
 import android.os.Parcelable
 import com.apiumhub.vyou_core.login.domain.VYouCredentials

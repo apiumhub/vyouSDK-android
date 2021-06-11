@@ -1,5 +1,6 @@
 package com.apiumhub.vyou_ui.profile.presentation
 
+import androidx.activity.result.ActivityResultCaller
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,12 +10,13 @@ import com.apiumhub.vyou_core.domain.VYouResult.Failure
 import com.apiumhub.vyou_core.domain.VYouResult.Success
 import com.apiumhub.vyou_core.session.data.EditProfileDto
 import com.apiumhub.vyou_core.session.domain.VYouProfile
+import com.apiumhub.vyou_ui.VYouUI
 import com.apiumhub.vyou_ui.components.FieldOutModel
 import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.register.domain.UiTenant
 import kotlinx.coroutines.launch
 
-internal class ProfileViewModel(private val genderList: List<String>) : ViewModel() {
+internal class VYouProfileViewModel(private val genderList: List<String>) : ViewModel() {
 
     private val _tenant = MutableLiveData<UiTenant>()
     val tenant: LiveData<UiTenant> = _tenant
@@ -22,8 +24,8 @@ internal class ProfileViewModel(private val genderList: List<String>) : ViewMode
     private val _profile = MutableLiveData<VYouProfile>()
     val profile: LiveData<VYouProfile> = _profile
 
-    private val _saved = MutableLiveData<Unit>()
-    val saved: LiveData<Unit> = _saved
+    private val _logOut = MutableLiveData<Unit>()
+    val logOut: LiveData<Unit> = _logOut
 
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
@@ -35,6 +37,14 @@ internal class ProfileViewModel(private val genderList: List<String>) : ViewMode
                     is Success -> _tenant.value = UiTenant(tenantResult.value, genderList)
                     is Failure -> _error.value = tenantResult.error
                 }
+            }
+        }
+        onViewCreated()
+    }
+
+    fun onViewCreated() {
+        viewModelScope.launch {
+            VYou.session?.let {
                 when (val profileResult = it.tenantProfile()) {
                     is Success -> _profile.value = profileResult.value
                     is Failure -> _error.value = profileResult.error
@@ -43,24 +53,14 @@ internal class ProfileViewModel(private val genderList: List<String>) : ViewMode
         }
     }
 
-    fun saveData(
-        customer: Map<FieldType, List<FieldOutModel>>,
-        checkboxes: List<Pair<String, Boolean>>
-    ) {
+    fun signOut() {
         viewModelScope.launch {
-            when (val result = VYou.session?.editProfile(createDto(customer, checkboxes))) {
-                is Success -> _saved.value = Unit
-                is Failure -> _error.value = result.error
+            VYou.session?.let {
+                when (val result = it.signOut()) {
+                    is Success -> _logOut.value = result.value
+                    is Failure -> _error.value = result.error
+                }
             }
         }
     }
-
-    private fun createDto(customer: Map<FieldType, List<FieldOutModel>>, checkboxes: List<Pair<String, Boolean>>) = EditProfileDto(
-        email = customer.getValue(FieldType.EMAIL).first().value,
-        infoAccepted = checkboxes.first { it.first == "comercial_info" }.second,
-        privacyAccepted = checkboxes.first { it.first == "privacy_policy" }.second,
-        termsConditionsAccepted = checkboxes.first { it.first == "terms_conditions" }.second,
-        dynamicFields = customer[FieldType.CUSTOM]?.associate { it.key to it.value } ?: emptyMap(),
-        mandatoryFields = customer[FieldType.DEFAULT]?.associate { it.key to it.value } ?: emptyMap()
-    )
 }

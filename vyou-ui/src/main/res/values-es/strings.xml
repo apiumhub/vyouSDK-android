@@ -28,4 +28,15 @@
     <string name="gender_male">Hombre</string>
     <string name="gender_female">Mujer</string>
     <string name="gender_other">Otro</string>
+    <string name="login_sign_in_with_email">Inicia sesión con VYou</string>
+    <string name="login_sign_in_with_google">Inicia sesión con Google</string>
+    <string name="login_sign_in_with_facebook">Inicia sesión con Facebook</string>
+    <string name="login_do_you_have_account">¿No tienes una cuenta?</string>
+    <string name="login_get_started">Empieza</string>
+    <string name="profile_personal_info">Información personal</string>
+    <string name="profile_log_out">Cerrar sesión</string>
+    <string name="profile_edit">Editar perfil</string>
+    <string name="profile_dialog_log_out_message">¿Quieres cerrar sesión?</string>
+    <string name="profile_dialog_log_out_confirm">Sí</string>
+    <string name="profile_dialog_log_out_cancel">No</string>
 </resources>

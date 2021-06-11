@@ -51,7 +51,7 @@ internal class TextInputView @JvmOverloads constructor(
     }
 
     override fun getKeyValue(): FieldOutModel? =
-        binding.textInputEt.text?.takeIf { it.isNotEmpty() }?.let {
+        binding.textInputEt.text?.takeIf { inputField.isRequired.not() || it.isNotEmpty() }?.let {
             FieldOutModel(inputField.fieldType, inputField.id, it.toString())
         }
 
@@ -73,6 +73,8 @@ internal class TextInputView @JvmOverloads constructor(
         binding.textInputEt.setOnFocusChangeListener { _, hasFocus ->
             if(!hasFocus) runCatching { validate() }
         }
+
+        binding.inputLayout.isEnabled = inputField.readOnly.not()
     }
 
     override fun validate() = apply {

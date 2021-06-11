@@ -3,8 +3,10 @@
     package="com.apiumhub.vyou_ui">
 
     <application>
-        <activity android:name=".register.presentation.VYouRegisterActivity" android:theme="@style/VYouUI" />
         <activity android:name=".profile.presentation.VYouProfileActivity" android:theme="@style/VYouUI" />
+        <activity android:name=".login.presentation.VYouLoginActivity" android:theme="@style/VYouUI" />
+        <activity android:name=".register.presentation.VYouRegisterActivity" android:theme="@style/VYouUI" />
+        <activity android:name=".edit_profile.presentation.VYouEditProfileActivity" android:theme="@style/VYouUI" />
     </application>
 
 </manifest>

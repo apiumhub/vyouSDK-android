@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_vyou_profile"
+    app:startDestination="@id/profile_fragment">
+
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.apiumhub.vyou_ui.profile.presentation.VYouProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/vyou_profile_fragment">
+
+        <action
+            android:id="@+id/profile_to_edit_profile"
+            app:destination="@id/editProfileFragment">
+            <argument
+                android:name="tenantCompliant"
+                app:argType="com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant"
+                app:nullable="false"
+                />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.apiumhub.vyou_ui.edit_profile.presentation.VYouEditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/vyou_edit_profile_fragment">
+        <argument
+            android:name="tenantCompliant"
+            app:argType="com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant"
+            app:nullable="false"/>
+    </fragment>
+
+</navigation>

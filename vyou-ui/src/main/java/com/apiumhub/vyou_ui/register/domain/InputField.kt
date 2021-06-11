@@ -4,7 +4,7 @@ import android.content.Context
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.FieldType
 
-internal sealed class InputField(val id: String, val isRequired: Boolean, val fieldType: FieldType) {
+internal sealed class InputField(val id: String, val isRequired: Boolean, val fieldType: FieldType, val readOnly: Boolean = false) {
     fun getTitle(context: Context) =
         when (id) {
             "birth" -> context.getString(R.string.field_birthdate_label)
@@ -19,7 +19,7 @@ internal sealed class InputField(val id: String, val isRequired: Boolean, val fi
         }
 }
 
-internal class TextField(id: String, isRequired: Boolean, val inputType: VYouInputType, fieldType: FieldType) : InputField(id, isRequired, fieldType) {
+internal class TextField(id: String, isRequired: Boolean, val inputType: VYouInputType, fieldType: FieldType, readOnly: Boolean) : InputField(id, isRequired, fieldType, readOnly) {
 
     enum class VYouInputType(val type: String) {
         TEXT("string"),

@@ -4,52 +4,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".register.presentation.VYouRegisterFragment">
+    tools:context=".profile.presentation.VYouProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="16dp">
 
         <ProgressBar
             android:id="@+id/profile_loading_pb"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.apiumhub.vyou_ui.components.form.DynamicFormView
-            android:id="@+id/profile_dynamic_form"
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/layer_no_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintBottom_toTopOf="@id/tvEditProfile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            tools:text="John" />
+
+        <TextView
+            android:id="@+id/tvEditProfile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/profile_edit"
+            android:textAppearance="?attr/textAppearanceButton"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.3"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
+
+        <TextView
+            android:id="@+id/tvPersonalInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0.7"
+            android:text="@string/profile_personal_info"
+            android:textAllCaps="true"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+
+        <com.apiumhub.vyou_ui.components.list.DynamicListView
+            android:id="@+id/profile_dynamic_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvPersonalInfo" />
 
-        <com.apiumhub.vyou_ui.components.checkboxes.DynamicCheckBoxesFormView
-            android:id="@+id/checkBoxesDynamicForm"
+        <View
+            android:id="@+id/dividerLogout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.3"
+            android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_dynamic_form" />
+            app:layout_constraintTop_toBottomOf="@id/profile_dynamic_list" />
 
-        <Button
-            android:id="@+id/saveBtn"
+        <TextView
+            android:id="@+id/tvLogOut"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:enabled="false"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:text="@string/profile_log_out"
+            android:textAppearance="?attr/textAppearanceButton"
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/checkBoxesDynamicForm" />
+            app:layout_constraintTop_toBottomOf="@id/dividerLogout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

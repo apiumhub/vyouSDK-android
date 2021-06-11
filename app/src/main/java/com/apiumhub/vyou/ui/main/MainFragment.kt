@@ -16,6 +16,7 @@ import com.apiumhub.vyou_core.domain.VYouResult.*
 import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.apiumhub.vyou_core.session.domain.VYouSession
 import com.apiumhub.vyou_ui.VYouUI
+import com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant
 import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
@@ -60,7 +61,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 is Success -> {
                     val credentials = result.value.credentials
                     if (credentials.tenantCompliant && credentials.tenantConsentCompliant)
-                        navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+                        vyouUi.startProfile(credentials)
+//                        navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated(TenantCompliant(credentials)))
                     else {
                         navigateToProfile(credentials)
                     }
@@ -72,7 +74,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun navigateToProfile(credentials: VYouCredentials) {
         lifecycleScope.launch {
             when (vyouUi.startProfile(credentials)) {
-                is Success -> navController.navigate(MainFragmentDirections.mainFragmentToAuthenticated())
+                is Success -> Snackbar.make(binding.root, "OK", Snackbar.LENGTH_LONG).show()
                 is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
             }
         }

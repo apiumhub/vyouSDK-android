@@ -28,4 +28,16 @@
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="gender_other">Other</string>
+    <string name="login_sign_in_with_email">Sign in with email</string>
+    <string name="login_sign_in_with_google">Sign in with Google</string>
+    <string name="login_sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="login_do_you_have_account">Do not have an account?</string>
+    <string name="login_get_started">Get started</string>
+    <string name="profile_personal_info">Personal info</string>
+    <string name="profile_log_out">Log out</string>
+    <string name="profile_edit">Edit profile</string>
+    <string name="profile_dialog_log_out_message">Do you want to log out?</string>
+    <string name="profile_dialog_log_out_confirm">Yes</string>
+    <string name="profile_dialog_log_out_cancel">No</string>
+
 </resources>

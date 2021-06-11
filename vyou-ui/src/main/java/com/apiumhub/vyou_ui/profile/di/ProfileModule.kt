@@ -1,11 +1,11 @@
 package com.apiumhub.vyou_ui.profile.di
 
-import com.apiumhub.vyou_ui.profile.presentation.ProfileViewModel
+import com.apiumhub.vyou_ui.profile.presentation.VYouProfileViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val profileModule = module {
     viewModel {
-        ProfileViewModel(it[0])
+        VYouProfileViewModel(it[0])
     }
 }

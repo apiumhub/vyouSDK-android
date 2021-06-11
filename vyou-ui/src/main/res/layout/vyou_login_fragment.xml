@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.presentation.VYouLoginFragment">
+
+    <ImageView
+        android:id="@+id/ivBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_vyou_logo"
+        app:layout_constraintBottom_toTopOf="@id/btnSignInEmail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.apiumhub.vyou_ui.components.button.ProgressButton
+        android:id="@+id/btnSignInEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        app:ctaButton="@string/login_sign_in_with_email"
+        app:iconButton="@drawable/ic_vyou_black_small"
+        app:iconButtonPadding="48dp"
+        app:iconButtonTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/btnSignInGoogle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.apiumhub.vyou_ui.components.button.ProgressButton
+        android:id="@+id/btnSignInGoogle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        app:ctaButton="@string/login_sign_in_with_google"
+        app:iconButton="@drawable/ic_google"
+        app:iconButtonPadding="48dp"
+        app:iconButtonTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/btnSignInFacebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.apiumhub.vyou_ui.components.button.ProgressButton
+        android:id="@+id/btnSignInFacebook"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="48dp"
+        app:ctaButton="@string/login_sign_in_with_facebook"
+        app:iconButton="@drawable/ic_facebook_alternative"
+        app:iconButtonPadding="48dp"
+        app:layout_constraintBottom_toTopOf="@id/llGetStarted"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/llGetStarted"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/login_do_you_have_account" />
+
+        <TextView
+            android:id="@+id/tvGetStarted"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:letterSpacing="0.040"
+            android:text="@string/login_get_started"
+            android:textAllCaps="true"
+            android:textColor="@color/vyou_primary" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,13 +5,13 @@ import com.apiumhub.vyou_core.tenant.domain.VYouTenant
 import com.apiumhub.vyou_ui.components.FieldType
 import com.apiumhub.vyou_ui.components.checkboxes.CheckBoxField
 
-internal class UiTenant(from: VYouTenant, private val genderList: List<String>) {
+internal class UiTenant(from: VYouTenant, private val genderList: List<String>, private val readOnlyList: List<String> = emptyList()) {
     val fields: List<InputField>
     val checkBoxes: List<CheckBoxField> = mapCheckBoxes(from)
 
     init {
         fields = listOf(
-            TextField("vyou_internal_email", true, TextField.VYouInputType.EMAIL, FieldType.EMAIL),
+            TextField("vyou_internal_email", true, TextField.VYouInputType.EMAIL, FieldType.EMAIL, readOnlyList.contains("vyou_internal_email")),
             PasswordField("vyou_internal_password"),
             *mapFields(from.mandatoryFields, FieldType.DEFAULT),
             *mapFields(from.dynamicFields, FieldType.CUSTOM)
@@ -34,7 +34,8 @@ internal class UiTenant(from: VYouTenant, private val genderList: List<String>) 
                         it.name,
                         it.required,
                         TextField.VYouInputType.fromName(it.name, it.type),
-                        fieldType
+                        fieldType,
+                        readOnlyList.contains(it.name)
                     )
                 }
             }.toTypedArray()

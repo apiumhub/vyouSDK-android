@@ -3,5 +3,8 @@
     <style name="Components.VYouUI" parent="android:Widget"/>
     <style name="Components.VYouUI.TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
     <style name="Components.VYouUI.DropdownInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"/>
-    <style name="Components.VYouUI.Button" parent="@style/Widget.MaterialComponents.Button"/>
+    <style name="Components.VYouUI.Button" parent="@style/Widget.MaterialComponents.Button">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
 </resources>

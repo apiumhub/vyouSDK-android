@@ -8,14 +8,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.exception.ValidationException
-import com.apiumhub.vyou_ui.databinding.VyouProfileFragmentBinding
+import com.apiumhub.vyou_ui.databinding.VyouRegisterFragmentBinding
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-internal class VYouRegisterFragment : Fragment(R.layout.vyou_profile_fragment) {
+internal class VYouRegisterFragment : Fragment(R.layout.vyou_register_fragment) {
 
-    private val binding: VyouProfileFragmentBinding by viewBinding(VyouProfileFragmentBinding::bind)
+    private val binding: VyouRegisterFragmentBinding by viewBinding(VyouRegisterFragmentBinding::bind)
     private val viewModel: VYouRegisterViewModel by viewModel {
         parametersOf(
             listOf(

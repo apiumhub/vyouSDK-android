@@ -8,21 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import com.apiumhub.vyou_core.login.domain.VYouCredentials
 import com.apiumhub.vyou_ui.R
+import com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant
 
 class VYouProfileActivity : AppCompatActivity(R.layout.vyou_profile_activity) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tenantCompliant = intent?.extras?.getParcelable<TenantCompliant>("tenantCompliant") ?: throw IllegalArgumentException("Tenant compliant argument is mandatory for Profile activity")
-        (supportFragmentManager.findFragmentByTag("profileFragmentTag") as? VYouProfileFragment)?.let {
+        (supportFragmentManager.fragments.first().childFragmentManager.fragments.first() as? VYouProfileFragment)?.let {
             it.tenantCompliant = tenantCompliant
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        setResult(Activity.RESULT_CANCELED)
-        finish()
     }
 
     companion object {

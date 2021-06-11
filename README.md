@@ -237,7 +237,7 @@ In order to style the forms shown to the user, the SDK is integrated with the bu
 ```xml
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-  <style name="Theme.VYou" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+  <style name="Theme.Demo" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
   <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
