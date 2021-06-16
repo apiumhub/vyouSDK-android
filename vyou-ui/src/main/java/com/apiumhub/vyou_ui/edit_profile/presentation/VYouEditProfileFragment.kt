@@ -57,8 +57,8 @@ internal class VYouEditProfileFragment : Fragment(R.layout.vyou_edit_profile_fra
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Log.e("Vyou", "Profile error", it)
-            Snackbar.make(binding.root, "There was an unexpected error when updating profile.", Snackbar.LENGTH_LONG).show()
+            Log.e("VYou", "Profile error", it)
+            Snackbar.make(binding.root, "Unexpected error: ${it.message}", Snackbar.LENGTH_LONG).show()
         }
 
         binding.saveBtn.text = context?.getString(R.string.button_save)

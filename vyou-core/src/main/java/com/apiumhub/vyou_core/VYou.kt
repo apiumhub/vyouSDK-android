@@ -7,10 +7,9 @@ import com.apiumhub.vyou_core.di.retrofitModule
 import com.apiumhub.vyou_core.di.sharedPrefsModule
 import com.apiumhub.vyou_core.di.vyouCoreModule
 import com.apiumhub.vyou_core.login.VYouLoginManager
-import com.apiumhub.vyou_core.login.data.CredentialsStorage
 import com.apiumhub.vyou_core.session.di.sessionModule
 import com.apiumhub.vyou_core.session.domain.SessionRepository
-import com.apiumhub.vyou_core.session.domain.VYouSession
+import com.apiumhub.vyou_core.session.VYouSession
 import com.apiumhub.vyou_core.tenant.VYouTenantManager
 import com.facebook.FacebookSdk
 import okhttp3.OkHttpClient

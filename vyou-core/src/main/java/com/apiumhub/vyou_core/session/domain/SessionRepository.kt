@@ -1,6 +1,7 @@
 package com.apiumhub.vyou_core.session.domain
 
 import com.apiumhub.vyou_core.login.domain.VYouCredentials
+import com.apiumhub.vyou_core.session.VYouSession
 import com.apiumhub.vyou_core.session.data.EditProfileDto
 
 internal interface SessionRepository {

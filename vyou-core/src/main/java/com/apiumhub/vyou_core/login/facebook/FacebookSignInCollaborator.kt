@@ -33,14 +33,12 @@ internal class FacebookSignInCollaborator {
         }
 
         override fun onCancel() {
-            resultChannel.offer(VYouResult.Failure(IllegalStateException("Facebook login cancelled by user")))
+            resultChannel.offer(VYouResult.Failure(VYouFacebookException.Cancel))
         }
 
         override fun onError(error: FacebookException?) {
             resultChannel.offer(
-                VYouResult.Failure(
-                    error ?: IllegalStateException("There was an unknown error trying to authenticate user with facebook")
-                )
+                VYouResult.Failure(VYouFacebookException.Error(error?.message))
             )
         }
     }

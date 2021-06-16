@@ -75,7 +75,7 @@ private class Collaborator<T>(activityResultCaller: ActivityResultCaller, privat
         override fun parseResult(resultCode: Int, intent: Intent?) =
             when (resultCode) {
                 Activity.RESULT_OK -> Success(Unit)
-                else -> Failure(VYouException("Error invoking: $intent"))
+                else -> Failure(VYouException("Error invoking UI with code: $resultCode"))
             }
     }
 }

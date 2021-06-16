@@ -1,21 +1,16 @@
 package com.apiumhub.vyou_core.tenant
 
-import com.apiumhub.vyou_core.domain.VYouResult.Failure
-import com.apiumhub.vyou_core.domain.VYouResult.Success
+import com.apiumhub.vyou_core.VYouManager
+import com.apiumhub.vyou_core.domain.VYouResult
 import com.apiumhub.vyou_core.tenant.domain.RegisterDto
 import com.apiumhub.vyou_core.tenant.domain.TenantRepository
-import org.koin.core.component.KoinComponent
+import com.apiumhub.vyou_core.tenant.domain.VYouTenant
 import org.koin.core.component.inject
 
-class VYouTenantManager internal constructor() : KoinComponent {
+class VYouTenantManager internal constructor() : VYouManager() {
 
     private val tenantRepository: TenantRepository by inject()
 
-    suspend fun tenant() =
-        runCatching { tenantRepository.getTenant() }
-            .fold(::Success, ::Failure)
-
-    suspend fun register(customer: RegisterDto) =
-        runCatching { tenantRepository.createCustomer(customer) }
-            .fold(::Success, ::Failure)
+    suspend fun tenant(): VYouResult<VYouTenant> = networkCall { tenantRepository.getTenant() }
+    suspend fun register(customer: RegisterDto) = networkCall { tenantRepository.createCustomer(customer) }
 }

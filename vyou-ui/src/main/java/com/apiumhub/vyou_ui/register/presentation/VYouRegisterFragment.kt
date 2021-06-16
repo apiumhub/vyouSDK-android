@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.apiumhub.vyou_ui.R
 import com.apiumhub.vyou_ui.components.exception.ValidationException
 import com.apiumhub.vyou_ui.databinding.VyouRegisterFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -30,8 +31,7 @@ internal class VYouRegisterFragment : Fragment(R.layout.vyou_register_fragment) 
         super.onViewCreated(view, savedInstanceState)
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             Log.e("VYou", "Register error", it)
-            requireActivity().setResult(Activity.RESULT_CANCELED)
-            requireActivity().finish()
+            Snackbar.make(binding.root, "Unexpected error: ${it.message}", Snackbar.LENGTH_LONG).show()
         }
         viewModel.dynamicForm.observe(viewLifecycleOwner) {
             binding.checkBoxesDynamicForm.isVisible = true

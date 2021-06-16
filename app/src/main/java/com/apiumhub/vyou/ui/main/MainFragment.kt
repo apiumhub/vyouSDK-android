@@ -14,9 +14,8 @@ import com.apiumhub.vyou_core.VYou
 import com.apiumhub.vyou_core.domain.VYouResult
 import com.apiumhub.vyou_core.domain.VYouResult.*
 import com.apiumhub.vyou_core.login.domain.VYouCredentials
-import com.apiumhub.vyou_core.session.domain.VYouSession
+import com.apiumhub.vyou_core.session.VYouSession
 import com.apiumhub.vyou_ui.VYouUI
-import com.apiumhub.vyou_ui.edit_profile.presentation.TenantCompliant
 import com.google.android.material.snackbar.Snackbar
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
@@ -57,7 +56,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun launchLogin(function: suspend () -> VYouResult<VYouSession>) {
         lifecycleScope.launch {
             when (val result = function()) {
-                is Failure -> Snackbar.make(binding.root, "There was an unexpected error", Snackbar.LENGTH_LONG).show()
+                is Failure -> {
+                    Snackbar.make(binding.root, "Login error: ${result.error.message}", Snackbar.LENGTH_LONG).show()
+                }
                 is Success -> {
                     val credentials = result.value.credentials
                     if (credentials.tenantCompliant && credentials.tenantConsentCompliant)
@@ -73,18 +74,18 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun navigateToProfile(credentials: VYouCredentials) {
         lifecycleScope.launch {
-            when (vyouUi.startProfile(credentials)) {
+            when (val result = vyouUi.startProfile(credentials)) {
                 is Success -> Snackbar.make(binding.root, "OK", Snackbar.LENGTH_LONG).show()
-                is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
+                is Failure -> Snackbar.make(binding.root, "Unexpected error: ${result.error}", Snackbar.LENGTH_LONG).show()
             }
         }
     }
 
     private fun navigateToRegister() {
         lifecycleScope.launch {
-            when (vyouUi.startRegister()) {
+            when (val result = vyouUi.startRegister()) {
                 is Success -> Snackbar.make(binding.root, "User registered successfully. Please check your e-mail", Snackbar.LENGTH_LONG).show()
-                is Failure -> Snackbar.make(binding.root, "An unexpected error occured", Snackbar.LENGTH_LONG).show()
+                is Failure -> Snackbar.make(binding.root, "Unexpected error: ${result.error}", Snackbar.LENGTH_LONG).show()
             }
         }
     }

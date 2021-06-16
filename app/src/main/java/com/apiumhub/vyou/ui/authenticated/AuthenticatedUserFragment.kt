@@ -25,9 +25,9 @@ class AuthenticatedUserFragment : Fragment(R.layout.authenticated_user_fragment)
         super.onViewCreated(view, savedInstanceState)
         binding.authLogoutBtn.setOnClickListener {
             lifecycleScope.launch {
-                when (session?.signOut()) {
+                when (val result = session?.signOut()) {
                     is VYouResult.Success -> requireActivity().onBackPressed()
-                    else -> Snackbar.make(binding.root, "There was an unexpected error.", Snackbar.LENGTH_LONG).show()
+                    is VYouResult.Failure -> Snackbar.make(binding.root, "Unexpected error: ${result.error.message}", Snackbar.LENGTH_LONG).show()
                 }
             }
         }
@@ -47,7 +47,7 @@ class AuthenticatedUserFragment : Fragment(R.layout.authenticated_user_fragment)
             lifecycleScope.launch {
                 when (val result = it.tenantProfile()) {
                     is VYouResult.Success -> renderProfile(result.value)
-                    is VYouResult.Failure -> Snackbar.make(binding.root, "There was an unexpected error.", Snackbar.LENGTH_LONG).show()
+                    is VYouResult.Failure -> Snackbar.make(binding.root, "Unexpected error: ${result.error.message}", Snackbar.LENGTH_LONG).show()
                 }
             }
         }

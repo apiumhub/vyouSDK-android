@@ -26,9 +26,9 @@ class VYouSignInCollaborator(actResultCaller: ActivityResultCaller) {
 
         override fun parseResult(resultCode: Int, intent: Intent?): VYouResult<VyouAuthResponse> =
             if (intent?.getStringExtra("code") == null || intent.getStringExtra("code_verifier") == null)
-                VYouResult.Failure(IllegalStateException("Error retrieving parameter code from redirectUri"))
-        else {
-            VYouResult.Success(VyouAuthResponse(intent.getStringExtra("code")!!, intent.getStringExtra("code_verifier")!!))
+                VYouResult.Failure(VYouAuthException.InvalidRedirectUri)
+            else {
+                VYouResult.Success(VyouAuthResponse(intent.getStringExtra("code")!!, intent.getStringExtra("code_verifier")!!))
             }
     }
 }
